@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "mobx": "^5.15.7",
     "mobx-react": "^6.3.0",
     "react": "16.13.1",
