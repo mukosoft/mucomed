@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "927718929949",
+    "firebase_url": "https://mucomed-f817f.firebaseio.com",
+    "project_id": "mucomed-f817f",
+    "storage_bucket": "mucomed-f817f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927718929949:android:0712a87d491fd0b2c1b8f4",
+        "android_client_info": {
+          "package_name": "com.mucomed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927718929949-lnr550heen9etd8er2c4rk0g584tds23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAd6Tg8vONnJ_5mzbpLtzncnB97Tx1Ezk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927718929949-lnr550heen9etd8er2c4rk0g584tds23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927718929949:android:7e4971d4ba8d3b51c1b8f4",
+        "android_client_info": {
+          "package_name": "com.teoluna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927718929949-lnr550heen9etd8er2c4rk0g584tds23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAd6Tg8vONnJ_5mzbpLtzncnB97Tx1Ezk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927718929949-lnr550heen9etd8er2c4rk0g584tds23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
