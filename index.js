@@ -26,7 +26,7 @@ Navigation.registerComponent('InformationPostScreen', () => InformationPostScree
 DateStorageService.getInstance().createNewStorageIfNotExists();
 MedicationService.getInstance().createNewStorageIfNotExists();
 
-console.log(`DEBUG: initial set selectedDate to ${getDateStorage().selectedDate}`);
+console.log(`DEBUG: initial set selectedDate to ${getDateStorage().getSelectedDate()}`);
 
 /**
  * Create a navigation bar

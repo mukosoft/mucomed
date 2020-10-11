@@ -10,6 +10,7 @@ import {observer} from "mobx-react";
 import {getMedicationStore} from "../../stores/MedicationStore";
 import VitaldataService from "../../service/VitaldataService";
 import {defaultStyles} from "../../configs/styles";
+import {getUiStore} from "../../stores/UiStore";
 
 
 /**
@@ -25,7 +26,7 @@ export class HomeScreen extends Component {
                 <ScrollView style={defaultStyles.defaultContentContainer}>
                     <HorizontalCalendar />
                     <Card style={styles.contentCard}>
-                        <Card.Title title="Medikamente" right={() => <IconButton icon="plus" onPress={() => MedicationService.openMedicationWindow()} />}
+                        <Card.Title title={getUiStore().getTranslation('medication')} right={() => <IconButton icon="plus" onPress={() => MedicationService.openMedicationWindow()} />}
                                     left={(props) => <Avatar.Icon style={{ marginRight:10, backgroundColor: colors.white }}
                                                                   color={"black"} {...props} icon="pill" /> }/>
                         <Card.Content>
@@ -43,10 +44,10 @@ export class HomeScreen extends Component {
                      </Card.Content>
                      </Card> **/ }
                     <Card style={styles.contentCard}>
-                        <Card.Title title="Vitaldaten" left={() => <IconButton icon="heart" />} />
+                        <Card.Title title={getUiStore().getTranslation('vitaldata')} left={() => <IconButton icon="heart" />} />
                         <Card.Content>
-                            <Button mode="contained" style={defaultStyles.defaultButton} onPress={() => VitaldataService.openVitaldataWindow()}>Vitaldaten erfassen</Button>
-                            <Button mode="contained" style={defaultStyles.defaultButton}>Arztbericht einscannen</Button>
+                            <Button mode="contained" style={defaultStyles.defaultButton} onPress={() => VitaldataService.openVitaldataWindow()}>{getUiStore().getTranslation('add_vitaldata')}</Button>
+                            <Button mode="contained" style={defaultStyles.defaultButton}>{getUiStore().getTranslation('add_doctor_report')}</Button>
                         </Card.Content>
                     </Card>
                 </ScrollView>

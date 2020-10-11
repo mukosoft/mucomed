@@ -1,3 +1,6 @@
+import {getUiStore} from "../stores/UiStore";
+import {observer} from "mobx-react";
+
 export class DateTimeConverterService {
 
     static convertDateToTime(dateObj = new Date()) {
@@ -31,8 +34,8 @@ export class DateTimeConverterService {
     }
 
     static getDateName(dateObj:Date):String {
-        const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+        // const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+        const days = getUiStore().getTranslation('days');
         return days[dateObj.getDay()];
     }
 }
-

@@ -18,7 +18,7 @@ export class VitaldataScreen extends Component {
     state = {};
 
     render() {
-        VitaldataService.getInstance().getVitaldata({date: getDateStorage().selectedDate})
+        VitaldataService.getInstance().getVitaldata({date: getDateStorage().getSelectedDate()})
             .then((result) => getVitaldataStore().vitaldataObj = result.data);
 
         console.log(getVitaldataStore().vitaldataObj)
@@ -44,7 +44,7 @@ export class VitaldataScreen extends Component {
                         </List.AccordionGroup>
                     </List.Section>
                     <Button mode="contained" onPress={() =>
-                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateStorage().selectedDate, data: getVitaldataStore().vitaldataObj})}>
+                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateStorage().getSelectedDate(), data: getVitaldataStore().vitaldataObj})}>
                         Speichern
                     </Button>
                 </ScrollView>

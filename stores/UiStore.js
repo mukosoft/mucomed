@@ -1,19 +1,36 @@
 import {action, observable} from "mobx";
+import {darkTheme, lightTheme} from "../configs/PaperTheme";
+import {LANGUAGES} from "../models/Languages";
+import i13n from "../configs/i13n";
 
+/**
+ * Stores basic UI configurations, handles translation and theme
+ *
+ * TODO: make global toast notification visible
+ *
+ * @author Dominique Börner
+ */
 export class UiStore {
 
-    @observable medicationWindowVisible = false;
+    // TODO: make this for react native paper provider
+    @observable theme = lightTheme;
+    @observable language = LANGUAGES.german;
+    @observable language_text = i13n;
 
     @action
-    showMedicationWindow() {
-        this.medicationWindowVisible = true;
+    changeTheme(theme = lightTheme) {
+        this.theme = theme;
     }
 
     @action
-    hideMedicationWindw() {
-        this.medicationWindowVisible = false;
+    switchTheme() {
+        this.theme === lightTheme ? this.theme = darkTheme : this.theme = lightTheme;
     }
 
+    @action
+    getTranslation(key) {
+        return this.language_text[this.language][key];
+    }
 }
 
 let instance: UiStore;

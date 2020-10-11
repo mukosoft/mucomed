@@ -48,7 +48,7 @@ export default class HorizontalCalendar extends Component {
 
         return lastDays.map((date) => {
 
-            if (DateTimeConverterService.formatDate(date) === getDateStorage().selectedDate) {
+            if (DateTimeConverterService.formatDate(date) === getDateStorage().getSelectedDate()) {
                 selectedStyle = styles.selectedStyle;
                 selectedStyleText = styles.selectedStyleText;
             } else {
@@ -57,8 +57,8 @@ export default class HorizontalCalendar extends Component {
             }
 
             return <Card style={[styles.calendarDate, selectedStyle]} key={date} onPress={() => {
-                getDateStorage().selectedDate = DateTimeConverterService.formatDate(date);
-                console.log(`DEBUG: selected date: ${getDateStorage().selectedDate}`);
+                getDateStorage().setSelectedDate(DateTimeConverterService.formatDate(date));
+                console.log(`DEBUG: selected date: ${getDateStorage().getSelectedDate()}`);
                 DateStorageService.getInstance().createNewStorageIfNotExists();
             }}>
                 <Card.Title title={DateTimeConverterService.getDateName(date)} titleStyle={[styles.calendarDateHeadline, selectedStyleText]}/>

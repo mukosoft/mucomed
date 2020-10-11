@@ -1,26 +1,26 @@
-import {observable} from "mobx";
+import {action, observable} from "mobx";
 import DateStorageModel from "../models/DateStorageModel";
 import medication from "../models/Medication";
 import {DateTimeConverterService} from "../service/DateTimeConverterService";
 
 /**
- * Store for date specific data.
+ * Store for date and times.
  *
  * @author Dominique Börner
  */
 export class DateStorage {
+    @observable selectedDate = DateTimeConverterService.formatDate(new Date());
 
-    // DEBUG purpose
-    constructor() {
-        // DateStorageService.getInstance().deleteAllDateData();
-        // DateStorageService.getInstance().getDateData().then((result) => {
-        //     console.log(JSON.stringify(result));
-        // })
+    @action
+    setSelectedDate(date) {
+        this.selectedDate = DateTimeConverterService.formatDate(date);
     }
 
-    @observable selectedDate = DateTimeConverterService.formatDate(new Date());
-    @observable selectedDateData = DateStorageModel;
-    @observable medicationData = medication;
+    @action
+    getSelectedDate() {
+        return this.selectedDate;
+    }
+
 }
 
 let instance: DateStorage;

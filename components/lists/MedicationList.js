@@ -38,8 +38,9 @@ export default class MedicationList extends Component {
     }
 
     showMedications() {
-        const dayName = DateTimeConverterService.convertSelectedDateToDateObj(getDateStorage().selectedDate)
+        const dayName = DateTimeConverterService.convertSelectedDateToDateObj(getDateStorage().getSelectedDate())
 
+        console.log(this.props.medications)
         // TODO: Add field for time like medicationList[time].map ...
         if (this.props.medications[dayName].medicationList.length > 0) {
             return this.props.medications[dayName].medicationList.map((medication => {

@@ -26,12 +26,10 @@ export default class DateStorageService {
     }
 
     addDateData(dateData) {
-        getDateStorage().selectedDateData = dateData;
         return this.db.insertAsync(dateData);
     }
 rr
     updateDateData(updateQuery , data) {
-        getDateStorage().selectedDateData = data;
         return this.db.updateAsync(updateQuery, data);
     }
 
@@ -40,18 +38,16 @@ rr
     }
 
     createNewStorageIfNotExists() {
-        this.getDateData({ date: getDateStorage().selectedDate}).then((result) => {
+        this.getDateData({ date: getDateStorage().getSelectedDate()}).then((result) => {
             if (result.length === 0) {
                 let dateStorageModel = DateStorageModel;
-                dateStorageModel.date = getDateStorage().selectedDate;
+                dateStorageModel.date = getDateStorage().getSelectedDate();
                 this.addDateData(DateStorageModel).then((result) => {
-                    getDateStorage().selectedDateData = result;
-                    getDateStorage().selectedDate = result.date;
+                    getDateStorage().setSelectedDate(result.date);
                     console.log(`DEBUG: added document ${JSON.stringify(result)} to DateStorageService`);
                 });
             } else {
-                getDateStorage().selectedDateData = result[0];
-                getDateStorage().selectedDate = result[0].date;
+                getDateStorage().setSelectedDate(result[0].date)
             }
         })
     }

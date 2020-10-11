@@ -29,7 +29,7 @@ export default class MealList extends Component {
         console.log(this.props.meals)
         if (this.props.meals.length > 0) {
             let todayMeals = this.props.meals.filter((meal) => {
-                return meal.date === getDateStorage().selectedDate;
+                return meal.date === getDateStorage().getSelectedDate();
             })
 
             return todayMeals.map((meal) => {

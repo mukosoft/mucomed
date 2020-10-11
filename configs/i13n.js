@@ -1,6 +1,6 @@
 export default {
     de: {
-        days: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
+        days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
         navigation: {
             home: "Home",
             cookery_book: "Kochbuch",
@@ -14,17 +14,17 @@ export default {
         add_doctor_report: "Arztbericht einscannen"
     },
     en: {
-        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         navigation: {
             home: "Home",
             cookery_book: "Cookery Book",
             informations: "Informations",
             profil: "Profile",
         },
-        medication: "Medications",
+        medication: "Medication",
         meals: "Meals",
-        vitaldata: "Vital data",
-        add_vitaldata: "Add vital data",
+        vitaldata: "Vitaldata",
+        add_vitaldata: "Add vitaldata",
         add_doctor_report: "Scan doctor's report"
     }
 }
