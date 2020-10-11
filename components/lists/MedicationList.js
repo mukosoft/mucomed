@@ -26,6 +26,7 @@ export default class MedicationList extends Component {
         return(
             <SafeAreaView>
                 <ScrollView horizontal={true}
+                            showsHorizontalScrollIndicator={false}
                             ref={ref => this.scrollView = ref}
                             style={styles.medicationList}>
                     { /* TODO: Filter element for times */}
@@ -69,16 +70,18 @@ export default class MedicationList extends Component {
 
 const styles = StyleSheet.create({
     medicationCard: {
-        minWidth: 120,
+        width: 120,
         aspectRatio: 1,
         margin: 5,
         padding: 0,
         backgroundColor: colors.turquoise_light,
     },
     name: {
+        fontSize: 16,
         color: colors.white
     },
     dosage: {
+        fontSize: 10,
         color: colors.white,
     },
     button: {

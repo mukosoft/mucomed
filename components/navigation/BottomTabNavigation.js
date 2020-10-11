@@ -19,6 +19,8 @@ export default {
                                 bottomTab: {
                                     text: 'Home',
                                     icon: require("../../etc/icons/calendar.png"),
+                                    textColor: colors.white,
+                                    selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
@@ -41,6 +43,8 @@ export default {
                                 bottomTab: {
                                     text: 'Kochbuch',
                                     icon: require("../../etc/icons/recipe-book.png"),
+                                    textColor: colors.white,
+                                    selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
@@ -63,6 +67,8 @@ export default {
                                 bottomTab: {
                                     text: 'Informationen',
                                     icon: require("../../etc/icons/information.png"),
+                                    textColor: colors.white,
+                                    selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
@@ -86,6 +92,8 @@ export default {
                                 bottomTab: {
                                     text: 'Profil',
                                     icon: require("../../etc/icons/online-appointment.png"),
+                                    textColor: colors.white,
+                                    selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
@@ -105,6 +113,6 @@ export default {
             animate: 'true',
             backgroundColor: colors.turquoise_dark,
             titleDisplayMode: 'alwaysShow',
-        }
+        },
     }
 }

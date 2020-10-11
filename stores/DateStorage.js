@@ -2,7 +2,6 @@ import {observable} from "mobx";
 import DateStorageModel from "../models/DateStorageModel";
 import medication from "../models/Medication";
 import {DateTimeConverterService} from "../service/DateTimeConverterService";
-import DateStorageService from "../service/DateStorageService";
 
 /**
  * Store for date specific data.
@@ -19,7 +18,6 @@ export class DateStorage {
         // })
     }
 
-    // selection from calendar
     @observable selectedDate = DateTimeConverterService.formatDate(new Date());
     @observable selectedDateData = DateStorageModel;
     @observable medicationData = medication;

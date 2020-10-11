@@ -3,12 +3,16 @@ import Meals from "../models/Meals";
 
 let instance;
 
+/**
+ * MealStore
+ *
+ * @author Dominique Börner
+ */
 export class MealStore {
 
-    constructor() {
-        // MedicationService.getInstance().deleteAllMedications();
-    }
+    constructor() {}
 
+    @observable favMeals = [];
     @observable mealsObj = [Meals, {
         date: "4.10.2020",
         time: [],

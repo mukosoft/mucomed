@@ -1,7 +1,7 @@
-import {DefaultTheme} from "react-native-paper";
+import {DarkTheme, DefaultTheme} from "react-native-paper";
 import {colors} from "./colors";
 
-export default {
+export const lightTheme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
@@ -9,6 +9,52 @@ export default {
         accent: colors.turquoise_dark,
         primary: colors.turquoise_light,
     },
+    fonts: {
+        regular: {
+            fontFamily: 'sans-serif',
+            fontWeight: 'normal',
+        },
+        medium: {
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+        },
+        light: {
+            fontFamily: 'sans-serif-light',
+            fontWeight: 'normal',
+        },
+        thin: {
+            fontFamily: 'sans-serif-thin',
+            fontWeight: 'normal',
+        },
+    },
+    roundness: 8,
+}
 
+export const darkTheme = {
+    ...DarkTheme,
+    colors: {
+        ...DarkTheme.colors,
+        background: '#FFFFFF',
+        accent: colors.turquoise_dark,
+        primary: colors.turquoise_light,
+    },
+    fonts: {
+        regular: {
+            fontFamily: 'sans-serif',
+            fontWeight: 'normal',
+        },
+        medium: {
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+        },
+        light: {
+            fontFamily: 'sans-serif-light',
+            fontWeight: 'normal',
+        },
+        thin: {
+            fontFamily: 'sans-serif-thin',
+            fontWeight: 'normal',
+        },
+    },
     roundness: 8,
 }

@@ -17,6 +17,7 @@
     "mobx-react": "^6.3.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
+    "react-native-chart-kit": "^6.6.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-dropdown-picker": "^3.7.0",
     "react-native-easy-grid": "^0.2.2",
@@ -25,6 +26,7 @@
     "react-native-modal-datetime-picker": "^9.0.0",
     "react-native-navigation": "^7.0.0",
     "react-native-paper": "^4.2.0",
+    "react-native-svg": "^12.1.0",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^7.1.0"
   },

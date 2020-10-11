@@ -15,6 +15,7 @@ export default class MealList extends Component {
         return(
             <SafeAreaView>
                 <ScrollView horizontal={true}
+                            showsHorizontalScrollIndicator={false}
                             ref={ref => this.scrollView = ref}
                             style={styles.mealList}>
                     { /* TODO: Filter element for times */}

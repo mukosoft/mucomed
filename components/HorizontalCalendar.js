@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import {Card, Text} from "react-native-paper";
 import {colors} from "@configs/colors";
-import {DateStorage, getDateStorage} from "../stores/DateStorage";
+import {getDateStorage} from "../stores/DateStorage";
 import {DateTimeConverterService} from "../service/DateTimeConverterService";
 import DateStorageService from "../service/DateStorageService";
 import {observer} from "mobx-react";
@@ -21,6 +21,7 @@ export default class HorizontalCalendar extends Component {
         return(
             <SafeAreaView>
                 <ScrollView horizontal={true}
+                            showsHorizontalScrollIndicator={false}
                             ref={ref => this.scrollView = ref}
                             onContentSizeChange={() => {
                                 this.scrollView.scrollToEnd({animated: true});

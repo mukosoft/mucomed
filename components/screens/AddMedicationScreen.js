@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {Button, Card, Checkbox, Headline, Provider as PaperProvider, Text, TextInput} from "react-native-paper";
 import days from "../../models/Days";
-import defaultTheme from "../../configs/PaperTheme";
+import {lightTheme} from "../../configs/PaperTheme";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {DateTimeConverterService} from "../../service/DateTimeConverterService";
 import {colors} from "../../configs/colors";
-import {DateStorage, getDateStorage} from "../../stores/DateStorage";
-import DateStorageService from "../../service/DateStorageService";
 import Medication from "../../models/Medication";
 import {getMedicationStore} from "../../stores/MedicationStore";
 import MedicationService from "../../service/MedicationService";
 import {Navigation} from "react-native-navigation";
+import {defaultStyles} from "../../configs/styles";
 
 
 /**
@@ -32,7 +31,7 @@ export class AddMedicationScreen extends Component {
 
     render() {
         return (
-            <PaperProvider theme={defaultTheme}>
+            <PaperProvider theme={lightTheme}>
                 <ScrollView style={styles.addMedicationContainer}>
                     <Headline>Medikament hinzufügen</Headline>
                     <TextInput
@@ -53,7 +52,8 @@ export class AddMedicationScreen extends Component {
                         { this.renderDaysPicker() }
                     </View>
                     <Headline style={styles.headlineStyle}>Einnahmezeiten</Headline>
-                    <Button mode="contained" onPress={() => {this.showTimerPicker()}}>Hinzufügen +</Button>
+                    <Button mode="contained" style={defaultStyles.defaultButton}
+                            onPress={() => {this.showTimerPicker()}}>Hinzufügen +</Button>
                     { (this.state.timePickerVisible) && <DateTimePicker
                         isVisible={this.state.timePickerVisible}
                         mode="time"
@@ -61,7 +61,8 @@ export class AddMedicationScreen extends Component {
                         onConfirm={(dateObj) => this.addTimeToState(dateObj)}
                     />}
                     { this.renderTimesList() }
-                    <Button mode="contained" onPress={() => this.saveMedication()}>Medikament speichern</Button>
+                    <Button mode="contained" style={defaultStyles.defaultButton}
+                            onPress={() => this.saveMedication()}>Medikament speichern</Button>
                 </ScrollView>
             </PaperProvider>
         )
@@ -165,6 +166,8 @@ export class AddMedicationScreen extends Component {
             MedicationService.getInstance().updateMedication({}, getMedicationStore().medicationObj).then((result) => {
                 console.log(`DEBUG: updated ${result} document in MedicationStore.`)
             });
+
+            Navigation.dismissAllModals();
         }
     }
 }

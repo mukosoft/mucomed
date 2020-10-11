@@ -7,11 +7,12 @@ import {ProfileScreen} from "./components/screens/ProfileScreen";
 import React from "react";
 import {AddMedicationScreen} from "./components/screens/AddMedicationScreen";
 import DateStorageService from "./service/DateStorageService";
-import {DateTimeConverterService} from "./service/DateTimeConverterService";
 import {getDateStorage} from "./stores/DateStorage";
-import {getMedicationStore} from "./stores/MedicationStore";
 import MedicationService from "./service/MedicationService";
 import {VitaldataScreen} from "./components/screens/VitaldataScreen";
+import {MealInstructionScreen} from "./components/screens/MealInstructionScreen";
+import InformationPostScreen from "./components/screens/InformationPostScreen";
+import {colors} from "./configs/colors";
 
 Navigation.registerComponent('HomeScreen', () => HomeScreen);
 Navigation.registerComponent('CookbookScreen', () => VirtualCookbook);
@@ -19,6 +20,8 @@ Navigation.registerComponent('InformationScreen', () => InformationScreen);
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
 Navigation.registerComponent('AddMedicationScreen', () => AddMedicationScreen);
 Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
+Navigation.registerComponent('MealInstructionScreen', () => MealInstructionScreen);
+Navigation.registerComponent('InformationPostScreen', () => InformationPostScreen);
 
 DateStorageService.getInstance().createNewStorageIfNotExists();
 MedicationService.getInstance().createNewStorageIfNotExists();

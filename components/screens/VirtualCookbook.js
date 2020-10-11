@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from "react-native";
-import {Card, Headline} from "react-native-paper";
-import Swiper from 'react-native-swiper'
-import DropDownPicker from 'react-native-dropdown-picker';
-import {activeDot, swiperDot} from "@components/SwiperDot";
+import {ScrollView, StyleSheet, View} from "react-native";
+import {ActivityIndicator, Button, Card, Provider as PaperProvider} from "react-native-paper";
 import {colors} from "@configs/colors";
+import {lightTheme} from "../../configs/PaperTheme";
+import MealCard from "../MealCard";
+import MealService from "../../service/MealService";
+import {observer} from "mobx-react";
+import {getMealStore} from "../../stores/MealStore";
+import {defaultStyles} from "../../configs/styles";
+import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
 
 
 /**
@@ -12,87 +16,102 @@ import {colors} from "@configs/colors";
  *
  * @author Dominique Börner
  */
+@observer
 export class VirtualCookbook extends Component {
 
     state = {
         category: 'breakfast',
+        meals: null
+    }
+
+    getCookbookData() {
+        fetch("https://api.mukosoft.de/recipes.json", {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'pragma': 'no-cache',
+                'cache-control': 'no-cache'
+
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                // console.log(`DEBUG: meals from api.mukosoft.de: ${JSON.stringify(json)}`);
+                this.setState({meals: json})
+            })
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Card style={styles.cardStyle}>
-                    <Card.Actions style={styles.cardActionStyle}>
-                        <DropDownPicker
-                            items={[
-                                {label: 'Frühstück', value: 'breakfast'},
-                                {label: 'Mittag', value: 'meal'},
-                                {label: 'Abendbrot', value: 'dinner'},
-                                {label: 'Snack', value: 'snack'},
-                            ]}
-                            defaultValue={this.state.category}
-                            containerStyle={{height: 40, width: '80%'}}
-                            onChangeItem={item => this.setState({
-                                category: item.value
-                            })}/>
-                    </Card.Actions>
-                    <Card.Content style={styles.cardStyle}>
-                        <Swiper showsButtons={false}
-                                loop={false}
-                                dot={swiperDot} activeDot={activeDot}>
-                            <View style={styles.foodCardList}>
-                                <Card style={styles.foodCard}>
-                                    <Card.Title title={"this.state.recipes[0].name"} />
-                                    <Card.Cover source={{ uri: "this.state.recipes[0].img" }}
-                                                style={styles.foodCardImage}/>
-                                </Card>
-                            </View>
-                            <View style={styles.slide2}>
-                                <Headline style={styles.text}>Swipe2</Headline>
-                            </View>
-                            <View style={styles.slide3}>
-                                <Headline style={styles.text}>Swipe3</Headline>
-                            </View>
-                        </Swiper>
-                    </Card.Content>
-                </Card>
-            </View>
-        )
+        if (!this.state.meals) {
+            this.getCookbookData();
+            return ( <ActivityIndicator animating={true} color={colors.turquoise_dark} size="large"/>)
+        } else {
+            return (
+                <PaperProvider theme={lightTheme}>
+                    <View style={defaultStyles.defaultContentContainer}>
+                        <View style={styles.filter}>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                {
+                                    COOKBOOK_CATEGORIES.map((food) => {
+                                        return <Button onPress={() => this.setCategory(food.category)}
+                                                       color={ this.setSelectedColor(food.category)}>{food.text}</Button>
+                                    })
+                                }
+                            </ScrollView>
+                        </View>
+                        { this.renderFavMeals() }
+                        <View style={styles.foodList}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                { this.renderMeals() }
+                            </ScrollView>
+                        </View>
+                    </View>
+                </PaperProvider>
+            )
+        }
     }
+
+    setCategory(category) {
+        this.setState({category: category})
+    }
+
+    setSelectedColor(category) {
+        if (this.state.category === category) {
+            return colors.orange
+        }
+    }
+
+    renderMeals() {
+        if (this.state.meals[this.state.category]) {
+            return this.state.meals[this.state.category].map((meal) => {
+                return <MealCard meal={meal} onPress={() => { MealService.openMealInstruction(meal) }} key={meal.name}/>
+            })
+        }
+    }
+
+    renderFavMeals() {
+        if (getMealStore().favMeals.length > 0) {
+            return <View style={styles.favFoodList}>
+                <ScrollView horizontal={true}>
+                    { getMealStore().favMeals.map((meal) => <Card>
+                        <Card.Title title={meal.name} />
+                    </Card> )
+                    }
+                </ScrollView>
+            </View>
+        }
+    }
+
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.turquoise_light
-    },
-    cardStyle: {
-        flex: 1,
+    favFoodList: {
         margin: 10,
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-        elevation: 0
     },
-    cardActionStyle: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    foodCardList: {
+    foodList: {
         flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'column',
+        margin: 10
     },
-    foodCard: {
-        width: '43%', height: '27%',
-        margin: 10,
-        justifyContent: 'center',
-        textAlign: 'center',
-        overflow: 'hidden'
-    },
-    foodCardImage: {
-        width: '100%', height: '100%',
-        borderRadius: 10
-    }
 })

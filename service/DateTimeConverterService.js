@@ -1,5 +1,3 @@
-import {getDateStorage} from "../stores/DateStorage";
-
 export class DateTimeConverterService {
 
     static convertDateToTime(dateObj = new Date()) {

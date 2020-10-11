@@ -8,6 +8,7 @@ import Medication from "../models/Medication";
 import {getMedicationStore} from "../stores/MedicationStore";
 import Medications from "../models/Medications";
 import Days from "../models/Days";
+import {getVitaldataStore} from "../stores/VitaldataStore";
 
 let instance: MedicationService;
 
@@ -32,7 +33,7 @@ export default class MedicationService {
     }
 
     addMedication(medication:Medication) {
-        getMedicationStore().medicationObj = medication;
+        getVitaldataStore().vitaldataObj = medication;
         return this.db.insertAsync(medication);
     }
 
