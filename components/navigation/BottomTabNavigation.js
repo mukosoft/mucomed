@@ -1,4 +1,5 @@
 import {colors} from '../../configs/colors';
+import {getUiStore, UiStore} from "../../stores/UiStore";
 
 /**
  * Bottom Tab Navigation.
@@ -17,14 +18,14 @@ export default {
                             name: 'HomeScreen',
                             options: {
                                 bottomTab: {
-                                    text: 'Home',
+                                    text: getUiStore().getTranslation('navigation_home'),
                                     icon: require("../../etc/icons/calendar.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
-                                        text: 'Home',
+                                        text: getUiStore().getTranslation('navigation_home'),
                                     },
                                 },
                             }
@@ -41,14 +42,14 @@ export default {
                             name: 'CookbookScreen',
                             options: {
                                 bottomTab: {
-                                    text: 'Kochbuch',
+                                    text: getUiStore().getTranslation('navigation_cookbook'),
                                     icon: require("../../etc/icons/recipe-book.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
-                                        text: 'Kochbuch',
+                                        text: getUiStore().getTranslation('navigation_cookbook'),
                                     },
                                 },
                             }
@@ -65,14 +66,14 @@ export default {
                             name: 'InformationScreen',
                             options: {
                                 bottomTab: {
-                                    text: 'Informationen',
+                                    text: getUiStore().getTranslation('navigation_informations'),
                                     icon: require("../../etc/icons/information.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
                                     title: {
-                                        text: 'Informationen',
+                                        text: getUiStore().getTranslation('navigation_informations'),
                                     },
                                 },
                             }
@@ -90,14 +91,14 @@ export default {
                             name: 'ProfilScreen',
                             options: {
                                 bottomTab: {
-                                    text: 'Profil',
+                                    text: getUiStore().getTranslation('navigation_profile'),
                                     icon: require("../../etc/icons/online-appointment.png"),
                                     textColor: colors.white,
-                                    selectedTextColor: colors.orange
+                                    selectedTextColor: colors.orange,
                                 },
                                 topBar: {
                                     title: {
-                                        text: 'Profil',
+                                        text: getUiStore().getTranslation('navigation_profile'),
                                     },
                                 },
                             }
@@ -113,6 +114,8 @@ export default {
             animate: 'true',
             backgroundColor: colors.turquoise_dark,
             titleDisplayMode: 'alwaysShow',
+            underline: colors.orange,
+            tabsAttachMode: 'afterInitialTab',
         },
     }
 }

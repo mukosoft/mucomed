@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, ScrollView, StyleSheet, View} from "react-native";
 import {ActivityIndicator, Button, Provider as PaperProvider, Text, Title} from "react-native-paper";
-import {lightTheme} from "../../configs/PaperTheme";
+import {darkTheme, lightTheme} from "../../configs/PaperTheme";
 import MealService from "../../service/MealService";
 import FEV1Chart from "../charts/FEV1Chart";
 import {defaultStyles} from "../../configs/styles";
@@ -29,19 +29,21 @@ export class ProfileScreen extends Component {
         } else {
             return (
                 <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.defaultContentContainer}>
-                        <ScrollView>
-                            { (!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe()) }
-                            <Title>Lungenfunktion - FEV1</Title>
-                            <FEV1Chart chartType={this.state.fev_chartType}/>
-                            <Title>{getUiStore().getTranslation('medication')}</Title>
-                            <View>
-                                <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
-                                <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>
-                            </View>
-                            <Title>Berichte</Title>
-                            <Button mode="contained">Zu den Berichten</Button>
-                        </ScrollView>
+                    <View style={defaultStyles.themeContainer}>
+                        <View style={defaultStyles.defaultContentContainer}>
+                            <ScrollView>
+                                { (!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe()) }
+                                <Title>Lungenfunktion - FEV1</Title>
+                                <FEV1Chart chartType={this.state.fev_chartType}/>
+                                <Title>{getUiStore().getTranslation('medication')}</Title>
+                                <View>
+                                    <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
+                                    <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>
+                                </View>
+                                <Title>Berichte</Title>
+                                <Button mode="contained">Zu den Berichten</Button>
+                            </ScrollView>
+                        </View>
                     </View>
                 </PaperProvider>
             )
@@ -49,7 +51,7 @@ export class ProfileScreen extends Component {
     }
 
     getRandomMeal() {
-       return fetch("https://api.mukosoft.de/recipes.json", {
+        return fetch("https://api.mukosoft.de/recipes.json", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

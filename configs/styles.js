@@ -1,3 +1,5 @@
+import {darkTheme, lightTheme} from "./PaperTheme";
+
 export const defaultStyles = {
     defaultShadow: {
         shadowOffset: {
@@ -15,6 +17,10 @@ export const defaultStyles = {
         flex: 1,
         flexDirection: 'column',
         margin: 10
+    },
+    themeContainer: {
+        backgroundColor: lightTheme.colors.backgroundColor,
+        height: '100%'
     }
 
 }

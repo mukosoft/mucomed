@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {ActivityIndicator, Button, Provider as PaperProvider} from "react-native-paper";
 import {colors} from "@configs/colors";
-import {lightTheme} from "../../configs/PaperTheme";
+import {darkTheme, lightTheme} from "../../configs/PaperTheme";
 import {observer} from "mobx-react";
 import InformationCard from "../InformationCard";
 import InformationService from "../../service/InformationService";
 import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
+import {getUiStore} from "../../stores/UiStore";
 
 
 /**
@@ -30,21 +31,23 @@ export class InformationScreen extends Component {
         } else {
             return (
                 <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.defaultContentContainer}>
-                        <View style={styles.filter}>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                {
-                                    INFORMATION_CATEGORIES.map((information) => {
-                                        return <Button onPress={() => this.setCategory(information.category)}
-                                                       color={ this.setSelectedColor(information.category)}>{information.text}</Button>
-                                    })
-                                }
-                            </ScrollView>
-                        </View>
-                        <View style={styles.informationList}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                { this.renderInformations() }
-                            </ScrollView>
+                    <View style={defaultStyles.themeContainer}>
+                        <View style={defaultStyles.defaultContentContainer}>
+                            <View style={styles.filter}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    {
+                                        INFORMATION_CATEGORIES.map((information) => {
+                                            return <Button onPress={() => this.setCategory(information.category)}
+                                                           color={ this.setSelectedColor(information.category)}>{getUiStore().getTranslation(information.category)}</Button>
+                                        })
+                                    }
+                                </ScrollView>
+                            </View>
+                            <View style={styles.informationList}>
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    { this.renderInformations() }
+                                </ScrollView>
+                            </View>
                         </View>
                     </View>
                 </PaperProvider>

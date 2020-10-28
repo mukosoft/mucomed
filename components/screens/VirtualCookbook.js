@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {ActivityIndicator, Button, Card, Provider as PaperProvider} from "react-native-paper";
 import {colors} from "@configs/colors";
-import {lightTheme} from "../../configs/PaperTheme";
+import {darkTheme, lightTheme} from "../../configs/PaperTheme";
 import MealCard from "../MealCard";
 import MealService from "../../service/MealService";
 import {observer} from "mobx-react";
 import {getMealStore} from "../../stores/MealStore";
 import {defaultStyles} from "../../configs/styles";
 import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
+import {getUiStore} from "../../stores/UiStore";
 
 
 /**
@@ -49,22 +50,24 @@ export class VirtualCookbook extends Component {
         } else {
             return (
                 <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.defaultContentContainer}>
-                        <View style={styles.filter}>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                {
-                                    COOKBOOK_CATEGORIES.map((food) => {
-                                        return <Button onPress={() => this.setCategory(food.category)}
-                                                       color={ this.setSelectedColor(food.category)}>{food.text}</Button>
-                                    })
-                                }
-                            </ScrollView>
-                        </View>
-                        { this.renderFavMeals() }
-                        <View style={styles.foodList}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                { this.renderMeals() }
-                            </ScrollView>
+                    <View style={defaultStyles.themeContainer}>
+                        <View style={defaultStyles.defaultContentContainer}>
+                            <View style={styles.filter}>
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    {
+                                        COOKBOOK_CATEGORIES.map((food) => {
+                                            return <Button onPress={() => this.setCategory(food.category)}
+                                                           color={ this.setSelectedColor(food.category)}>{getUiStore().getTranslation(food.category)}</Button>
+                                        })
+                                    }
+                                </ScrollView>
+                            </View>
+                            { this.renderFavMeals() }
+                            <View style={styles.foodList}>
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    { this.renderMeals() }
+                                </ScrollView>
+                            </View>
                         </View>
                     </View>
                 </PaperProvider>

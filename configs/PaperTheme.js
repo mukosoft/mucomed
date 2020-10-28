@@ -8,6 +8,8 @@ export const lightTheme = {
         background: '#FFFFFF',
         accent: colors.turquoise_dark,
         primary: colors.turquoise_light,
+        surface: colors.white,
+        backgroundColor: '#FAFAFA'
     },
     fonts: {
         regular: {
@@ -37,6 +39,8 @@ export const darkTheme = {
         background: '#FFFFFF',
         accent: colors.turquoise_dark,
         primary: colors.turquoise_light,
+        surface: colors.turquoise_dark,
+        backgroundColor: colors.turquoise_dark
     },
     fonts: {
         regular: {
