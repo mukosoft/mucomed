@@ -8,6 +8,8 @@
  * @author Dominique Börner
  */
 export default {
+    id: "medication_schedule",
+    
     "Montag": {
         name: "Montag",
         medicationList: [],

@@ -9,16 +9,22 @@ import {DateTimeConverterService} from "../service/DateTimeConverterService";
  * @author Dominique Börner
  */
 export class DateStorage {
-    @observable selectedDate = DateTimeConverterService.formatDate(new Date());
+    @observable calendarSelection = new Date();
 
     @action
-    setSelectedDate(date) {
-        this.selectedDate = DateTimeConverterService.formatDate(date);
+    setCalendarSelection(date) {
+        this.calendarSelection = date;
     }
 
     @action
-    getSelectedDate() {
-        return this.selectedDate;
+    isDate(date) {
+        console.log(this.getCalendarSelection());
+        return date.getDay() === this.calendarSelection.getDay();
+    }
+
+    @action
+    init() {
+        this.calendarSelection = new Date();
     }
 
 }

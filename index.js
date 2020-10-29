@@ -13,6 +13,7 @@ import {VitaldataScreen} from "./components/screens/VitaldataScreen";
 import {MealInstructionScreen} from "./components/screens/MealInstructionScreen";
 import InformationPostScreen from "./components/screens/InformationPostScreen";
 import {colors} from "./configs/colors";
+import { API_BASE_URL } from './configs/config';
 
 Navigation.registerComponent('HomeScreen', () => HomeScreen);
 Navigation.registerComponent('CookbookScreen', () => VirtualCookbook);
@@ -23,10 +24,14 @@ Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
 Navigation.registerComponent('MealInstructionScreen', () => MealInstructionScreen);
 Navigation.registerComponent('InformationPostScreen', () => InformationPostScreen);
 
-DateStorageService.getInstance().createNewStorageIfNotExists();
-MedicationService.getInstance().createNewStorageIfNotExists();
+getDateStorage().init();
 
-console.log(`DEBUG: initial set selectedDate to ${getDateStorage().getSelectedDate()}`);
+// DateStorageService.getInstance().createNewStorageIfNotExists();
+// MedicationService.getInstance().createNewStorageIfNotExists();
+
+// fetch(API_BASE_URL`?query=*[_type%20=="post"]`)
+//            .then(response => response.json())
+//            .then(data => console.log(data))
 
 /**
  * Create a navigation bar

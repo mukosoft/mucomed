@@ -1,0 +1,1 @@
+export const CALENDAR_DATE_AMOUNT = 7;

@@ -1,4 +1,5 @@
 export const vitaldataModel = {
+    id: 'vitaldata',
     date:String,
     body: {
       weight:Number,
