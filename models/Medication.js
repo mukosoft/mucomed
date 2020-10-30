@@ -3,9 +3,10 @@ export const MEDICATION_STATUS = {
     INACTIVE: "inactive"
 }
 
-export default {
-    id: "medication",
-    status: MEDICATION_STATUS.ACTIVE,
-    name: "",
-    amount: ""
+export default class Medication {
+    id = Medication;
+    status = MEDICATION_STATUS.ACTIVE;
+    name = "";
+    dosage = "";
+    times = [];
 }

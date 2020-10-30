@@ -1,8 +1,5 @@
 import {action, observable} from "mobx";
-import Medications from "../models/Medications";
-import Days from "../models/Days";
-import {UiStore} from "./UiStore";
-import MedicationService from "../service/MedicationService";
+import MedicationSchedule from "../models/MedicationSchedule";
 
 let instance;
 
@@ -12,16 +9,13 @@ export class MedicationStore {
         // MedicationService.getInstance().deleteAllMedications();
     }
 
-    @observable medicationObj = Medications;
+    @observable medicationSchedule = MedicationSchedule;
 
     @action
-    addMedication(days:Array<Days>, times:Array) {
-        days.map((day) => {
-            times.map((time) => {
-                this.medicationObj[day].push(time);
-            })
-        })
+    init() {
+        // TODO: Load medications for initial date
     }
+
 }
 
 export function getMedicationStore() { return instance || (instance = new MedicationStore()) }

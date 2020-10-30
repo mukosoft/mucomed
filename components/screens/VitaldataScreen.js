@@ -3,7 +3,6 @@ import {ScrollView, StyleSheet, View} from "react-native";
 import {Button, Headline, List, Provider as PaperProvider, Text, TextInput} from "react-native-paper";
 import {lightTheme} from "../../configs/PaperTheme";
 import {VITALDATA} from "../../models/VitaldataModel";
-import VitaldataService from "../../service/VitaldataService";
 import {getDateStorage} from "../../stores/DateStorage";
 import {getVitaldataStore} from "../../stores/VitaldataStore";
 

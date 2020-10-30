@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react';
 import { CALENDAR_DATE_AMOUNT } from './../configs/userconfig';
-import CalendarItem from './charts/CalendarItem';
-import { getDateStorage } from '../stores/DateStorage';
+import CalendarItem from './cards/CalendarItem';
 
 /**
  * Create a Horizontal ScrollView with Cards inside. Each card represents a date.

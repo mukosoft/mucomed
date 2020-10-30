@@ -34,7 +34,6 @@ export class DateTimeConverterService {
     }
 
     static getDateName(dateObj:Date):String {
-        // const days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
         const days = getUiStore().getTranslation('days');
         return days[dateObj.getDay()];
     }

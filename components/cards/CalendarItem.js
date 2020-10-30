@@ -2,16 +2,23 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Card, Text } from 'react-native-paper';
 import { getDateStorage } from '../../stores/DateStorage';
+import { colors } from '@configs/colors';
 import { DateTimeConverterService } from './../../service/DateTimeConverterService';
 import { StyleSheet } from 'react-native';
-import { colors } from '@configs/colors';
 
 @observer
 export default class CalendarItem extends Component {
+
+    state = {
+        itemAnimation: false
+    }
+
     render() {
         const date = this.props.date;
 
-        if (this.props.date.getDay() === getDateStorage().calendarSelection.getDay()) {
+        if (
+            this.props.date.getDay() === getDateStorage().calendarSelection.getDay()
+        ) {
             style = styles.selectedCalendarDate;
             styleTitle = styles.selectedCalendarDateTitle;
             styleText = styles.selectedCalendarDateText;
@@ -20,6 +27,7 @@ export default class CalendarItem extends Component {
             styleTitle = styles.calendarDateTitle;
             styleText = styles.calendarDateText;
         }
+
 
         return (
             <Card
@@ -40,30 +48,36 @@ export default class CalendarItem extends Component {
     }
 
     handlePress(date) {
+        this.setState({ itemAnimation: true })
         getDateStorage().setCalendarSelection(date);
     }
 }
 
+
 const styles = StyleSheet.create({
+    animationContainer: {
+        display: 'flex',
+        opacity: 1
+    },
     calendarDate: {
         backgroundColor: colors.white,
-        margin: 5,
-        padding: 0,
+        margin: 10,
+        padding: 5,
         justifyContent: 'center',
         height: 100,
         width: 100,
         shadowColor: colors.grey_dark,
         shadowOffset: {
-            width: 0,
+            width: 2,
             height: 2,
         },
         shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowRadius: 5,
+        elevation: 7,
     },
     selectedCalendarDate: {
         backgroundColor: colors.turquoise_light,
-        margin: 5,
+        margin: 10,
         padding: 0,
         justifyContent: 'center',
         height: 100,
@@ -89,4 +103,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.white,
     },
-})
+});

@@ -1,6 +1,5 @@
 import medication from "./Medication";
 import meals from "./Meals";
-import Medications from "./Medications";
 
 /**
  * TODO'S:
@@ -10,7 +9,7 @@ import Medications from "./Medications";
 export default {
     date: {},
     data: {
-        medication: Medications,
+        medication: "Medications",
         meals: [],
         drink_ml: 0,
         vital_data: {

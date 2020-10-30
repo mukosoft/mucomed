@@ -10,10 +10,12 @@ import {DateTimeConverterService} from "../service/DateTimeConverterService";
  */
 export class DateStorage {
     @observable calendarSelection = new Date();
+    @observable calendarSelectionDateId;
 
     @action
     setCalendarSelection(date) {
         this.calendarSelection = date;
+        this.calendarSelectionDateId = this.getDateId(date);
     }
 
     @action
@@ -24,7 +26,12 @@ export class DateStorage {
 
     @action
     init() {
-        this.calendarSelection = new Date();
+       this.setCalendarSelection(new Date());
+    }
+
+    getDateId(dateObj:Date):String {
+        const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+        return days[dateObj.getDay()];
     }
 
 }

@@ -16,6 +16,7 @@ export class UiStore {
     @observable theme = lightTheme;
     @observable language = LANGUAGES.german;
     @observable language_text = i13n;
+    @observable medicationCreationVisible = false;
 
     @action
     changeTheme(theme = lightTheme) {
@@ -30,6 +31,20 @@ export class UiStore {
     @action
     getTranslation(key) {
         return this.language_text[this.language][key];
+    }
+
+    @action 
+    openMedicationCreation() {
+        this.medicationCreationVisible = true;
+    }
+
+    @action 
+    hideMedicationCreation() {
+        this.medicationCreationVisible = false;
+    }
+    @action
+    init() {
+        // TODO: load language from config
     }
 }
 

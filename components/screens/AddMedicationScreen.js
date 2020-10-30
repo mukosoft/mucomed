@@ -8,7 +8,6 @@ import {DateTimeConverterService} from "../../service/DateTimeConverterService";
 import {colors} from "../../configs/colors";
 import Medication from "../../models/Medication";
 import {getMedicationStore} from "../../stores/MedicationStore";
-import MedicationService from "../../service/MedicationService";
 import {Navigation} from "react-native-navigation";
 import {defaultStyles} from "../../configs/styles";
 
