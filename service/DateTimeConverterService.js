@@ -1,12 +1,9 @@
-import {getUiStore} from "../stores/UiStore";
+import {getUiService} from "../stores/UiService";
 import {observer} from "mobx-react";
 
 export class DateTimeConverterService {
 
     static convertDateToTime(dateObj = new Date()) {
-        console.log(dateObj.getHours())
-        console.log(dateObj.getMinutes())
-
         return `${(dateObj.getHours() < 10 ? '0' + dateObj.getHours() : dateObj.getHours())}:${(dateObj.getMinutes() < 10 ? '0' + dateObj.getMinutes() : dateObj.getMinutes())}`;
     }
 
@@ -34,7 +31,7 @@ export class DateTimeConverterService {
     }
 
     static getDateName(dateObj:Date):String {
-        const days = getUiStore().getTranslation('days');
+        const days = getUiService().getTranslation('days');
         return days[dateObj.getDay()];
     }
 }

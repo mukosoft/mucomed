@@ -8,7 +8,7 @@ import InformationCard from "../InformationCard";
 import InformationService from "../../service/InformationService";
 import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
-import {getUiStore} from "../../stores/UiStore";
+import {getUiService} from "../../stores/UiService";
 
 
 /**
@@ -38,7 +38,7 @@ export class InformationScreen extends Component {
                                     {
                                         INFORMATION_CATEGORIES.map((information) => {
                                             return <Button onPress={() => this.setCategory(information.category)}
-                                                           color={ this.setSelectedColor(information.category)}>{getUiStore().getTranslation(information.category)}</Button>
+                                                           color={ this.setSelectedColor(information.category)}>{getUiService().getTranslation(information.category)}</Button>
                                         })
                                     }
                                 </ScrollView>

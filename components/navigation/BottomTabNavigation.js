@@ -1,5 +1,5 @@
-import {colors} from '../../configs/colors';
-import {getUiStore, UiStore} from "../../stores/UiStore";
+import { colors } from '../../configs/colors';
+import { getUiService } from "../../stores/UiService";
 
 /**
  * Bottom Tab Navigation.
@@ -18,16 +18,15 @@ export default {
                             name: 'HomeScreen',
                             options: {
                                 bottomTab: {
-                                    text: getUiStore().getTranslation('navigation_home'),
+                                    text: getUiService().getTranslation('navigation_home'),
                                     icon: require("../../etc/icons/calendar.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
-                                    title: {
-                                        text: getUiStore().getTranslation('navigation_home'),
-                                    },
-                                },
+                                    visible: false,
+                                    height: 0
+                                }
                             }
                         },
                     }
@@ -42,16 +41,15 @@ export default {
                             name: 'CookbookScreen',
                             options: {
                                 bottomTab: {
-                                    text: getUiStore().getTranslation('navigation_cookbook'),
+                                    text: getUiService().getTranslation('navigation_cookbook'),
                                     icon: require("../../etc/icons/recipe-book.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
-                                    title: {
-                                        text: getUiStore().getTranslation('navigation_cookbook'),
-                                    },
-                                },
+                                    visible: false,
+                                    height: 0
+                                }
                             }
                         },
                     }
@@ -66,16 +64,15 @@ export default {
                             name: 'InformationScreen',
                             options: {
                                 bottomTab: {
-                                    text: getUiStore().getTranslation('navigation_informations'),
+                                    text: getUiService().getTranslation('navigation_informations'),
                                     icon: require("../../etc/icons/information.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
-                                    title: {
-                                        text: getUiStore().getTranslation('navigation_informations'),
-                                    },
-                                },
+                                    visible: false,
+                                    height: 0
+                                }
                             }
                         },
                     }
@@ -91,16 +88,15 @@ export default {
                             name: 'ProfilScreen',
                             options: {
                                 bottomTab: {
-                                    text: getUiStore().getTranslation('navigation_profile'),
+                                    text: getUiService().getTranslation('navigation_profile'),
                                     icon: require("../../etc/icons/online-appointment.png"),
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange,
                                 },
                                 topBar: {
-                                    title: {
-                                        text: getUiStore().getTranslation('navigation_profile'),
-                                    },
-                                },
+                                    visible: false,
+                                    height: 0
+                                }
                             }
                         },
                     }

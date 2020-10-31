@@ -5,6 +5,7 @@ import { getDateStorage } from '../../stores/DateStorage';
 import { colors } from '@configs/colors';
 import { DateTimeConverterService } from './../../service/DateTimeConverterService';
 import { StyleSheet } from 'react-native';
+import {defaultStyles} from './../../configs/styles';
 
 @observer
 export default class CalendarItem extends Component {
@@ -28,10 +29,9 @@ export default class CalendarItem extends Component {
             styleText = styles.calendarDateText;
         }
 
-
         return (
             <Card
-                style={style}
+                style={[style, defaultStyles.defaultShadow]}
                 key={this.props.date}
                 onPress={() => this.handlePress(this.props.date)}>
                 <Card.Title
@@ -64,24 +64,16 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 5,
         justifyContent: 'center',
-        height: 100,
-        width: 100,
-        shadowColor: colors.grey_dark,
-        shadowOffset: {
-            width: 2,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 5,
-        elevation: 7,
+        height: 120,
+        aspectRatio: 1
     },
     selectedCalendarDate: {
         backgroundColor: colors.turquoise_light,
         margin: 10,
         padding: 0,
         justifyContent: 'center',
-        height: 100,
-        width: 100,
+        height: 120,
+        aspectRatio: 1
     },
     calendarDateTitle: {
         fontSize: 14,

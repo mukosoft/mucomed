@@ -20,7 +20,6 @@ export class DateStorage {
 
     @action
     isDate(date) {
-        console.log(this.getCalendarSelection());
         return date.getDay() === this.calendarSelection.getDay();
     }
 

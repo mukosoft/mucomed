@@ -6,7 +6,7 @@ import MealService from "../../service/MealService";
 import FEV1Chart from "../charts/FEV1Chart";
 import {defaultStyles} from "../../configs/styles";
 import {colors} from "../../configs/colors";
-import {getUiStore} from "../../stores/UiStore";
+import {getUiService} from "../../stores/UiService";
 
 
 /**
@@ -35,7 +35,7 @@ export class ProfileScreen extends Component {
                                 { (!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe()) }
                                 <Title>Lungenfunktion - FEV1</Title>
                                 <FEV1Chart chartType={this.state.fev_chartType}/>
-                                <Title>{getUiStore().getTranslation('medication')}</Title>
+                                <Title>{getUiService().getTranslation('medication')}</Title>
                                 <View>
                                     <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
                                     <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>

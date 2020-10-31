@@ -7,7 +7,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {DateTimeConverterService} from "../../service/DateTimeConverterService";
 import {colors} from "../../configs/colors";
 import Medication from "../../models/Medication";
-import {getMedicationStore} from "../../stores/MedicationStore";
+import {getMedicationService} from "../../stores/MedicationService";
 import {Navigation} from "react-native-navigation";
 import {defaultStyles} from "../../configs/styles";
 
@@ -29,6 +29,9 @@ export class AddMedicationScreen extends Component {
     }
 
     render() {
+        return <View>
+
+        </View>;
         return (
             <PaperProvider theme={lightTheme}>
                 <ScrollView style={styles.addMedicationContainer}>
@@ -137,7 +140,7 @@ export class AddMedicationScreen extends Component {
         this.setState({times: timeList});
     }
 
-    saveMedication() {
+    /*saveMedication() {
         let medicationExists = false;
 
         let newMedication = Medication;
@@ -148,7 +151,7 @@ export class AddMedicationScreen extends Component {
 
         if (this.state.name !== "" && this.state.days.length > 0 && this.state.times.length > 0) {
             this.state.days.map((day) => {
-                getMedicationStore().medicationObj[day].medicationList.map((medication) => {
+                getMedicationService().medicationObj[day].medicationList.map((medication) => {
                     if (medication.name === newMedication.name) {
                         medicationExists = true;
                     }
@@ -156,19 +159,22 @@ export class AddMedicationScreen extends Component {
 
                 if (medicationExists) {
                     // TODO: Update medication
-                    // getMedicationStore().medicationObj[day].medicationList.
+                    // getMedicationService
+                ().medicationObj[day].medicationList.
                 } else {
-                    getMedicationStore().medicationObj[day].medicationList.push(newMedication);
+                    getMedicationService
+                ().medicationObj[day].medicationList.push(newMedication);
                 }
             });
 
-            MedicationService.getInstance().updateMedication({}, getMedicationStore().medicationObj).then((result) => {
+            MedicationService.getInstance().updateMedication({}, getMedicationService
+            ().medicationObj).then((result) => {
                 console.log(`DEBUG: updated ${result} document in MedicationStore.`)
             });
 
             Navigation.dismissAllModals();
         }
-    }
+    }*/
 }
 
 const styles = StyleSheet.create({

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from 'react-native';
 import { colors } from './../../configs/colors';
-import { Card } from 'react-native-paper';
-import { Menu } from 'react-native-paper';
-import { Text } from 'react-native-paper';
+import { Card, Menu, Text } from 'react-native-paper';
 
 export default class MedicationItem extends Component {
     

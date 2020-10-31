@@ -1,3 +1,4 @@
+import { colors } from "./colors";
 import {darkTheme, lightTheme} from "./PaperTheme";
 
 export const defaultStyles = {
@@ -20,7 +21,16 @@ export const defaultStyles = {
     },
     themeContainer: {
         backgroundColor: lightTheme.colors.backgroundColor,
-        height: '100%'
+        height: '100%',
+    },
+    defaultShadow: {
+        shadowColor: colors.grey_dark,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
+        elevation: 7,
     }
-
 }

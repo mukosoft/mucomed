@@ -9,7 +9,7 @@ import {observer} from "mobx-react";
 import {getMealStore} from "../../stores/MealStore";
 import {defaultStyles} from "../../configs/styles";
 import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
-import {getUiStore} from "../../stores/UiStore";
+import {getUiService} from "../../stores/UiService";
 
 
 /**
@@ -57,7 +57,7 @@ export class VirtualCookbook extends Component {
                                     {
                                         COOKBOOK_CATEGORIES.map((food) => {
                                             return <Button onPress={() => this.setCategory(food.category)}
-                                                           color={ this.setSelectedColor(food.category)}>{getUiStore().getTranslation(food.category)}</Button>
+                                                           color={ this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
                                         })
                                     }
                                 </ScrollView>

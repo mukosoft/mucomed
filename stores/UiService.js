@@ -10,7 +10,7 @@ import i13n from "../configs/i13n";
  *
  * @author Dominique Börner
  */
-export class UiStore {
+export class UiService {
 
     // TODO: make this for react native paper provider
     @observable theme = lightTheme;
@@ -48,5 +48,5 @@ export class UiStore {
     }
 }
 
-let instance: UiStore;
-export function getUiStore() { return instance || (instance = new UiStore()) }
+let instance: UiService;
+export function getUiService() { return instance || (instance = new UiService()) }

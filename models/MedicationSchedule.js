@@ -77,18 +77,7 @@ export default {
         },
         {
             id: "friday",
-            medicationList: [
-                {
-                    id: "single_medication",
-                    time: "07:00",
-                    medications: [exampleMedication, exampleMedication2]
-                },
-                {
-                    id: "single_medication",
-                    time: "12:00",
-                    medications: [exampleMedication]
-                }
-            ]
+            medicationList: []
         },
         {
             id: "saturday",
