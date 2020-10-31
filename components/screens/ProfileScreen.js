@@ -7,6 +7,7 @@ import FEV1Chart from "../charts/FEV1Chart";
 import {defaultStyles} from "../../configs/styles";
 import {colors} from "../../configs/colors";
 import {getUiService} from "../../service/UiService";
+import { Navigation } from 'react-native-navigation';
 
 
 /**
@@ -21,6 +22,11 @@ export class ProfileScreen extends Component {
         bmi_chartType: 'history',
         meal: null
     };
+
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
+    }
 
     render() {
         if (!this.state.meal) {
@@ -89,7 +95,13 @@ export class ProfileScreen extends Component {
                 </View>
             </View>
         </View>
+    }
 
+    navigationButtonPressed(button) {
+        if (button.buttonId === 'openSettings') {
+            // TODO: switch to SettingsScreen
+            alert("open_settings_screen")
+        }
     }
 }
 

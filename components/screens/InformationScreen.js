@@ -9,6 +9,7 @@ import InformationService from "../../service/InformationService";
 import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
 import {getUiService} from "../../service/UiService";
+import { Navigation } from 'react-native-navigation';
 
 
 /**
@@ -22,6 +23,11 @@ export class InformationScreen extends Component {
     state = {
         category: 'food',
         informations: null
+    }
+
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
     }
 
     render() {
@@ -87,6 +93,13 @@ export class InformationScreen extends Component {
             return this.state.informations[this.state.category].map((information) => {
                 return <InformationCard information={information} onPress={() => { InformationService.openInformation(information) }} key={information.name}/>
             })
+        }
+    }
+
+    navigationButtonPressed(button) {
+        if (button.buttonId === 'openSettings') {
+            // TODO: switch to SettingsScreen
+            alert("open_settings_screen")
         }
     }
 }

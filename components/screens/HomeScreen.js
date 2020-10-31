@@ -10,6 +10,7 @@ import { getUiService } from "../../service/UiService";
 import { getMedicationService } from '../../service/MedicationService';
 import MedicationList from './../lists/MedicationList';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
+import { Navigation } from 'react-native-navigation';
 
 
 /**
@@ -19,6 +20,11 @@ import FAIcon from "react-native-vector-icons/FontAwesome5";
  */
 @observer
 export class HomeScreen extends Component {
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
+    }
+
     render() {
         return (
             <PaperProvider theme={lightTheme}>
@@ -63,6 +69,14 @@ export class HomeScreen extends Component {
                 </View>
             </PaperProvider>
         )
+    }
+
+
+    navigationButtonPressed(button) {
+        if (button.buttonId === 'openSettings') {
+            // TODO: switch to SettingsScreen
+            alert("open_settings_screen")
+        }
     }
 }
 

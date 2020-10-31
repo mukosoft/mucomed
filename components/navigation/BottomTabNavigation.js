@@ -4,6 +4,18 @@ import { getUiService } from "../../service/UiService";
 import { Image } from 'react-native';
 import { Logo } from "./../../ic_launcher_round.png";
 
+const topBar = {
+    leftButtons: [{
+        icon: require('./../../ic_launcher_round.png'),
+    }],
+    rightButtons: [{
+        icon: require('./../../assets/icons/gear.png'),
+        id: 'openSettings',
+    }],
+    background: colors.red,
+    elevation: 7
+}
+
 /**
  * Bottom Tab Navigation.
  *
@@ -26,17 +38,7 @@ export default {
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
-                                topBar: {
-                                    leftButtons: [{
-                                        icon: require('./../../ic_launcher_round.png'),
-                                    }],
-                                    rightButtons: [{
-                                        icon: require('./../../ic_launcher_round.png'),
-                                    }],
-                                    
-                                    background: colors.red,
-                                    elevation: 2
-                                },
+                                topBar: topBar
                             }
                         },
                     }
@@ -56,10 +58,7 @@ export default {
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
-                                topBar: {
-                                    visible: false,
-                                    height: 0
-                                }
+                                topBar: topBar
                             }
                         },
                     }
@@ -79,10 +78,7 @@ export default {
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange
                                 },
-                                topBar: {
-                                    visible: false,
-                                    height: 0
-                                }
+                                topBar: topBar
                             }
                         },
                     }
@@ -103,10 +99,7 @@ export default {
                                     textColor: colors.white,
                                     selectedTextColor: colors.orange,
                                 },
-                                topBar: {
-                                    visible: false,
-                                    height: 0
-                                }
+                                topBar: topBar
                             }
                         },
                     }

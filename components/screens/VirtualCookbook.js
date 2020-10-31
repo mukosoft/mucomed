@@ -10,6 +10,7 @@ import {getMealStore} from "../../stores/MealStore";
 import {defaultStyles} from "../../configs/styles";
 import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
 import {getUiService} from "../../service/UiService";
+import { Navigation } from 'react-native-navigation';
 
 
 /**
@@ -19,6 +20,10 @@ import {getUiService} from "../../service/UiService";
  */
 @observer
 export class VirtualCookbook extends Component {
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
+    }
 
     state = {
         category: 'breakfast',
@@ -106,6 +111,12 @@ export class VirtualCookbook extends Component {
         }
     }
 
+    navigationButtonPressed(button) {
+        if (button.buttonId === 'openSettings') {
+            // TODO: switch to SettingsScreen
+            alert("open_settings_screen")
+        }
+    }
 }
 
 const styles = StyleSheet.create({
