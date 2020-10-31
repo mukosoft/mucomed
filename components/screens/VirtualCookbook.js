@@ -9,7 +9,7 @@ import {observer} from "mobx-react";
 import {getMealStore} from "../../stores/MealStore";
 import {defaultStyles} from "../../configs/styles";
 import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
-import {getUiService} from "../../stores/UiService";
+import {getUiService} from "../../service/UiService";
 
 
 /**

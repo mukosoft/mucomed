@@ -14,5 +14,6 @@ export const colors = {
     green: '#8DB248',
     silver: '#688596',
 
-    grey_dark: '#222'
+    grey_dark: '#222',
+    grey_light: '#d6d6d6',
 }

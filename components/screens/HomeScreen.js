@@ -6,8 +6,8 @@ import HorizontalCalendar from "@components/HorizontalCalendar";
 import { darkTheme, lightTheme } from "../../configs/PaperTheme";
 import { observer } from "mobx-react";
 import { defaultStyles } from "../../configs/styles";
-import { getUiService } from "../../stores/UiService";
-import { getMedicationService } from '../../stores/MedicationService';
+import { getUiService } from "../../service/UiService";
+import { getMedicationService } from '../../service/MedicationService';
 import MedicationList from './../lists/MedicationList';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
 

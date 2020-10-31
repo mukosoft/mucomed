@@ -1,4 +1,4 @@
-import {getUiService} from "../stores/UiService";
+import {getUiService} from "../service/UiService";
 import {observer} from "mobx-react";
 
 export class DateTimeConverterService {

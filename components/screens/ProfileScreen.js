@@ -6,7 +6,7 @@ import MealService from "../../service/MealService";
 import FEV1Chart from "../charts/FEV1Chart";
 import {defaultStyles} from "../../configs/styles";
 import {colors} from "../../configs/colors";
-import {getUiService} from "../../stores/UiService";
+import {getUiService} from "../../service/UiService";
 
 
 /**

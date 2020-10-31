@@ -6,7 +6,7 @@ import CalendarItem from './cards/CalendarItem';
 
 /**
  * Create a Horizontal ScrollView with Cards inside. Each card represents a date.
- * If a card is clicked, DateStorage gets updated.
+ * If a card is clicked, DateService gets updated.
  *
  *
  * @author Dominique Börner

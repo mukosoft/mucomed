@@ -8,7 +8,7 @@ import InformationCard from "../InformationCard";
 import InformationService from "../../service/InformationService";
 import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
-import {getUiService} from "../../stores/UiService";
+import {getUiService} from "../../service/UiService";
 
 
 /**

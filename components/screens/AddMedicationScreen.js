@@ -7,7 +7,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {DateTimeConverterService} from "../../service/DateTimeConverterService";
 import {colors} from "../../configs/colors";
 import Medication from "../../models/Medication";
-import {getMedicationService} from "../../stores/MedicationService";
+import {getMedicationService} from "../../service/MedicationService";
 import {Navigation} from "react-native-navigation";
 import {defaultStyles} from "../../configs/styles";
 

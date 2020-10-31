@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, View} from "react-native";
 import {Button, Headline, List, Provider as PaperProvider, Text, TextInput} from "react-native-paper";
 import {lightTheme} from "../../configs/PaperTheme";
 import {VITALDATA} from "../../models/VitaldataModel";
-import {getDateStorage} from "../../stores/DateStorage";
+import {getDateService} from "../../service/DateService";
 import {getVitaldataStore} from "../../stores/VitaldataStore";
 
 
@@ -17,7 +17,7 @@ export class VitaldataScreen extends Component {
     state = {};
 
     render() {
-        VitaldataService.getInstance().getVitaldata({date: getDateStorage().getSelectedDate()})
+        VitaldataService.getInstance().getVitaldata({date: getDateService().getSelectedDate()})
             .then((result) => getVitaldataStore().vitaldataObj = result.data);
 
         console.log(getVitaldataStore().vitaldataObj)
@@ -43,7 +43,7 @@ export class VitaldataScreen extends Component {
                         </List.AccordionGroup>
                     </List.Section>
                     <Button mode="contained" onPress={() =>
-                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateStorage().getSelectedDate(), data: getVitaldataStore().vitaldataObj})}>
+                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateService().getSelectedDate(), data: getVitaldataStore().vitaldataObj})}>
                         Speichern
                     </Button>
                 </ScrollView>

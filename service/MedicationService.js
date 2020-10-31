@@ -2,7 +2,7 @@ import {action, observable} from "mobx";
 import MedicationDocument from "../documents/MedicationDocument";
 import Medication from "../models/Medication";
 import MedicationSchedule from "../models/MedicationSchedule";
-import { getDateStorage } from "./DateStorage";
+import { getDateService } from "./DateService";
 
 let instance;
 
@@ -11,7 +11,8 @@ export class MedicationService {
 
     @action
     init() {
-        // TODO: Load medications for initial date
+        // TODO: change later to MedicationDocument
+        this.medicationSchedule = MedicationSchedule;
     }
 
     /**
@@ -29,7 +30,7 @@ export class MedicationService {
      */
     @action addMedicationToSchedule(medication:Medication, dateObj:[dateObj]) {
         dateObj.map(day => {
-            const dayId = getDateStorage().getDateId(day);
+            const dayId = getDateService().getDateId(day);
 
             this.medicationSchedule.schedule[dayId].medicationList.push(medication);
         })

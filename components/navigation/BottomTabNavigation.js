@@ -1,5 +1,8 @@
+import React from "react";
 import { colors } from '../../configs/colors';
-import { getUiService } from "../../stores/UiService";
+import { getUiService } from "../../service/UiService";
+import { Image } from 'react-native';
+import { Logo } from "./../../ic_launcher_round.png";
 
 /**
  * Bottom Tab Navigation.
@@ -24,9 +27,16 @@ export default {
                                     selectedTextColor: colors.orange
                                 },
                                 topBar: {
-                                    visible: false,
-                                    height: 0
-                                }
+                                    leftButtons: [{
+                                        icon: require('./../../ic_launcher_round.png'),
+                                    }],
+                                    rightButtons: [{
+                                        icon: require('./../../ic_launcher_round.png'),
+                                    }],
+                                    
+                                    background: colors.red,
+                                    elevation: 2
+                                },
                             }
                         },
                     }

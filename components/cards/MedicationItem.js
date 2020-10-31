@@ -8,12 +8,20 @@ export default class MedicationItem extends Component {
     state = {};
 
     render() {
-        return ( <Card style={styles.medicationCard} key={this.props.name}>
-            <Card.Title title={this.props.name} titleStyle={styles.name}
+        let medicationCardStyle;
+
+        if (this.props.disabled === true) {
+            medicationCardStyle = styles.medicationCardDisabled;
+        } else {
+            medicationCardStyle = styles.medicationCard;
+        }
+
+        return ( <Card style={medicationCardStyle} key={this.props.medication.name}>
+            <Card.Title title={this.props.medication.name} titleStyle={styles.name}
 
             />
             <Card.Content>
-                <Text style={styles.dosage}>{this.props.dosage}</Text>
+                <Text style={styles.dosage}>{this.props.medication.dosage}</Text>
             </Card.Content>
         </Card>
         )
@@ -27,6 +35,13 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 0,
         backgroundColor: colors.turquoise_light,
+    },
+    medicationCardDisabled: {
+        width: 120,
+        aspectRatio: 1,
+        margin: 5,
+        padding: 0,
+        backgroundColor: colors.grey_light,
     },
     name: {
         fontSize: 16,

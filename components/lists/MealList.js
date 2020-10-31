@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import {colors} from "@configs/colors";
 import {observer} from "mobx-react";
-import {getDateStorage} from "../../stores/DateStorage";
+import {getDateService} from "../../service/DateService";
 import {Card, Text} from "react-native-paper";
 
 /**
@@ -29,7 +29,7 @@ export default class MealList extends Component {
         console.log(this.props.meals)
         if (this.props.meals.length > 0) {
             let todayMeals = this.props.meals.filter((meal) => {
-                return meal.date === getDateStorage().getSelectedDate();
+                return meal.date === getDateService().getSelectedDate();
             })
 
             return todayMeals.map((meal) => {
