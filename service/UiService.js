@@ -2,6 +2,8 @@ import {action, observable} from "mobx";
 import {darkTheme, lightTheme} from "../configs/PaperTheme";
 import {LANGUAGES} from "../models/Languages";
 import i13n from "../configs/i13n";
+import { Navigation } from "react-native-navigation";
+import BottomTabNavigation from "../components/navigation/BottomTabNavigation";
 
 /**
  * Stores basic UI configurations, handles translation and theme
@@ -17,6 +19,7 @@ export class UiService {
     @observable language = LANGUAGES.german;
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
+    @observable navigationActivePage = BottomTabNavigation[0].componentId;
 
     @action
     changeTheme(theme = lightTheme) {
@@ -45,6 +48,34 @@ export class UiService {
     @action
     init() {
         // TODO: load language from config
+    }
+
+    navigateToComponent(componentId) {
+        if (componentId !== this.navigationActivePage) {
+            this.navigationActivePage = componentId;
+
+            Navigation.setStackRoot("MainStack", {
+                component: {
+                    name: componentId,
+                    options: {
+                        topBar: {
+                            visible: false
+                        },
+                        animations: {
+                            push: {
+                                content: {
+                                    alpha: {
+                                        from: 0,
+                                        to: 1,
+                                        duration: 250
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 }
 

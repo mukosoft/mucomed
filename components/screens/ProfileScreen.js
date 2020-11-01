@@ -8,6 +8,7 @@ import {defaultStyles} from "../../configs/styles";
 import {colors} from "../../configs/colors";
 import {getUiService} from "../../service/UiService";
 import { Navigation } from 'react-native-navigation';
+import BottomNavigation from './../navigation/BottomNavigation';
 
 
 /**
@@ -50,6 +51,7 @@ export class ProfileScreen extends Component {
                                 <Button mode="contained">Zu den Berichten</Button>
                             </ScrollView>
                         </View>
+                        <BottomNavigation />
                     </View>
                 </PaperProvider>
             )

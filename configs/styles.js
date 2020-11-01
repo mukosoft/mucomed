@@ -17,7 +17,9 @@ export const defaultStyles = {
     defaultContentContainer: {
         flex: 1,
         flexDirection: 'column',
-        margin: 10
+        marginLeft: 10, 
+        marginRight: 10,
+        marginTop: 10
     },
     themeContainer: {
         backgroundColor: lightTheme.colors.backgroundColor,

@@ -1,7 +1,6 @@
 
 // Components
 import { Navigation } from "react-native-navigation";
-import bottomTabsNavigation from "@components/navigation/BottomTabNavigation";
 
 // Services
 import { getDateService } from "./service/DateService";
@@ -17,7 +16,6 @@ import { VitaldataScreen } from "./components/screens/VitaldataScreen";
 import { MealInstructionScreen } from "./components/screens/MealInstructionScreen";
 import { InformationPostScreen } from "./components/screens/InformationPostScreen";
 import { getMedicationService } from "./service/MedicationService";
-import { colors } from './configs/colors';
 
 // register screens to Navigation, first component is rendered first
 Navigation.registerComponent('HomeScreen', () => HomeScreen);
@@ -46,7 +44,21 @@ getMedicationService().init();
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
         root: {
-            bottomTabs: bottomTabsNavigation
+            stack: {
+                id: "MainStack",
+                children: [
+                    {
+                        component: {
+                            name: 'HomeScreen',
+                            options: {
+                                topBar: {
+                                    visible: false
+                                }
+                            }
+                        },
+                    },
+                ]
+            }
         },
     });
 });

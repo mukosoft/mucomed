@@ -10,6 +10,7 @@ import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
 import {getUiService} from "../../service/UiService";
 import { Navigation } from 'react-native-navigation';
+import BottomNavigation from './../navigation/BottomNavigation';
 
 
 /**
@@ -55,6 +56,7 @@ export class InformationScreen extends Component {
                                 </ScrollView>
                             </View>
                         </View>
+                        <BottomNavigation />
                     </View>
                 </PaperProvider>
             )

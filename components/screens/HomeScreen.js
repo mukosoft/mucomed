@@ -11,6 +11,7 @@ import { getMedicationService } from '../../service/MedicationService';
 import MedicationList from './../lists/MedicationList';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
 import { Navigation } from 'react-native-navigation';
+import BottomNavigation from './../navigation/BottomNavigation';
 
 
 /**
@@ -66,6 +67,7 @@ export class HomeScreen extends Component {
                             </Card.Content>
                         </Card>**/}
                     </ScrollView>
+                    <BottomNavigation />
                 </View>
             </PaperProvider>
         )

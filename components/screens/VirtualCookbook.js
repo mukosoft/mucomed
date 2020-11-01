@@ -11,6 +11,7 @@ import {defaultStyles} from "../../configs/styles";
 import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
 import {getUiService} from "../../service/UiService";
 import { Navigation } from 'react-native-navigation';
+import BottomNavigation from './../navigation/BottomNavigation';
 
 
 /**
@@ -74,6 +75,7 @@ export class VirtualCookbook extends Component {
                                 </ScrollView>
                             </View>
                         </View>
+                    <BottomNavigation />
                     </View>
                 </PaperProvider>
             )
