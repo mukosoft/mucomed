@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { colors } from './../../configs/colors';
 import { Card, Menu, Text } from 'react-native-paper';
+import FAIcon from "react-native-vector-icons/FontAwesome5";
+import { defaultStyles } from './../../configs/styles';
+import { getMedicationService } from "../../service/MedicationService";
+import { observer } from "mobx-react";
 
+@observer
 export default class MedicationItem extends Component {
-    
+
     state = {};
 
     render() {
@@ -16,25 +21,27 @@ export default class MedicationItem extends Component {
             medicationCardStyle = styles.medicationCard;
         }
 
-        return ( <Card style={medicationCardStyle} key={this.props.medication.name}>
-            <Card.Title title={this.props.medication.name} titleStyle={styles.name}
-
-            />
-            <Card.Content>
-                <Text style={styles.dosage}>{this.props.medication.dosage}</Text>
-            </Card.Content>
-        </Card>
+        return (
+            <TouchableOpacity>
+                <View style={[styles.medicationCard, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
+                    <FAIcon name="pills" style={styles.icon} />
+                    <Text style={styles.name}>{this.props.medication.name}</Text>
+                    <Text style={styles.dosage}>{this.props.medication.dosage}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }
 }
 
 const styles = StyleSheet.create({
     medicationCard: {
-        width: 120,
+        width: 100,
         aspectRatio: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
         margin: 5,
         padding: 0,
-        backgroundColor: colors.turquoise_light,
     },
     medicationCardDisabled: {
         width: 120,
@@ -43,13 +50,17 @@ const styles = StyleSheet.create({
         padding: 0,
         backgroundColor: colors.grey_light,
     },
+    icon: {
+        fontSize: 32,
+        color: colors.turquoise_light
+    },
     name: {
-        fontSize: 16,
-        color: colors.white
+        fontSize: 14,
+        color: colors.turquoise_light,
+        marginTop: 5, marginBottom: 0
     },
     dosage: {
-        fontSize: 14,
-        color: colors.white,
+        fontSize: 10,
     },
     button: {
         color: colors.white

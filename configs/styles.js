@@ -2,18 +2,6 @@ import { colors } from "./colors";
 import {darkTheme, lightTheme} from "./PaperTheme";
 
 export const defaultStyles = {
-    defaultShadow: {
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 4,
-    },
-    defaultButton: {
-        margin: 2.5
-    },
     defaultContentContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -26,13 +14,18 @@ export const defaultStyles = {
         height: '100%',
     },
     defaultShadow: {
-        shadowColor: colors.grey_dark,
-        shadowOffset: {
-            width: 2,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 5,
-        elevation: 7,
+        borderWidth: 0.25,
+        borderColor: colors.turquoise_dark,
+        // shadowColor: colors.grey_dark,
+        // shadowOffset: {
+        //     width: 1,
+        //     height: 1,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 5,
+        elevation: 0,
+    },
+    defaultBorderRadius: {
+        borderRadius: 5
     }
 }

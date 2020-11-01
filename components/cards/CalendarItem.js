@@ -4,7 +4,7 @@ import { Card, Text } from 'react-native-paper';
 import { getDateService } from '../../service/DateService';
 import { colors } from '@configs/colors';
 import { DateTimeConverterService } from './../../service/DateTimeConverterService';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {defaultStyles} from './../../configs/styles';
 
 @observer
@@ -25,20 +25,15 @@ export default class CalendarItem extends Component {
         }
 
         return (
-            <Card
-                style={[style, defaultStyles.defaultShadow]}
-                key={this.props.date}
-                onPress={() => this.handlePress(this.props.date)}>
-                <Card.Title
-                    title={DateTimeConverterService.getDateName(date)}
-                    titleStyle={styleTitle}
-                />
-                <Card.Content>
-                    <Text style={styleText}>
-                        {DateTimeConverterService.formatDate(date, false)}
-                    </Text>
-                </Card.Content>
-            </Card>
+            <TouchableOpacity onPress={() => this.handlePress(this.props.date)}>
+                <View
+                style={[style, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}
+                key={this.props.date}>
+                    <Text style={styleTitle}>{DateTimeConverterService.getDateName(date)}</Text>
+                    <Text style={styleText}>{DateTimeConverterService.formatDate(date, false)}</Text>
+                </View>
+            </TouchableOpacity>
+           
         );
     }
 
@@ -51,17 +46,19 @@ export default class CalendarItem extends Component {
 const styles = StyleSheet.create({
     calendarDate: {
         backgroundColor: colors.white,
-        margin: 10,
+        margin: 5,
         padding: 5,
         justifyContent: 'center',
+        alignItems: 'center',
         height: 100,
         aspectRatio: 1
     },
     selectedCalendarDate: {
         backgroundColor: colors.turquoise_light,
-        margin: 10,
-        padding: 5,
+        margin: 5,
+        padding: 15,
         justifyContent: 'center',
+        alignItems: 'center',
         height: 100,
         aspectRatio: 1
     },

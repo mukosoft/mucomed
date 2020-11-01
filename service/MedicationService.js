@@ -18,9 +18,30 @@ export class MedicationService {
     /**
      * get the current medicationSchedule
      */
-    @action getMedicationSchedule() {
-        this.medicationSchedule = MedicationDocument.getInstance().get();
-    }
+    // @action getMedicationSchedule() {
+    //     this.medicationSchedule = MedicationDocument.getInstance().get();
+    // }
+
+    // @action getMedication(time: Array, medicationName) {
+    //     let currentMedicationList = this.medicationSchedule.schedule.filter(day => { 
+    //         return (day.id === getDateService().calendarSelectionDateId)
+    //     })[0];
+    //     let currentDayMedicationIndex = this.medicationSchedule.schedule.indexOf(currentMedicationList);
+
+
+    //     let currentMedications = currentMedicationList.medicationList.filter(singleMedication => {
+    //         return time.includes(singleMedication.time);
+    //     })[0];
+    //     let currentMedicationIndex = this.medicationSchedule.schedule[currentDayMedicationIndex].medicationList.indexOf(currentMedications);
+
+    //     let medicationToChange = currentMedications.medications.filter(singleMedication => {
+    //         return singleMedication.name === medicationName;
+    //     })[0];
+    //     let medicationToChangeIndex = this.medicationSchedule.schedule[currentDayMedicationIndex].medicationList[currentMedicationIndex].medications.indexOf(medicationToChange);
+
+    //     return this.medicationSchedule.schedule[currentDayMedicationIndex].medicationList[currentMedicationIndex].medications[medicationToChangeIndex]
+
+    // }
 
     /**
      * Add an MedicationObject to the schedule.

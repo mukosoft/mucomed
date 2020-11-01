@@ -12,6 +12,7 @@ import MedicationList from './../lists/MedicationList';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
 import { Navigation } from 'react-native-navigation';
 import BottomNavigation from './../navigation/BottomNavigation';
+import GroupCard from './../cards/GroupCard';
 
 
 /**
@@ -32,30 +33,25 @@ export class HomeScreen extends Component {
                 <View style={defaultStyles.themeContainer}>
                     <ScrollView style={defaultStyles.defaultContentContainer}>
                         <HorizontalCalendar />
-                        <Card style={[styles.contentCard, defaultStyles.defaultShadow]}>
-                            <Card.Title title={getUiService().getTranslation('medication')} right={() => <IconButton icon="plus" onPress={() => getUiService().openMedicationWindow()} />}
-                                left={(props) => <Avatar.Icon style={{ marginRight: 10, backgroundColor: colors.white }}
-                                    color={"black"} {...props} icon="pill" />} />
-                            <Card.Content>
+                        <GroupCard title="Medikamente">
                                 <MedicationList medications={getMedicationService().medicationSchedule} />
-                            </Card.Content>
-                        </Card>
+                        </GroupCard>
 
-                        <Card style={[styles.contentCard, defaultStyles.defaultShadow]}>
-                            <Card.Title title="Mahlzeiten" right={() => <IconButton icon="plus" />}
-                                left={() => <FAIcon size={24} name="pizza-slice" />} />
-                            <Card.Content>
-                            </Card.Content>
-                        </Card>
+                        <GroupCard title="Mahlzeiten">
+                        </GroupCard>
 
                         <View style={styles.flexRow}>
                             <Card style={[styles.actionCard, defaultStyles.defaultShadow]}>
                                 <FAIcon name="heart" style={styles.actionCardIcon} />
-                                <Text style={styles.actionCardText}>Vitaldaten erfassen</Text>
+                                <Text style={styles.actionCardText}>Vitaldaten</Text>
                             </Card>
                             <Card style={[styles.actionCard, defaultStyles.defaultShadow]}>
                                 <FAIcon name="file-pdf" style={styles.actionCardIcon} />
                                 <Text style={styles.actionCardText}>Arztbericht scannen</Text>
+                            </Card>
+                            <Card style={[styles.actionCard, defaultStyles.defaultShadow]}>
+                                <FAIcon name="pills" style={styles.actionCardIcon} />
+                                <Text style={styles.actionCardText}>Kreon berechnen</Text>
                             </Card>
                         </View>
 
@@ -90,7 +86,7 @@ const styles = StyleSheet.create({
     flexRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignContent: 'center',
         alignItems: 'center',
         marginBottom: 40
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlignVertical: 'center',
         textAlign: 'center',
-        fontSize: 34,
+        fontSize: 26,
         color: colors.white,
 
     },
@@ -117,7 +113,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         textAlign: 'center',
         color: colors.white,
-        fontSize: 20,
+        fontSize: 14,
         margin: 0, padding: 0
     }
 })
