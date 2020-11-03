@@ -50,6 +50,17 @@ export class UiService {
         // TODO: load language from config
     }
 
+    convertRefToSrc(ref) {
+        const baseURL = 'https://cdn.sanity.io/images//2ueyhz9s/production/';
+        const imageID = ref.split('-')[1];
+        const imageSize = ref.split('-')[2];
+        const imageType = ref.split('-')[3];
+
+        const src = `${baseURL}${imageID}-${imageSize}.${imageType}`;
+
+        return src;
+    }
+
     navigateToComponent(componentId) {
         if (componentId !== this.navigationActivePage) {
             this.navigationActivePage = componentId;
@@ -76,6 +87,27 @@ export class UiService {
                 }
             });
         }
+    }
+
+    showModal(componentId, props = null, topBarText = "") {
+        Navigation.showModal({
+            stack: {
+                children: [{
+                    component: {
+                        name: componentId,
+                        passProps: {
+                            componentProps: props
+                        },
+                        options: {
+                            topBar: {
+                              visible: false
+                            }
+                        }
+                    },
+                }]
+
+            }
+        });
     }
 }
 

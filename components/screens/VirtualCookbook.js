@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from "react-native";
-import {ActivityIndicator, Button, Card, Provider as PaperProvider} from "react-native-paper";
-import {colors} from "@configs/colors";
-import {darkTheme, lightTheme} from "../../configs/PaperTheme";
-import MealCard from "../MealCard";
-import MealService from "../../service/MealService";
-import {observer} from "mobx-react";
-import {getMealStore} from "../../stores/MealStore";
-import {defaultStyles} from "../../configs/styles";
-import {COOKBOOK_CATEGORIES} from "../../models/FilterData";
-import {getUiService} from "../../service/UiService";
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, Card, Provider as PaperProvider } from "react-native-paper";
+import { colors } from "@configs/colors";
+import { darkTheme, lightTheme } from "../../configs/PaperTheme";
+import { observer } from "mobx-react";
+import { getMealStore } from "../../stores/MealStore";
+import { defaultStyles } from "../../configs/styles";
+import { COOKBOOK_CATEGORIES } from "../../models/FilterData";
+import { getUiService } from "../../service/UiService";
 import { Navigation } from 'react-native-navigation';
 import BottomNavigation from './../navigation/BottomNavigation';
+import { API_BASE_URL } from './../../configs/config';
+import MealItem from '../cards/MealItem';
 
 
 /**
@@ -24,66 +24,48 @@ export class VirtualCookbook extends Component {
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
+        this.getCookbookData();
     }
 
     state = {
         category: 'breakfast',
-        meals: null
+        meals: []
     }
 
     getCookbookData() {
-        fetch("https://api.mukosoft.de/recipes.json", {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'pragma': 'no-cache',
-                'cache-control': 'no-cache'
-
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                // console.log(`DEBUG: meals from api.mukosoft.de: ${JSON.stringify(json)}`);
-                this.setState({meals: json})
-            })
+        fetch(`${API_BASE_URL}query=*[_type%20=="meals"]`)
+            .then(response => response.json())
+            .then(data => this.setState({ meals: data }))
     }
 
     render() {
-        if (!this.state.meals) {
-            this.getCookbookData();
-            return ( <ActivityIndicator animating={true} color={colors.turquoise_dark} size="large"/>)
-        } else {
-            return (
-                <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.themeContainer}>
-                        <View style={defaultStyles.defaultContentContainer}>
-                            <View style={styles.filter}>
-                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                    {
-                                        COOKBOOK_CATEGORIES.map((food) => {
-                                            return <Button onPress={() => this.setCategory(food.category)}
-                                                           color={ this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
-                                        })
-                                    }
-                                </ScrollView>
-                            </View>
-                            { this.renderFavMeals() }
-                            <View style={styles.foodList}>
-                                <ScrollView showsVerticalScrollIndicator={false}>
-                                    { this.renderMeals() }
-                                </ScrollView>
-                            </View>
-                        </View>
-                    <BottomNavigation />
+        return (<PaperProvider theme={lightTheme}>
+            <View style={defaultStyles.themeContainer}>
+                <View style={defaultStyles.defaultContentContainer}>
+                    <View style={styles.filter}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                            {
+                                COOKBOOK_CATEGORIES.map((food) => {
+                                    return <Button onPress={() => this.setCategory(food.category)}
+                                        color={this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
+                                })
+                            }
+                        </ScrollView>
                     </View>
-                </PaperProvider>
-            )
-        }
+                    <View style={styles.foodList}>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            {this.renderMeals()}
+                        </ScrollView>
+                    </View>
+                </View>
+                <BottomNavigation />
+            </View>
+        </PaperProvider>
+        );
     }
 
     setCategory(category) {
-        this.setState({category: category})
+        this.setState({ category: category })
     }
 
     setSelectedColor(category) {
@@ -93,24 +75,17 @@ export class VirtualCookbook extends Component {
     }
 
     renderMeals() {
-        if (this.state.meals[this.state.category]) {
-            return this.state.meals[this.state.category].map((meal) => {
-                return <MealCard meal={meal} onPress={() => { MealService.openMealInstruction(meal) }} key={meal.name}/>
+        if (this.state.meals.result) {
+            let meals = this.state.meals.result.filter(meal => {
+                return meal.category === this.state.category;
+            });
+    
+            return meals.map(meal => {
+                return <MealItem meal={meal} />
             })
-        }
-    }
 
-    renderFavMeals() {
-        if (getMealStore().favMeals.length > 0) {
-            return <View style={styles.favFoodList}>
-                <ScrollView horizontal={true}>
-                    { getMealStore().favMeals.map((meal) => <Card>
-                        <Card.Title title={meal.name} />
-                    </Card> )
-                    }
-                </ScrollView>
-            </View>
         }
+
     }
 
     navigationButtonPressed(button) {
@@ -126,8 +101,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     foodList: {
-        flex: 1,
-        flexDirection: 'column',
+        display: 'flex',
+        flexDirection: 'row',
         margin: 10
     },
 })
