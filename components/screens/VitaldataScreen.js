@@ -4,7 +4,6 @@ import {Button, Headline, List, Provider as PaperProvider, Text, TextInput} from
 import {lightTheme} from "../../configs/PaperTheme";
 import {VITALDATA} from "../../models/VitaldataModel";
 import {getDateService} from "../../service/DateService";
-import {getVitaldataStore} from "../../stores/VitaldataStore";
 
 
 /**
@@ -18,9 +17,9 @@ export class VitaldataScreen extends Component {
 
     render() {
         VitaldataService.getInstance().getVitaldata({date: getDateService().getSelectedDate()})
-            .then((result) => getVitaldataStore().vitaldataObj = result.data);
+            .then((result) => getVitaldataService().vitaldataObj = result.data);
 
-        console.log(getVitaldataStore().vitaldataObj)
+        console.log(getVitaldataService().vitaldataObj)
 
         return (
             <PaperProvider theme={lightTheme}>
@@ -33,8 +32,8 @@ export class VitaldataScreen extends Component {
                                         <List.Accordion title={data.title} id={data.id} left={() => <List.Icon icon={data.icon} />} >
                                             <View>
                                                 <Text>{data.unit}</Text>
-                                                <TextInput mode="outlined" value={(getVitaldataStore().vitaldataObj[data.id]) ? getVitaldataStore().vitaldataObj[data.id] : ""}
-                                                           onChangeText={(value) => getVitaldataStore().vitaldataObj[data.id] = value} />
+                                                <TextInput mode="outlined" value={(getVitaldataService().vitaldataObj[data.id]) ? getVitaldataService().vitaldataObj[data.id] : ""}
+                                                           onChangeText={(value) => getVitaldataService().vitaldataObj[data.id] = value} />
                                             </View>
                                         </List.Accordion>
                                     )
@@ -43,7 +42,7 @@ export class VitaldataScreen extends Component {
                         </List.AccordionGroup>
                     </List.Section>
                     <Button mode="contained" onPress={() =>
-                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateService().getSelectedDate(), data: getVitaldataStore().vitaldataObj})}>
+                        VitaldataService.getInstance().addVitaldataIfNotExists({date: getDateService().getSelectedDate(), data: getVitaldataService().vitaldataObj})}>
                         Speichern
                     </Button>
                 </ScrollView>

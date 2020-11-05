@@ -13,6 +13,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome5";
 import { Navigation } from 'react-native-navigation';
 import BottomNavigation from './../navigation/BottomNavigation';
 import GroupCard from './../cards/GroupCard';
+import PhysicalHealthList from '../lists/PhysicalHealthList';
 
 
 /**
@@ -37,7 +38,8 @@ export class HomeScreen extends Component {
                                 <MedicationList medications={getMedicationService().medicationSchedule} />
                         </GroupCard>
 
-                        <GroupCard title="Mahlzeiten">
+                        <GroupCard title="Wie geht es dir heute?">
+                            <PhysicalHealthList />
                         </GroupCard>
 
                         <View style={styles.flexRow}>
