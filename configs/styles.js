@@ -1,16 +1,15 @@
 import { colors } from "./colors";
-import {darkTheme, lightTheme} from "./PaperTheme";
+import { darkTheme, lightTheme } from "./PaperTheme";
 
 export const defaultStyles = {
     defaultContentContainer: {
-        flex: 1,
+        display: 'flex',
         flexDirection: 'column',
-        marginLeft: 10, 
-        marginRight: 10,
-        marginTop: 10
+        padding: 10,
+        backgroundColor: colors.background
     },
     themeContainer: {
-        backgroundColor: lightTheme.colors.backgroundColor,
+        backgroundColor: colors.white,
         height: '100%',
     },
     defaultShadow: {
@@ -27,5 +26,17 @@ export const defaultStyles = {
     },
     defaultBorderRadius: {
         borderRadius: 5
+    },
+    borderFull: {
+        borderRadius: 999
+    },
+    fontLight: {
+        fontFamily: "QuicksandLight"
+    },
+    fontNormal: {
+        fontFamily: "QuicksandRegular",
+    },
+    fontBold: {
+        fontFamily: "QuicksandBold",
     }
 }

@@ -5,18 +5,21 @@ let exampleMedication = new Medication();
 
 exampleMedication.name = "Ursofalk";
 exampleMedication.dosage = "250mg";
-exampleMedication.times = ["07:00", "21:00"];
 exampleMedication.status = "active";
-
-
+exampleMedication.description = "Einnahme eine halbe Stunde vor dem essen.";
 
 let exampleMedication2 = new Medication();
 
 exampleMedication2.name = "ACC";
 exampleMedication2.dosage = "600mg";
-exampleMedication2.times = ["21:00"];
 exampleMedication2.status = "active";
 
+let exampleMedication3 = new Medication();
+
+exampleMedication3.name = "Kaftrio";
+exampleMedication3.dosage = "75mg/50mg/100mg";
+exampleMedication3.description = "Kaftrio zu Fettreicher Mahlzeit einnehmen.";
+exampleMedication3.status = "active";
 
 /**
  * medications are stored here
@@ -36,7 +39,7 @@ export default {
                 {
                     id: "single_medication",
                     time: "07:00",
-                    medications: [exampleMedication]
+                    medications: [exampleMedication, exampleMedication, exampleMedication, exampleMedication,exampleMedication]
                 }
             ]
         },
@@ -66,7 +69,7 @@ export default {
                 {
                     id: "single_medication",
                     time: "07:00",
-                    medications: [exampleMedication, exampleMedication2]
+                    medications: [exampleMedication, exampleMedication2, exampleMedication3]
                 },
                 {
                     id: "single_medication",
@@ -85,7 +88,7 @@ export default {
                 {
                     id: "single_medication",
                     time: "09:00",
-                    medications: [exampleMedication]
+                    medications: [exampleMedication, exampleMedication3]
                 },
                 {
                     id: "single_medication",
@@ -110,7 +113,7 @@ export default {
                 {
                     id: "single_medication",
                     time: "07:00",
-                    medications: [exampleMedication]
+                    medications: [exampleMedication, exampleMedication3]
                 }
             ]
         },

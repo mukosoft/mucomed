@@ -8,11 +8,16 @@ import {action, observable} from "mobx";
 export class DateService {
     @observable calendarSelection = new Date();
     @observable calendarSelectionDateId;
+    @observable time;
 
     @action
     setCalendarSelection(date) {
         this.calendarSelection = date;
         this.setCalendarSelectionDateId(date);
+    }
+
+    @action setTime(time) {
+        this.time = time;
     }
 
     @action

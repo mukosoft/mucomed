@@ -1,85 +1,98 @@
+import { colors } from '@configs/colors';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
+
 import { getDateService } from '../../service/DateService';
-import { colors } from '@configs/colors';
+import { defaultStyles } from './../../configs/styles';
 import { DateTimeConverterService } from './../../service/DateTimeConverterService';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import {defaultStyles} from './../../configs/styles';
 
 @observer
 export default class CalendarItem extends Component {
+
+    state = {
+        animMargin: new Animated.Value(0)
+    }
+    
     render() {
         const date = this.props.date;
+        let selected = false;
 
-        if (
-            this.props.date.getDay() === getDateService().calendarSelection.getDay()
-        ) {
+        if (this.props.date.getDay() === getDateService().calendarSelection.getDay()) {
             style = styles.selectedCalendarDate;
-            styleTitle = styles.selectedCalendarDateTitle;
-            styleText = styles.selectedCalendarDateText;
+            styleText = styles.CalendarDateSelectedText;
+            selected = true;
+            this.animateMarginTop(10);
         } else {
             style = styles.calendarDate;
-            styleTitle = styles.calendarDateTitle;
-            styleText = styles.calendarDateText;
+            styleText = styles.calendarDateUnselectedText;
+            this.animateMarginTop(0);
         }
 
         return (
-            <TouchableOpacity onPress={() => this.handlePress(this.props.date)}>
-                <View
-                style={[style, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}
-                key={this.props.date}>
-                    <Text style={styleTitle}>{DateTimeConverterService.getDateName(date)}</Text>
-                    <Text style={styleText}>{DateTimeConverterService.formatDate(date, false)}</Text>
+            <TouchableOpacity onPress={() => getDateService().setCalendarSelection(date)}>
+                <View style={styles.container}>
+                    <Animated.View
+                    style={[style, defaultStyles.defaultBorderRadius, { marginTop: this.state.animMargin }]}
+                    key={this.props.date}>
+                        <Text style={[styles.calendarDateText, styleText]}>{DateTimeConverterService.formatDate(date, false)}</Text>
+                    </Animated.View>
+                    <Text style={[styles.calendarDayText, defaultStyles.fontLight]}>{DateTimeConverterService.getDateName(date)}</Text>
                 </View>
-            </TouchableOpacity>
-           
+            </TouchableOpacity> 
         );
     }
 
-    handlePress(date) {
-        getDateService().setCalendarSelection(date);
+    animateMarginTop(px) {
+        Animated.timing(this.state.animMargin, {
+            toValue: px,
+            duration: 200
+        }).start();
     }
 }
 
 
 const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center'
+    },
     calendarDate: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.secondary,
         margin: 5,
         padding: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 100,
-        aspectRatio: 1
+        height: 50,
+        aspectRatio: 1,
     },
     selectedCalendarDate: {
         backgroundColor: colors.turquoise_light,
         margin: 5,
-        padding: 15,
+        padding: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 100,
+        height: 60,
         aspectRatio: 1
     },
-    calendarDateTitle: {
-        fontSize: 14,
-        color: colors.turquoise_light,
+    calendarDayText: {  
+        fontSize: 10,
         fontWeight: '100',
-    },
-    selectedCalendarDateTitle: {
-        fontSize: 14,
-        color: colors.white,
-        fontWeight: '100',
+        color: colors.text,
+        opacity: 0.35,
     },
     calendarDateText: {
         fontWeight: '900',
-        fontSize: 20,
+        fontSize: 14
+    },
+    calendarDateUnselectedText: {
         color: colors.turquoise_light,
     },
-    selectedCalendarDateText: {
-        fontWeight: '900',
-        fontSize: 20,
+    CalendarDateSelectedText: {
         color: colors.white,
     },
 });

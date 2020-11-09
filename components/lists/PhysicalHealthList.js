@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
 
     activeIcon: {
-        color: colors.turquoise_light,
+        color: colors.secondary,
     },
     inactiveIcon: {
         color: colors.grey_light
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     activeText: {
-        color: colors.turquoise_light
+        color: colors.secondary
     },
     inactiveText: {
         color: colors.grey_light

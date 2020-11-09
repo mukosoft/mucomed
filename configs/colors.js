@@ -4,10 +4,15 @@
  * @author Dominique Börner
  */
 export const colors = {
+    background: "#F4F4FA",
+    primary: "#1E7577",
+    secondary: "#e1eded",
+    border: "#d6d6d6",
+    text: "#222",
+
     orange: '#F27E00',
     white: '#ffffff',
     turquoise_light: '#1E7577',
-    turquoise_dark: '#1C494F',
 
     red: '#A42929',
     yellow: '#B79D42',
@@ -16,4 +21,10 @@ export const colors = {
 
     grey_dark: '#222',
     grey_light: '#d6d6d6',
-}
+};
+
+export const darkColors = {
+    ...colors,
+    background: "#1C494F"
+
+};

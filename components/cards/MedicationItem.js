@@ -1,11 +1,12 @@
+import { observer } from "mobx-react";
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { colors } from './../../configs/colors';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Card, Menu, Text } from 'react-native-paper';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
-import { defaultStyles } from './../../configs/styles';
+
 import { getMedicationService } from "../../service/MedicationService";
-import { observer } from "mobx-react";
+import { colors } from './../../configs/colors';
+import { defaultStyles } from './../../configs/styles';
 
 @observer
 export default class MedicationItem extends Component {
@@ -23,10 +24,12 @@ export default class MedicationItem extends Component {
 
         return (
             <TouchableOpacity>
-                <View style={[styles.medicationCard, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
+                <View style={[styles.medicationCard, defaultStyles.defaultBorderRadius]}>
                     <FAIcon name="pills" style={styles.icon} />
-                    <Text style={styles.name}>{this.props.medication.name}</Text>
-                    <Text style={styles.dosage}>{this.props.medication.dosage}</Text>
+                    <View>
+                        <Text style={styles.name}>{this.props.medication.name}, <Text style={styles.dosage}>{this.props.medication.dosage}</Text></Text>
+                        <Text style={styles.description}>{this.props.medication.description}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
@@ -35,13 +38,12 @@ export default class MedicationItem extends Component {
 
 const styles = StyleSheet.create({
     medicationCard: {
-        width: 100,
-        aspectRatio: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
+        display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: colors.white,
         margin: 5,
-        padding: 0,
+        padding: 10,
     },
     medicationCardDisabled: {
         width: 120,
@@ -52,15 +54,24 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: 32,
-        color: colors.turquoise_light
+        color: colors.primary,
+        margin: 10
     },
     name: {
-        fontSize: 14,
-        color: colors.turquoise_light,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: colors.primary,
         marginTop: 5, marginBottom: 0
     },
     dosage: {
-        fontSize: 10,
+        color: colors.primary,
+        fontSize: 12,
+    },
+    description: {
+        marginTop: 10,
+        marginBottom: 10,
+        color: colors.primary,
+        fontSize: 14
     },
     button: {
         color: colors.white

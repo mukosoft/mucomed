@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, View, StyleSheet } from "react-native";
-import { Avatar, Button, Card, IconButton, Menu, Text } from "react-native-paper";
 import { colors } from "@configs/colors";
 import { observer } from "mobx-react";
+import React, { Component } from 'react';
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { Button, Text } from "react-native-paper";
+
 import { getDateService } from "../../service/DateService";
 import { getMedicationService } from '../../service/MedicationService';
-import { MEDICATION_STATUS } from './../../models/Medication';
 import MedicationItem from '../cards/MedicationItem';
+import { MEDICATION_STATUS } from './../../models/Medication';
+import FilterButton from './../inputs/FilterButton';
 
 /**
  * Create a Horizontal scrollable list with medications inside.
@@ -22,16 +24,14 @@ export default class MedicationList extends Component {
 
     render() {
         return (
-            <SafeAreaView key="medication_areaView">
-                <ScrollView horizontal={true}
-                    showsHorizontalScrollIndicator={false}>
-                    {this.renderFilter()}
+            <SafeAreaView>
+                    <View style={styles.filterContainer}>
+                        {this.renderFilter()}
+                    </View>
+                <ScrollView showsHorizontalScrollIndicator={false}>
+                        {this.showMedications()}
                 </ScrollView>
-                <ScrollView horizontal={true}
-                    showsHorizontalScrollIndicator={false}>
-                    {this.showMedications()}
-                </ScrollView>
-            </SafeAreaView>
+            </SafeAreaView >
         );
     }
 
@@ -62,7 +62,7 @@ export default class MedicationList extends Component {
         };
 
         return this.getFilterTimesFromSchedule().map(time => {
-            
+
             if (this.state.timeToShow === time) {
                 activeButton.style = styles.filterButtonActiveStyle;
                 activeButton.labelStyle = styles.filterButtonActiveLabelStyle;
@@ -71,8 +71,8 @@ export default class MedicationList extends Component {
                 activeButton.labelStyle = styles.filterButtonNonActiveLabelStyle;
             }
 
-            return <Button mode="contained" style={[styles.filterButtonStyle, activeButton.style]} labelStyle={activeButton.labelStyle}
-                onPress={() => this.setState({ timeToShow: time })}>{time}</Button>
+            return <FilterButton style={activeButton.style}
+                onPress={() => this.setState({ timeToShow: time })}><Text style={activeButton.labelStyle}>{time}</Text></FilterButton>
         })
     }
 
@@ -87,7 +87,7 @@ export default class MedicationList extends Component {
                             return <MedicationItem medication={medication} disabled={false} />
                         } else {
                             // TODO: show disabled medications, but change their styling
-                             // return <MedicationItem medication={medication} disabled={true} />
+                            // return <MedicationItem medication={medication} disabled={true} />
                         }
                     })
                 })
@@ -104,25 +104,26 @@ export default class MedicationList extends Component {
 }
 
 const styles = StyleSheet.create({
-    filterButtonStyle: {
-        paddingLeft: 2.5, paddingRight: 2.5,
-        margin: 5,
-    },
     filterButtonActiveStyle: {
-        backgroundColor: colors.turquoise_light,
-        elevation: 0
-    },    
-    filterButtonActiveLabelStyle: {
-        color: colors.white,
     },
     filterButtonNonActiveStyle: {
-        backgroundColor: colors.white,
-    },    
+    },
+    filterButtonActiveLabelStyle: {
+        fontWeight: 'bold',
+        color: colors.primary,
+    },
     filterButtonNonActiveLabelStyle: {
-        color: colors.turquoise_light,
+        color: colors.primary,
+    },
+    filterContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%'
     },
     row: {
-        width: 300,
+        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

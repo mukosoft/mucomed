@@ -8,5 +8,6 @@ export default class Medication {
     status = MEDICATION_STATUS.ACTIVE;
     name = "";
     dosage = "";
+    description = "";
     times = [];
 }

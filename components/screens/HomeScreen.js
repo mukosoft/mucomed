@@ -1,20 +1,21 @@
+import HorizontalCalendar from "@components/HorizontalCalendar";
+import { colors } from "@configs/colors";
+import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Avatar, Button, Card, IconButton, Provider as PaperProvider, Text } from "react-native-paper";
-import { colors } from "@configs/colors";
-import HorizontalCalendar from "@components/HorizontalCalendar";
-import { darkTheme, lightTheme } from "../../configs/PaperTheme";
-import { observer } from "mobx-react";
-import { defaultStyles } from "../../configs/styles";
-import { getUiService } from "../../service/UiService";
-import { getMedicationService } from '../../service/MedicationService';
-import MedicationList from './../lists/MedicationList';
-import FAIcon from "react-native-vector-icons/FontAwesome5";
 import { Navigation } from 'react-native-navigation';
-import BottomNavigation from './../navigation/BottomNavigation';
-import GroupCard from './../cards/GroupCard';
-import PhysicalHealthList from '../lists/PhysicalHealthList';
+import { Avatar, Button, Card, IconButton, Provider as PaperProvider, Text } from "react-native-paper";
+import FAIcon from "react-native-vector-icons/FontAwesome5";
 
+import { darkTheme, lightTheme } from "../../configs/PaperTheme";
+import { defaultStyles } from "../../configs/styles";
+import { getMedicationService } from '../../service/MedicationService';
+import { getUiService } from "../../service/UiService";
+import PhysicalHealthList from '../lists/PhysicalHealthList';
+import GroupCard from './../cards/GroupCard';
+import Layout from './../container/Layout';
+import MedicationList from './../lists/MedicationList';
+import BottomNavigation from './../navigation/BottomNavigation';
 
 /**
  * Homescreen
@@ -32,17 +33,19 @@ export class HomeScreen extends Component {
         return (
             <PaperProvider theme={lightTheme}>
                 <View style={defaultStyles.themeContainer}>
+                    
+                    <HorizontalCalendar />
                     <ScrollView style={defaultStyles.defaultContentContainer}>
-                        <HorizontalCalendar />
-                        <GroupCard title="Medikamente">
-                                <MedicationList medications={getMedicationService().medicationSchedule} />
-                        </GroupCard>
+                        <Layout>
+                            <MedicationList medications={getMedicationService().medicationSchedule} />
+                        </Layout>
+                        
 
-                        <GroupCard title="Wie geht es dir heute?">
+                        {/* <GroupCard title="Wie geht es dir heute?">
                             <PhysicalHealthList />
-                        </GroupCard>
+                        </GroupCard> */}
 
-                        <View style={styles.flexRow}>
+                        {/* <View style={styles.flexRow}>
                             <Card style={[styles.actionCard, defaultStyles.defaultShadow]}>
                                 <FAIcon name="heart" style={styles.actionCardIcon} />
                                 <Text style={styles.actionCardText}>Vitaldaten</Text>
@@ -55,7 +58,7 @@ export class HomeScreen extends Component {
                                 <FAIcon name="pills" style={styles.actionCardIcon} />
                                 <Text style={styles.actionCardText}>Kreon berechnen</Text>
                             </Card>
-                        </View>
+                        </View> */}
 
                         {/**<Card style={[styles.contentCard, defaultStyles.defaultShadow]}>
                             <Card.Title title={getUiService().getTranslation('vitaldata')} left={() => <IconButton icon="heart" />} />
@@ -69,14 +72,6 @@ export class HomeScreen extends Component {
                 </View>
             </PaperProvider>
         )
-    }
-
-
-    navigationButtonPressed(button) {
-        if (button.buttonId === 'openSettings') {
-            // TODO: switch to SettingsScreen
-            alert("open_settings_screen")
-        }
     }
 }
 
