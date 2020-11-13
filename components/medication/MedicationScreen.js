@@ -1,29 +1,25 @@
-import HorizontalCalendar from "@components/HorizontalCalendar";
-import { colors } from "@configs/colors";
-import { observer } from "mobx-react";
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from "react-native";
+import { observer } from "mobx-react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
-import { Avatar, Button, Card, IconButton, Provider as PaperProvider, Text } from "react-native-paper";
-import FAIcon from "react-native-vector-icons/FontAwesome5";
+import { Provider as PaperProvider } from "react-native-paper";
 
-import { darkTheme, lightTheme } from "../../configs/PaperTheme";
-import { defaultStyles } from "../../configs/styles";
-import { getMedicationService } from '../../service/MedicationService';
-import { getUiService } from "../../service/UiService";
-import PhysicalHealthList from '../lists/PhysicalHealthList';
-import GroupCard from './../cards/GroupCard';
-import Layout from './../container/Layout';
-import MedicationList from './../lists/MedicationList';
-import BottomNavigation from './../navigation/BottomNavigation';
+import BottomNavigation from '@navigation/BottomNavigation';
+import HorizontalCalendar from "@components/medication/HorizontalCalendar";
+import MedicationList from '@components/medication/MedicationList';
+import { lightTheme } from "@configs/PaperTheme";
+import { defaultStyles } from "@configs/styles";
+import { colors } from "@configs/colors";
+import { getMedicationService } from '@service/MedicationService';
+
 
 /**
- * Homescreen
+ * Renders the screen, containing the medications.
  *
  * @author Dominique Börner
  */
 @observer
-export class HomeScreen extends Component {
+export class MedicationScreen extends Component {
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
@@ -33,13 +29,10 @@ export class HomeScreen extends Component {
         return (
             <PaperProvider theme={lightTheme}>
                 <View style={defaultStyles.themeContainer}>
-                    
                     <HorizontalCalendar />
                     <ScrollView style={defaultStyles.defaultContentContainer}>
-                        <Layout>
-                            <MedicationList medications={getMedicationService().medicationSchedule} />
-                        </Layout>
-                        
+                        <MedicationList medications={getMedicationService().medicationSchedule} />
+
 
                         {/* <GroupCard title="Wie geht es dir heute?">
                             <PhysicalHealthList />
@@ -60,13 +53,13 @@ export class HomeScreen extends Component {
                             </Card>
                         </View> */}
 
-                        {/**<Card style={[styles.contentCard, defaultStyles.defaultShadow]}>
+                        {/* <Card style={[styles.contentCard, defaultStyles.defaultShadow]}>
                             <Card.Title title={getUiService().getTranslation('vitaldata')} left={() => <IconButton icon="heart" />} />
                             <Card.Content>
                                 <Button mode="contained" style={defaultStyles.defaultButton} onPress={() => VitaldataService.openVitaldataWindow()}>{getUiService().getTranslation('add_vitaldata')}</Button>
                                 <Button mode="contained" style={defaultStyles.defaultButton}>{getUiService().getTranslation('add_doctor_report')}</Button>
                             </Card.Content>
-                        </Card>**/}
+                        </Card> */}
                     </ScrollView>
                     <BottomNavigation />
                 </View>

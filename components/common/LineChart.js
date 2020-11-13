@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
-import {LineChart} from "react-native-chart-kit";
 import {ScrollView} from "react-native";
-import {colors} from "../../configs/colors";
+import {LineChart as RNLineChart} from "react-native-chart-kit";
+
+import {colors} from "@configs/colors";
 
 /**
- * FEV1 Chart
- *
- *
- * @property data
- * @property chartType 'direct' or 'history'
+ * Renders a LineChart based on data. 
+ * The data must be in a 1:1 relationship to each other (e.g. one date - one data).
+ * 
+ * This uses the react-native chart kit (https://github.com/indiespirit/react-native-chart-kit)
+ * 
  * @author Dominique Börner
  */
-export default class FEV1Chart extends Component {
+export default class LineChart extends Component {
     data = ["21/02/2020", "27/04/2020", "18/05/2020", "25/06/2020", "10/07/2020", "13/07/2020", "23/07/2020", "04/08/2020", "12/08/2020", "18/08/2020"];
 
     render() {
@@ -20,7 +21,7 @@ export default class FEV1Chart extends Component {
             return(
                 <ScrollView horizontal={true}
                             showsHorizontalScrollIndicator={false}>
-                    <LineChart
+                    <RNLineChart
                         data={{
                             labels: ["21/02/2020", "27/04/2020", "18/05/2020", "25/06/2020", "10/07/2020", "13/07/2020", "23/07/2020", "04/08/2020", "12/08/2020", "18/08/2020"],
                             datasets: [

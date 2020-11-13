@@ -1,20 +1,22 @@
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import TouchInteractionContainer from '../interaction/TouchInteractionContainer';
-import { getVitaldataService } from '../../service/VitaldataService';
-import { colors } from './../../configs/colors';
+import { View, Text, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
+
+import TouchInteractionContainer from '@interaction/TouchInteractionContainer';
+import { getVitaldataService } from '@service/VitaldataService';
+import { colors } from '@configs/colors';
 
 /**
  * Best condition on top,
  * baddest Condition on Bottom
  * 
  * faIcon uses fontAwesome5
+ * 
+ * TODO: make a class
  */
+
 export const HEALTH_CONDITIONS = [
     {
         id: "very_good",
@@ -33,7 +35,11 @@ export const HEALTH_CONDITIONS = [
     }
 ].reverse();
 
-
+/**
+ * Renders an element to request the current state of health.
+ * 
+ * @author Dominique Börner
+ */
 @observer
 export default class PhysicalHealthList extends Component {
     render() {

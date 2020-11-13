@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { Headline, Provider as PaperProvider, Text } from "react-native-paper";
-import { lightTheme } from "../../configs/PaperTheme";
-import { colors } from "../../configs/colors";
+import { Image, ScrollView, StyleSheet, View, Text } from "react-native";
+import { Headline, Provider as PaperProvider } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { getUiService } from '../../service/UiService';
-import { defaultStyles } from './../../configs/styles';
+
+import { getUiService } from '@service/UiService';
+import { defaultStyles } from '@configs/styles';
+import { colors } from "@configs/colors";
+import { lightTheme } from "@configs/PaperTheme";
 
 
 /**
- * Meal instruction screen
+ * Renders the screen, showing the instruction for 
+ * preparing a meal.
  *
  * @author Dominique Börner
  */
-export class MealInstructionScreen extends Component {
+export class RecipeInstructionScreen extends Component {
     meal;
 
     countInstruction = 0;

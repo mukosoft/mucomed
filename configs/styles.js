@@ -1,12 +1,11 @@
 import { colors } from "./colors";
-import { darkTheme, lightTheme } from "./PaperTheme";
 
 export const defaultStyles = {
     defaultContentContainer: {
         display: 'flex',
         flexDirection: 'column',
         padding: 10,
-        backgroundColor: colors.background
+        backgroundColor: colors.white,
     },
     themeContainer: {
         backgroundColor: colors.white,

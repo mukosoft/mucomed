@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {Button, Card, Checkbox, Headline, Provider as PaperProvider, Text, TextInput} from "react-native-paper";
-import days from "../../models/Days";
-import {lightTheme} from "../../configs/PaperTheme";
+import days from "@models/Days";
+import {lightTheme} from "@configs/PaperTheme";
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import {DateTimeConverterService} from "../../service/DateTimeConverterService";
-import {colors} from "../../configs/colors";
-import Medication from "../../models/Medication";
-import {getMedicationService} from "../../service/MedicationService";
-import {Navigation} from "react-native-navigation";
-import {defaultStyles} from "../../configs/styles";
+import {DateTimeConverterService} from "@service/DateTimeConverterService";
+import {colors} from "@configs/colors";
+import {defaultStyles} from "@configs/styles";
 
 
 /**
@@ -17,7 +14,7 @@ import {defaultStyles} from "../../configs/styles";
  *
  * @author Dominique Börner
  */
-export class AddMedicationScreen extends Component {
+export class MedicationCreationScreen extends Component {
 
     state = {
         name: "",

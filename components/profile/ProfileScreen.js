@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import {Image, ScrollView, StyleSheet, View} from "react-native";
-import {ActivityIndicator, Button, Provider as PaperProvider, Text, Title} from "react-native-paper";
-import {darkTheme, lightTheme} from "../../configs/PaperTheme";
-import MealService from "../../service/MealService";
-import FEV1Chart from "../charts/FEV1Chart";
-import {defaultStyles} from "../../configs/styles";
-import {colors} from "../../configs/colors";
-import {getUiService} from "../../service/UiService";
+import React, { Component } from 'react';
+import { Image, ScrollView, StyleSheet, View, Text } from "react-native";
+import { ActivityIndicator, Button, Provider as PaperProvider, Title } from "react-native-paper";
 import { Navigation } from 'react-native-navigation';
-import BottomNavigation from './../navigation/BottomNavigation';
+
+import BottomNavigation from '@navigation/BottomNavigation';
+import LineChart from "@components/common/LineChart";
+import MealService from "@service/MealService";
+import { getUiService } from "@service/UiService";
+import { defaultStyles } from "@configs/styles";
+import { lightTheme } from "@configs/PaperTheme";
+import { colors } from "@configs/colors";
 
 
 /**
- * Profile screen
+ * Renders the user profile.
  *
  * @author Dominique Börner
  */
@@ -41,7 +42,7 @@ export class ProfileScreen extends Component {
                             <ScrollView>
                                 { (!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe()) }
                                 <Title>Lungenfunktion - FEV1</Title>
-                                <FEV1Chart chartType={this.state.fev_chartType}/>
+                                <LineChart chartType={this.state.fev_chartType}/>
                                 <Title>{getUiService().getTranslation('medication')}</Title>
                                 <View>
                                     <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>

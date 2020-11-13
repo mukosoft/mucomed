@@ -1,18 +1,15 @@
-import { colors } from "@configs/colors";
-import { observer } from "mobx-react";
 import React, { Component } from 'react';
-import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Image, SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import { observer } from "mobx-react";
 
-import { getDateService } from "../../service/DateService";
-import { getMedicationService } from '../../service/MedicationService';
-import MedicationItem from '../cards/MedicationItem';
-import { MEDICATION_STATUS } from './../../models/Medication';
-import FilterButton from './../inputs/FilterButton';
+import TimeFilter from "@components/common/TimeFilter";
+import MedicationItem from '@components/medication/MedicationItem';
+import { getDateService } from "@service/DateService";
+import { getMedicationService } from '@service/MedicationService';
+import { MEDICATION_STATUS } from '@models/Medication';
 
 /**
- * Create a Horizontal scrollable list with medications inside.
- * Each medication can be filtered by time.
+ * Renders a list of medications and a filter element.
  *
  * @author Dominique Börner
  */
@@ -26,7 +23,7 @@ export default class MedicationList extends Component {
         return (
             <SafeAreaView>
                     <View style={styles.filterContainer}>
-                        {this.renderFilter()}
+                        <TimeFilter times={this.getFilterTimesFromSchedule()}/>
                     </View>
                 <ScrollView showsHorizontalScrollIndicator={false}>
                         {this.showMedications()}
@@ -55,32 +52,11 @@ export default class MedicationList extends Component {
         return filterTimes;
     }
 
-    renderFilter() {
-        let activeButton = {
-            style: "",
-            labelStyle: ""
-        };
-
-        return this.getFilterTimesFromSchedule().map(time => {
-
-            if (this.state.timeToShow === time) {
-                activeButton.style = styles.filterButtonActiveStyle;
-                activeButton.labelStyle = styles.filterButtonActiveLabelStyle;
-            } else {
-                activeButton.style = styles.filterButtonNonActiveStyle;
-                activeButton.labelStyle = styles.filterButtonNonActiveLabelStyle;
-            }
-
-            return <FilterButton style={activeButton.style}
-                onPress={() => this.setState({ timeToShow: time })}><Text style={activeButton.labelStyle}>{time}</Text></FilterButton>
-        })
-    }
-
     showMedications() {
         if (getMedicationService().medicationSchedule) {
             if (this.getCurrentMedication().medicationList.length > 0) {
                 return this.getCurrentMedication().medicationList.filter(singleMedication => {
-                    return singleMedication.time === this.state.timeToShow;
+                    return singleMedication.time === getDateService().medicationTime;
                 }).map(singleMedication => {
                     return singleMedication.medications.map(medication => {
                         if (medication.status === MEDICATION_STATUS.ACTIVE) {
@@ -104,21 +80,10 @@ export default class MedicationList extends Component {
 }
 
 const styles = StyleSheet.create({
-    filterButtonActiveStyle: {
-    },
-    filterButtonNonActiveStyle: {
-    },
-    filterButtonActiveLabelStyle: {
-        fontWeight: 'bold',
-        color: colors.primary,
-    },
-    filterButtonNonActiveLabelStyle: {
-        color: colors.primary,
-    },
     filterContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         width: '100%'
     },

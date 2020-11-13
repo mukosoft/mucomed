@@ -1,10 +1,16 @@
 import React, {Component} from "react";
-import {Headline, Provider as PaperProvider, Text} from "react-native-paper";
-import {lightTheme} from "../../configs/PaperTheme";
 import {Image, Linking, ScrollView, StyleSheet, View} from "react-native";
-import {colors} from "../../configs/colors";
+import {Headline, Provider as PaperProvider, Text} from "react-native-paper";
 
-export default class InformationPostScreen extends Component {
+import {lightTheme} from "@configs/PaperTheme";
+import {colors} from "@configs/colors";
+
+/**
+ * Renders the screen for displaying the article of an information
+ * 
+ * @author Dominique Börner
+ */
+export default class InformationArticleScreen extends Component {
     render() {
         return( <PaperProvider theme={lightTheme}>
                 <View style={styles.container}>

@@ -1,4 +1,4 @@
-import {action, observable} from "mobx";
+import { action, observable } from "mobx";
 
 /**
  * Store for date and times.
@@ -8,7 +8,7 @@ import {action, observable} from "mobx";
 export class DateService {
     @observable calendarSelection = new Date();
     @observable calendarSelectionDateId;
-    @observable time;
+    @observable medicationTime;
 
     @action
     setCalendarSelection(date) {
@@ -16,8 +16,8 @@ export class DateService {
         this.setCalendarSelectionDateId(date);
     }
 
-    @action setTime(time) {
-        this.time = time;
+    @action setMedicationTime(medicationTime) {
+        this.medicationTime = medicationTime;
     }
 
     @action
@@ -37,6 +37,10 @@ export class DateService {
         const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
         const selectedDate = days[dateObj.getDay()];
         this.calendarSelectionDateId = selectedDate;
+    }
+
+    convertDateToTimeString(date:Date) {
+        return `${date.getUTCHours()} : ${date.getUTCMinutes()}`;
     }
 
 }

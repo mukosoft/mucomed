@@ -1,16 +1,13 @@
-import { colors } from '@configs/colors';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { observer } from 'mobx-react';
 
-import { CALENDAR_DATE_AMOUNT } from './../configs/userconfig';
-import CalendarItem from './cards/CalendarItem';
-import Layout from './container/Layout';
+import { CALENDAR_DATE_AMOUNT } from '@configs/userconfig';
+import CalendarItem from '@components/medication/CalendarItem';
 
 /**
  * Create a Horizontal ScrollView with Cards inside. Each card represents a date.
  * If a card is clicked, DateService gets updated.
- *
  *
  * @author Dominique Börner
  */
@@ -19,7 +16,7 @@ export default class HorizontalCalendar extends Component {
     render() {
         return (
             <SafeAreaView>
-                <Layout style={styles.layout}>
+                <View style={styles.layout}>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
@@ -29,7 +26,7 @@ export default class HorizontalCalendar extends Component {
                         }}>
                         {this.renderLastDays()}
                     </ScrollView>
-                </Layout>
+                </View>
             </SafeAreaView>
         );
     }

@@ -2,11 +2,37 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
-
 import { colors } from './../../configs/colors';
 import { getUiService } from './../../service/UiService';
-import BottomTabNavigation from './BottomTabNavigation';
 import NavigationButton from './NavigationButton';
+
+export const BottomTabNavigation = [
+    {
+        componentId: "MedicationScreen",
+        faIcon: "calendar",
+        text: "Kalendar"
+    },
+    {
+        componentId: "RecipeBookScreen",
+        faIcon: "utensils",
+        text: "Kochbuch"
+    },
+    {
+        componentId: "InformationScreen",
+        faIcon: "info",
+        text: "Infos"
+    },
+    {
+        componentId: "ProfilScreen",
+        faIcon: "user",
+        text: "Profil"
+    },
+    {
+        componentId: "ProfilScreen",
+        faIcon: "cogs",
+        text: "Einstellungen"
+    }
+];
 
 @observer
 export default class BottomNavigation extends Component {
@@ -35,6 +61,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         padding: 10,
         borderTopWidth: 0.25,
-        borderColor: colors.turquoise_light
+        borderColor: colors.turquoise_light,
     },
 })

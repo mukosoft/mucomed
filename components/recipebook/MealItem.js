@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-paper';
-import { defaultStyles } from './../../configs/styles';
-import { colors } from './../../configs/colors';
-import { getUiService } from '../../service/UiService';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 
+import { defaultStyles } from '@configs/styles';
+import { colors } from '@configs/colors';
+import { getUiService } from '@service/UiService';
+
+/**
+ * Renders an element for displaying a meal. 
+ * Pressing on this element opens the MealInstructionScreen.
+ * 
+ * @author Dominique Börner
+ */
 export default class MealItem extends Component {
     render() {
         return (

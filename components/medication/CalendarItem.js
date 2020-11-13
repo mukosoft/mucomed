@@ -1,13 +1,20 @@
-import { colors } from '@configs/colors';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { observer } from 'mobx-react';
 
-import { getDateService } from '../../service/DateService';
-import { defaultStyles } from './../../configs/styles';
-import { DateTimeConverterService } from './../../service/DateTimeConverterService';
+import { colors } from '@configs/colors';
+import { defaultStyles } from '@configs/styles';
+import { getDateService } from '@service/DateService';
+import { DateTimeConverterService } from '@service/DateTimeConverterService';
 
+/**
+ * Renders a single element of the calendar.
+ * 
+ * If the CalendarItem element is clicked, dateService sets the date
+ * for showing content.
+ * 
+ * @author Dominique Börner
+ */
 @observer
 export default class CalendarItem extends Component {
 

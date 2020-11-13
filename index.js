@@ -1,32 +1,33 @@
-
+// Screens
+import { LogBox } from "react-native";
 // Components
 import { Navigation } from "react-native-navigation";
 
+import { ProfileScreen } from "@components/profile/ProfileScreen";
+import { MedicationScreen } from '@components/medication/MedicationScreen';
+import { MedicationCreationScreen } from "@components/medication/MedicationCreationScreen";
+import { InformationScreen } from "@components/information/InformationScreen";
+import { InformationArticleScreen } from "@components/information/InformationArticleScreen";
+import { RecipeBookScreen } from '@components/recipebook/RecipeBookScreen';
+import { RecipeInstructionScreen } from '@components/recipebook/RecipeInstructionScreen';
+import { VitaldataScreen } from "@components/vitaldata/VitaldataScreen";
 // Services
 import { getDateService } from "./service/DateService";
+import { getMedicationService } from "./service/MedicationService";
 import { getUiService } from "./service/UiService";
 
-// Screens
-import { HomeScreen } from "@components/screens/HomeScreen";
-import { VirtualCookbook } from "@components/screens/VirtualCookbook";
-import { InformationScreen } from "./components/screens/InformationScreen";
-import { ProfileScreen } from "./components/screens/ProfileScreen";
-import { AddMedicationScreen } from "./components/screens/AddMedicationScreen";
-import { VitaldataScreen } from "./components/screens/VitaldataScreen";
-import { MealInstructionScreen } from "./components/screens/MealInstructionScreen";
-import { InformationPostScreen } from "./components/screens/InformationPostScreen";
-import { getMedicationService } from "./service/MedicationService";
-
 // register screens to Navigation, first component is rendered first
-Navigation.registerComponent('HomeScreen', () => HomeScreen);
-Navigation.registerComponent('CookbookScreen', () => VirtualCookbook);
+Navigation.registerComponent('MedicationScreen', () => MedicationScreen);
+Navigation.registerComponent('RecipeBookScreen', () => RecipeBookScreen);
 Navigation.registerComponent('InformationScreen', () => InformationScreen);
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
-Navigation.registerComponent('AddMedicationScreen', () => AddMedicationScreen);
+Navigation.registerComponent('MedicationCreationScreen', () => MedicationCreationScreen);
 Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
-Navigation.registerComponent('MealInstructionScreen', () => MealInstructionScreen);
-Navigation.registerComponent('InformationPostScreen', () => InformationPostScreen);
+Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionScreen);
+Navigation.registerComponent('InformationArticleScreen', () => InformationArticleScreen);
 
+
+LogBox.ignoreAllLogs()
 
 // initialize services
 getDateService().init();
@@ -49,7 +50,7 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            name: 'HomeScreen',
+                            name: 'MedicationScreen',
                             options: {
                                 topBar: {
                                     visible: false

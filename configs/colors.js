@@ -4,7 +4,7 @@
  * @author Dominique Börner
  */
 export const colors = {
-    background: "#F4F4FA",
+    background: "#fff",
     primary: "#1E7577",
     secondary: "#e1eded",
     border: "#d6d6d6",

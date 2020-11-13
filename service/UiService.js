@@ -3,7 +3,7 @@ import {darkTheme, lightTheme} from "../configs/PaperTheme";
 import {LANGUAGES} from "../models/Languages";
 import i13n from "../configs/i13n";
 import { Navigation } from "react-native-navigation";
-import BottomTabNavigation from "../components/navigation/BottomTabNavigation";
+import { BottomTabNavigation } from "../components/navigation/BottomNavigation";
 
 /**
  * Stores basic UI configurations, handles translation and theme

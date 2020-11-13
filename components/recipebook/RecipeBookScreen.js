@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
-import { ActivityIndicator, Button, Card, Provider as PaperProvider } from "react-native-paper";
-import { colors } from "@configs/colors";
-import { darkTheme, lightTheme } from "../../configs/PaperTheme";
 import { observer } from "mobx-react";
-import { getMealStore } from "../../stores/MealStore";
-import { defaultStyles } from "../../configs/styles";
-import { COOKBOOK_CATEGORIES } from "../../models/FilterData";
-import { getUiService } from "../../service/UiService";
 import { Navigation } from 'react-native-navigation';
-import BottomNavigation from './../navigation/BottomNavigation';
-import { API_BASE_URL } from './../../configs/config';
-import MealItem from '../cards/MealItem';
+import { Button, Provider as PaperProvider } from "react-native-paper";
 
+import BottomNavigation from '@navigation/BottomNavigation';
+import MealItem from '@components/recipebook/MealItem';
+import { getUiService } from "@service/UiService";
+import { colors } from "@configs/colors";
+import { lightTheme } from "@configs/PaperTheme";
+import { defaultStyles } from "@configs/styles";
+import { API_BASE_URL } from '@configs/config';
+import { COOKBOOK_CATEGORIES } from "@models/FilterData";
 
 /**
- * Cooking Book Screen
+ * Renders the screen, containing the recipes.
  *
  * @author Dominique Börner
  */
 @observer
-export class VirtualCookbook extends Component {
+export class RecipeBookScreen extends Component {
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
@@ -39,10 +38,10 @@ export class VirtualCookbook extends Component {
     }
 
     render() {
-        return (<PaperProvider theme={lightTheme}>
-            <View style={defaultStyles.themeContainer}>
-                <View style={defaultStyles.defaultContentContainer}>
-                    <View style={styles.filter}>
+        return (
+            <PaperProvider theme={lightTheme}>
+                <View style={defaultStyles.themeContainer}>
+                    <ScrollView style={defaultStyles.defaultContentContainer}>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                             {
                                 COOKBOOK_CATEGORIES.map((food) => {
@@ -51,16 +50,15 @@ export class VirtualCookbook extends Component {
                                 })
                             }
                         </ScrollView>
-                    </View>
-                    <View style={styles.foodList}>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            {this.renderMeals()}
-                        </ScrollView>
-                    </View>
+                        <View style={styles.foodList}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                {this.renderMeals()}
+                            </ScrollView>
+                        </View>
+                    </ScrollView>
+                    <BottomNavigation />
                 </View>
-                <BottomNavigation />
-            </View>
-        </PaperProvider>
+            </PaperProvider>
         );
     }
 
@@ -79,7 +77,7 @@ export class VirtualCookbook extends Component {
             let meals = this.state.meals.result.filter(meal => {
                 return meal.category === this.state.category;
             });
-    
+
             return meals.map(meal => {
                 return <MealItem meal={meal} />
             })

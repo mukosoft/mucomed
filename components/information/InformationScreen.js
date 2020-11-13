@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {ActivityIndicator, Button, Provider as PaperProvider} from "react-native-paper";
 import {colors} from "@configs/colors";
-import {darkTheme, lightTheme} from "../../configs/PaperTheme";
+import {lightTheme} from "../../configs/PaperTheme";
 import {observer} from "mobx-react";
-import InformationCard from "../InformationCard";
+import InformationCard from "@components/information/InformationCard";
 import InformationService from "../../service/InformationService";
 import {defaultStyles} from "../../configs/styles";
 import {INFORMATION_CATEGORIES} from "../../models/FilterData";
@@ -14,7 +14,8 @@ import BottomNavigation from './../navigation/BottomNavigation';
 
 
 /**
- * Cooking Book Screen
+ * This screen shows various information about different 
+ * cf-related topics.
  *
  * @author Dominique Börner
  */
@@ -44,7 +45,7 @@ export class InformationScreen extends Component {
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                                     {
                                         INFORMATION_CATEGORIES.map((information) => {
-                                            return <Button onPress={() => this.setCategory(information.category)}
+                                            return <Button onPress={() => this.setState({category: category})}
                                                            color={ this.setSelectedColor(information.category)}>{getUiService().getTranslation(information.category)}</Button>
                                         })
                                     }
@@ -80,10 +81,6 @@ export class InformationScreen extends Component {
             })
     }
 
-    setCategory(category) {
-        this.setState({category: category})
-    }
-
     setSelectedColor(category) {
         if (this.state.category === category) {
             return colors.orange
@@ -93,7 +90,7 @@ export class InformationScreen extends Component {
     renderInformations() {
         if (this.state.informations[this.state.category]) {
             return this.state.informations[this.state.category].map((information) => {
-                return <InformationCard information={information} onPress={() => { InformationService.openInformation(information) }} key={information.name}/>
+                return <InformationCard information={information} key={information.name}/>
             })
         }
     }

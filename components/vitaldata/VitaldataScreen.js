@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from "react-native";
-import {Button, Headline, List, Provider as PaperProvider, Text, TextInput} from "react-native-paper";
-import {lightTheme} from "../../configs/PaperTheme";
-import {VITALDATA} from "../../models/VitaldataModel";
-import {getDateService} from "../../service/DateService";
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { Button, List, Provider as PaperProvider, TextInput } from "react-native-paper";
+
+import { getDateService } from "@service/DateService";
+import { lightTheme } from "@configs/PaperTheme";
+import { VITALDATA } from "@models/VitaldataModel";
 
 
 /**
- * Profile screen
+ * Renders a screen, containing users vitaldata.
  *
  * @author Dominique Börner
  */

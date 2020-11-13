@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Card, IconButton} from "react-native-paper";
-import {colors} from "../configs/colors";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import {getMealStore} from "../stores/MealStore";
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Card } from "react-native-paper";
 
+import InformationService from '@service/InformationService';
+
+/**
+ * Renders an element for displaying a information. 
+ * Pressing on this element opens the InformationArticleScreen.
+ * 
+ * @author Dominique Börner
+ */
 export default class InformationCard extends Component {
     render() {
         return(
             <View>
-                <Card style={styles.informationCard} onPress={this.props.onPress} key={this.props.information.name}>
+                <Card style={styles.informationCard} onPress={() => { InformationService.openInformation(information) }} key={this.props.information.name}>
                     <Card.Cover source={{ uri: (this.props.information) ? this.props.information.img_url : "" }}/>
                     <Card.Title title={(this.props.information) ? this.props.information.name : ""}
                                 subtitle={(this.props.information) ? this.props.information.author : "" } subtitleStyle={styles.informationInfo} />
