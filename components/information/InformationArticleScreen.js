@@ -1,9 +1,7 @@
-import React, {Component} from "react";
-import {Image, Linking, ScrollView, StyleSheet, View} from "react-native";
-import {Headline, Provider as PaperProvider, Text} from "react-native-paper";
-
-import {lightTheme} from "@configs/PaperTheme";
-import {colors} from "@configs/colors";
+import { getUiService } from '@service/UiService';
+import React, { Component } from "react";
+import { Image, Linking, ScrollView, StyleSheet, View } from "react-native";
+import { Headline, Text } from "react-native-paper";
 
 /**
  * Renders the screen for displaying the article of an information
@@ -12,7 +10,7 @@ import {colors} from "@configs/colors";
  */
 export default class InformationArticleScreen extends Component {
     render() {
-        return( <PaperProvider theme={lightTheme}>
+        return( 
                 <View style={styles.container}>
                     <ScrollView>
                         <Image source={{ uri: this.props.information.img_url }} style={styles.imgStyle} />
@@ -29,7 +27,6 @@ export default class InformationArticleScreen extends Component {
                         </View>
                     </ScrollView>
                 </View>
-            </PaperProvider>
         )}
 }
 
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch'
     },
     authorUrl: {
-        color: colors.silver
+        color:  getUiService().theme.primary
     },
     sectionTitle: {
         paddingTop: 5, paddingBottom: 5,

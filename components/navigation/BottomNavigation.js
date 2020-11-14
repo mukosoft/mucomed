@@ -1,10 +1,9 @@
+import NavigationButton from '@navigation/NavigationButton';
+import { getUiService } from '@service/UiService';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { colors } from './../../configs/colors';
-import { getUiService } from './../../service/UiService';
-import NavigationButton from './NavigationButton';
 
 export const BottomTabNavigation = [
     {
@@ -36,6 +35,10 @@ export const BottomTabNavigation = [
 
 @observer
 export default class BottomNavigation extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <View style={styles.navigationBar}>
@@ -61,6 +64,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         padding: 10,
         borderTopWidth: 0.25,
-        borderColor: colors.turquoise_light,
+        borderColor: getUiService().theme.primary,
     },
 })

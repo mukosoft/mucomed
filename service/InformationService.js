@@ -1,5 +1,5 @@
-import {Navigation} from "react-native-navigation";
-import {modalAnimations} from "../configs/animations";
+import { modalAnimations } from "@res/animations";
+import { Navigation } from "react-native-navigation";
 
 export default class InformationService {
     static openInformation(information) {
@@ -8,7 +8,7 @@ export default class InformationService {
                 children: [
                     {
                         component: {
-                            name: 'InformationPostScreen',
+                            name: 'InformationArticleScreen',
                             passProps: {
                                 information: information
                             },

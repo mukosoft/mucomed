@@ -1,10 +1,9 @@
+import BorderedContainer from '@components/common/BorderedContainer';
+import { getDateService } from '@service/DateService';
+import { getUiService } from '@service/UiService';
 import React, { Component } from 'react';
-import { colors } from '@configs/colors';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-
-import { getDateService } from '@service/DateService';
-import { defaultStyles } from '@configs/styles';
 
 /**
  * TimeFilter receives an array of times:String, and renders an TimeFilter. 
@@ -21,7 +20,7 @@ export default class TimeFilter extends Component {
 
     constructor(props) {
         super(props);
-        this.setState({ timesPointer: 0})
+        this.setState({ timesPointer: 0 })
         getDateService().setMedicationTime(this.props.times[0])
     }
 
@@ -30,13 +29,19 @@ export default class TimeFilter extends Component {
             return (
                 <>
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => this.handlePrev()} style={styles.touchable}>
-                            <FontAwesome5Icon style={styles.icons} name="angle-left" />
-                        </TouchableOpacity>
-                        <Text style={styles.timeCaption}>{getDateService().medicationTime} Uhr</Text>
-                        <TouchableOpacity onPress={() => this.handleNext()} style={styles.touchable}>
-                            <FontAwesome5Icon style={styles.icons} name="angle-right" />
-                        </TouchableOpacity>
+                        <BorderedContainer>
+                            <TouchableOpacity onPress={() => this.handlePrev()} style={styles.touchable}>
+                                <FontAwesome5Icon style={styles.icons} name="angle-left" />
+                            </TouchableOpacity>
+                        </BorderedContainer>
+                        <BorderedContainer>
+                            <Text style={styles.timeCaption}>{getDateService().medicationTime} Uhr</Text>
+                        </BorderedContainer>
+                        <BorderedContainer>
+                            <TouchableOpacity onPress={() => this.handleNext()} style={styles.touchable}>
+                                <FontAwesome5Icon style={styles.icons} name="angle-right" />
+                            </TouchableOpacity>
+                        </BorderedContainer>
                     </View>
                 </>
             )
@@ -56,7 +61,7 @@ export default class TimeFilter extends Component {
             this.setState({ timesPointer: (this.state.timesPointer + 1) })
             getDateService().setMedicationTime(this.props.times[this.state.timesPointer])
         }
-     }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -69,18 +74,16 @@ const styles = StyleSheet.create({
         padding: 5,
         marginLeft: 2.5, marginRight: 2.5,
         fontSize: 18,
-        color: colors.primary,
-        borderRadius: defaultStyles.defaultBorderRadius.borderRadius,
-        backgroundColor: colors.secondary,
+        color: getUiService().theme.primary,
+        backgroundColor: getUiService().theme.secondary,
     },
     icons: {
         margin: 5,
         fontSize: 20,
-        color: colors.primary
+        color: getUiService().theme.primary,
     },
     touchable: {
-        borderRadius: defaultStyles.defaultBorderRadius.borderRadius,
-        backgroundColor: colors.secondary,
+        backgroundColor: getUiService().theme.secondary,
         paddingLeft: 5, paddingRight: 5
     }
 })

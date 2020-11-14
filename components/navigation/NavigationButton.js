@@ -1,9 +1,9 @@
+import { getUiService } from '@service/UiService';
 import React, { Component } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { colors } from './../../configs/colors';
-import FAIcon from 'react-native-vector-icons/FontAwesome5';
 import { Text } from 'react-native-paper';
+import FAIcon from 'react-native-vector-icons/FontAwesome5';
 
 export default class NavigationButton extends Component {
     render() {
@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        color: colors.turquoise_light,
-        padding: 5,
+        color: getUiService().theme.secondary,
         aspectRatio: 1,
     },
     activeContainer: {
@@ -38,36 +37,34 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         borderRadius: 7,
-        borderColor: colors.turquoise_light,
-        padding: 5,
         aspectRatio: 1,
-        color: colors.white,
-        backgroundColor: colors.turquoise_light
+        color: getUiService().theme.secondary,
+        backgroundColor: getUiService().theme.primary
     },
     activeIcon: {
         display: 'flex',
         alignSelf: 'center',
         fontSize: 16,
-        color: colors.white
+        color: getUiService().theme.secondary
     },
     nonActiveIcon: {
         display: 'flex',
         alignSelf: 'center',
         fontSize: 16,
-        color: colors.turquoise_light
+        color: getUiService().theme.primary
     },
     activeText: {
         display: 'flex',
         alignSelf: 'center',
         fontSize: 10,
-        color: colors.white,
+        color: getUiService().theme.secondary,
         marginTop: 5
     },
     nonActiveText: {
         display: 'flex',
         alignSelf: 'center',
-        fontSize: 9,
-        color: colors.turquoise_light,
+        fontSize: 10,
+        color: getUiService().theme.primary,
         marginTop: 5,
     }
 })

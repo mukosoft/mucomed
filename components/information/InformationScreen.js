@@ -1,17 +1,14 @@
-import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View} from "react-native";
-import {ActivityIndicator, Button, Provider as PaperProvider} from "react-native-paper";
-import {colors} from "@configs/colors";
-import {lightTheme} from "../../configs/PaperTheme";
-import {observer} from "mobx-react";
 import InformationCard from "@components/information/InformationCard";
-import InformationService from "../../service/InformationService";
-import {defaultStyles} from "../../configs/styles";
-import {INFORMATION_CATEGORIES} from "../../models/FilterData";
-import {getUiService} from "../../service/UiService";
+import { getUiService } from '@service/UiService';
+import { observer } from "mobx-react";
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
-import BottomNavigation from './../navigation/BottomNavigation';
+import { ActivityIndicator, Button } from "react-native-paper";
 
+import { defaultStyles } from "../../configs/styles";
+import { INFORMATION_CATEGORIES } from "../../models/FilterData";
+import BottomNavigation from './../navigation/BottomNavigation';
 
 /**
  * This screen shows various information about different 
@@ -35,31 +32,29 @@ export class InformationScreen extends Component {
     render() {
         if (!this.state.informations) {
             this.getInformationData();
-            return ( <ActivityIndicator animating={true} color={colors.turquoise_dark} size="large"/>)
+            return (<ActivityIndicator animating={true} color={getUiService().theme.primary} size="large" />)
         } else {
             return (
-                <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.themeContainer}>
-                        <View style={defaultStyles.defaultContentContainer}>
-                            <View style={styles.filter}>
-                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                    {
-                                        INFORMATION_CATEGORIES.map((information) => {
-                                            return <Button onPress={() => this.setState({category: category})}
-                                                           color={ this.setSelectedColor(information.category)}>{getUiService().getTranslation(information.category)}</Button>
-                                        })
-                                    }
-                                </ScrollView>
-                            </View>
-                            <View style={styles.informationList}>
-                                <ScrollView showsVerticalScrollIndicator={false}>
-                                    { this.renderInformations() }
-                                </ScrollView>
-                            </View>
+                <View style={defaultStyles.themeContainer}>
+                    <View style={defaultStyles.defaultContentContainer}>
+                        <View style={styles.filter}>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                {
+                                    INFORMATION_CATEGORIES.map((information) => {
+                                        return <Button onPress={() => this.setState({ category: category })}
+                                            color={this.setSelectedColor(information.category)}>{getUiService().getTranslation(information.category)}</Button>
+                                    })
+                                }
+                            </ScrollView>
                         </View>
-                        <BottomNavigation />
+                        <View style={styles.informationList}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                {this.renderInformations()}
+                            </ScrollView>
+                        </View>
                     </View>
-                </PaperProvider>
+                    <BottomNavigation />
+                </View>
             )
         }
     }
@@ -77,20 +72,20 @@ export class InformationScreen extends Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                this.setState({informations: json})
+                this.setState({ informations: json })
             })
     }
 
     setSelectedColor(category) {
         if (this.state.category === category) {
-            return colors.orange
+            return getUiService().theme.active
         }
     }
 
     renderInformations() {
         if (this.state.informations[this.state.category]) {
             return this.state.informations[this.state.category].map((information) => {
-                return <InformationCard information={information} key={information.name}/>
+                return <InformationCard information={information} key={information.name} />
             })
         }
     }

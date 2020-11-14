@@ -1,16 +1,16 @@
+import { InformationArticleScreen } from "@components/information/InformationArticleScreen";
+import { InformationScreen } from "@components/information/InformationScreen";
+import { MedicationCreationScreen } from "@components/medication/MedicationCreationScreen";
+import { MedicationScreen } from '@components/medication/MedicationScreen';
+import { ProfileScreen } from "@components/profile/ProfileScreen";
+import { RecipeBookScreen } from '@components/recipebook/RecipeBookScreen';
+import { RecipeInstructionScreen } from '@components/recipebook/RecipeInstructionScreen';
+import { VitaldataScreen } from "@components/vitaldata/VitaldataScreen";
 // Screens
 import { LogBox } from "react-native";
 // Components
 import { Navigation } from "react-native-navigation";
 
-import { ProfileScreen } from "@components/profile/ProfileScreen";
-import { MedicationScreen } from '@components/medication/MedicationScreen';
-import { MedicationCreationScreen } from "@components/medication/MedicationCreationScreen";
-import { InformationScreen } from "@components/information/InformationScreen";
-import { InformationArticleScreen } from "@components/information/InformationArticleScreen";
-import { RecipeBookScreen } from '@components/recipebook/RecipeBookScreen';
-import { RecipeInstructionScreen } from '@components/recipebook/RecipeInstructionScreen';
-import { VitaldataScreen } from "@components/vitaldata/VitaldataScreen";
 // Services
 import { getDateService } from "./service/DateService";
 import { getMedicationService } from "./service/MedicationService";

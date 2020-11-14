@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { observer } from "mobx-react";
 import { Navigation } from 'react-native-navigation';
-import { Button, Provider as PaperProvider } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 import BottomNavigation from '@navigation/BottomNavigation';
 import MealItem from '@components/recipebook/MealItem';
 import { getUiService } from "@service/UiService";
-import { colors } from "@configs/colors";
-import { lightTheme } from "@configs/PaperTheme";
 import { defaultStyles } from "@configs/styles";
 import { API_BASE_URL } from '@configs/config';
 import { COOKBOOK_CATEGORIES } from "@models/FilterData";
+import AppContainer from '@components/common/AppContainer';
 
 /**
  * Renders the screen, containing the recipes.
@@ -39,26 +38,24 @@ export class RecipeBookScreen extends Component {
 
     render() {
         return (
-            <PaperProvider theme={lightTheme}>
-                <View style={defaultStyles.themeContainer}>
-                    <ScrollView style={defaultStyles.defaultContentContainer}>
-                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                            {
-                                COOKBOOK_CATEGORIES.map((food) => {
-                                    return <Button onPress={() => this.setCategory(food.category)}
-                                        color={this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
-                                })
-                            }
-                        </ScrollView>
-                        <View style={styles.foodList}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                {this.renderMeals()}
-                            </ScrollView>
-                        </View>
+            <AppContainer>
+                <ScrollView style={defaultStyles.defaultContentContainer}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                        {
+                            COOKBOOK_CATEGORIES.map((food) => {
+                                return <Button onPress={() => this.setCategory(food.category)}
+                                    color={this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
+                            })
+                        }
                     </ScrollView>
-                    <BottomNavigation />
-                </View>
-            </PaperProvider>
+                    <View style={styles.foodList}>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            {this.renderMeals()}
+                        </ScrollView>
+                    </View>
+                </ScrollView>
+                <BottomNavigation />
+            </AppContainer>
         );
     }
 
@@ -68,7 +65,9 @@ export class RecipeBookScreen extends Component {
 
     setSelectedColor(category) {
         if (this.state.category === category) {
-            return colors.orange
+            return getUiService().theme.active
+        } else {
+            return getUiService().theme.primary
         }
     }
 

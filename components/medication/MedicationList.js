@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        backgroundColor: 'transparent'
     },
     row: {
         display: 'flex',

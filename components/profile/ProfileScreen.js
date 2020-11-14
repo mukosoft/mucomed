@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, View, Text } from "react-native";
-import { ActivityIndicator, Button, Provider as PaperProvider, Title } from "react-native-paper";
-import { Navigation } from 'react-native-navigation';
-
-import BottomNavigation from '@navigation/BottomNavigation';
 import LineChart from "@components/common/LineChart";
+import { defaultStyles } from "@configs/styles";
+import BottomNavigation from '@navigation/BottomNavigation';
 import MealService from "@service/MealService";
 import { getUiService } from "@service/UiService";
-import { defaultStyles } from "@configs/styles";
-import { lightTheme } from "@configs/PaperTheme";
-import { colors } from "@configs/colors";
-
+import React, { Component } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Navigation } from 'react-native-navigation';
+import { ActivityIndicator, Button, Title } from "react-native-paper";
 
 /**
  * Renders the user profile.
@@ -32,29 +28,27 @@ export class ProfileScreen extends Component {
 
     render() {
         if (!this.state.meal) {
-            this.getRandomMeal().then((result) => console.log(result));
-            return ( <ActivityIndicator animating={true} color={colors.turquoise_dark} size="large"/>)
+            this.getRandomMeal();
+            return (<ActivityIndicator animating={true} color={getUiService().theme.primary} size="large" />)
         } else {
             return (
-                <PaperProvider theme={lightTheme}>
-                    <View style={defaultStyles.themeContainer}>
-                        <View style={defaultStyles.defaultContentContainer}>
-                            <ScrollView>
-                                { (!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe()) }
-                                <Title>Lungenfunktion - FEV1</Title>
-                                <LineChart chartType={this.state.fev_chartType}/>
-                                <Title>{getUiService().getTranslation('medication')}</Title>
-                                <View>
-                                    <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
-                                    <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>
-                                </View>
-                                <Title>Berichte</Title>
-                                <Button mode="contained">Zu den Berichten</Button>
-                            </ScrollView>
-                        </View>
-                        <BottomNavigation />
+                <View style={defaultStyles.themeContainer}>
+                    <View style={defaultStyles.defaultContentContainer}>
+                        <ScrollView>
+                            {(!this.state.meal ? this.getRandomMeal() : this.renderRandomRecipe())}
+                            <Title>Lungenfunktion - FEV1</Title>
+                            <LineChart chartType={this.state.fev_chartType} />
+                            <Title>{getUiService().getTranslation('medication')}</Title>
+                            <View>
+                                <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
+                                <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>
+                            </View>
+                            <Title>Berichte</Title>
+                            <Button mode="contained">Zu den Berichten</Button>
+                        </ScrollView>
                     </View>
-                </PaperProvider>
+                    <BottomNavigation />
+                </View>
             )
         }
     }
@@ -78,7 +72,7 @@ export class ProfileScreen extends Component {
                 let mealsFromRandomCategory = json[randomCategory];
                 let randomMeal = json[randomCategory][Math.floor(Math.random() * mealsFromRandomCategory.length)];
 
-                this.setState({meal: randomMeal})
+                this.setState({ meal: randomMeal })
             })
     }
 
@@ -88,7 +82,7 @@ export class ProfileScreen extends Component {
             <Title>Hast du das schon probiert?</Title>
             <View style={styles.randomRecipeContainer}>
                 <View>
-                    <Image source={{ uri: this.state.meal.img_url}} style={styles.mealImg}/>
+                    <Image source={{ uri: this.state.meal.img_url }} style={styles.mealImg} />
                 </View>
 
                 <View style={styles.mealTextContainer}>

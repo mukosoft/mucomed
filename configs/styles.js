@@ -1,26 +1,17 @@
-import { colors } from "./colors";
-
 export const defaultStyles = {
     defaultContentContainer: {
         display: 'flex',
         flexDirection: 'column',
         padding: 10,
-        backgroundColor: colors.white,
+        backgroundColor: "#fff",
     },
     themeContainer: {
-        backgroundColor: colors.white,
+        backgroundColor: "#fff",
         height: '100%',
     },
     defaultShadow: {
         borderWidth: 0.25,
-        borderColor: colors.turquoise_dark,
-        // shadowColor: colors.grey_dark,
-        // shadowOffset: {
-        //     width: 1,
-        //     height: 1,
-        // },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 5,
+        borderColor: "#fff",
         elevation: 0,
     },
     defaultBorderRadius: {

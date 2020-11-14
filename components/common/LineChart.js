@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {ScrollView} from "react-native";
-import {LineChart as RNLineChart} from "react-native-chart-kit";
-
-import {colors} from "@configs/colors";
+import { getUiService } from '@service/UiService';
+import React, { Component } from 'react';
+import { ScrollView } from "react-native";
+import { LineChart as RNLineChart } from "react-native-chart-kit";
 
 /**
  * Renders a LineChart based on data. 
@@ -46,8 +45,8 @@ export default class LineChart extends Component {
                         yAxisSuffix="%"
                         fromZero={true}
                         chartConfig={{
-                            backgroundGradientFrom: colors.turquoise_dark,
-                            backgroundGradientTo: colors.turquoise_dark,
+                            backgroundGradientFrom: getUiService().theme.primary,
+                            backgroundGradientTo:  getUiService().theme.primary,
                             decimalPlaces: 1, // optional, defaults to 2dp
                             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -57,7 +56,7 @@ export default class LineChart extends Component {
                             propsForDots: {
                                 r: "3",
                                 strokeWidth: "1",
-                                stroke: colors.turquoise_dark
+                                stroke: getUiService().theme.primary
                             }
                         }}
                         bezier

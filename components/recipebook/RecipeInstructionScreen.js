@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, View, Text } from "react-native";
-import { Headline, Provider as PaperProvider } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome5";
-
-import { getUiService } from '@service/UiService';
+import AppContainer from '@components/common/AppContainer';
 import { defaultStyles } from '@configs/styles';
-import { colors } from "@configs/colors";
-import { lightTheme } from "@configs/PaperTheme";
-
+import { getUiService } from '@service/UiService';
+import React, { Component } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 /**
  * Renders the screen, showing the instruction for 
@@ -24,11 +20,11 @@ export class RecipeInstructionScreen extends Component {
         this.meal = this.props.componentProps;
 
         return (
-            <PaperProvider theme={lightTheme}>
+            <AppContainer>
                 <View style={styles.container}>
                     <ScrollView>
                         <View style={styles.mealHeader}>
-                            <Headline style={styles.mealName}>{this.meal.name}</Headline>
+                            <Text style={styles.mealName}>{this.meal.name}</Text>
                             <Text style={styles.mealAmount}>{(this.meal.meal_amount) ? this.meal.meal_amount : ""}</Text>
                             <View style={styles.mealInformationContainer}>
                                 <View style={styles.mealInformations}>
@@ -43,41 +39,41 @@ export class RecipeInstructionScreen extends Component {
                                 </View>
                                 {(this.meal.img) ? <Image style={styles.imgStyle} source={{ uri: getUiService().convertRefToSrc(this.meal.img.asset._ref) }} /> : null}
                             </View>
-                                {this.renderMealInfo()}
+                            {this.renderMealInfo()}
                         </View>
 
                         <View style={styles.mealBody}>
-                            <Headline style={styles.headline}>Zutaten</Headline>
+                            <Text style={styles.headline}>Zutaten</Text>
 
                             {this.renderIngredients()}
-                            <Headline style={styles.headline}>Anleitung</Headline>
+                            <Text style={styles.headline}>Anleitung</Text>
                             {this.renderInstruction()}
                         </View>
                     </ScrollView>
                 </View>
-            </PaperProvider>
+            </AppContainer>
         )
     }
 
     renderMealInfo() {
         return (
-        <View style={styles.mealInfo}>
-            <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
-                <Icon name={"hamburger"} color={colors.turquoise_light}
-                style={(this.meal.high_fat ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
-                <Text style={(this.meal.high_fat ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>Hochkalorisch</Text>
+            <View style={styles.mealInfo}>
+                <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
+                    <Icon name={"hamburger"} color={getUiService().theme.primary}
+                        style={(this.meal.high_fat ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
+                    <Text style={(this.meal.high_fat ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>Hochkalorisch</Text>
+                </View>
+                <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
+                    <Icon name={"lungs"} color={getUiService().theme.primary}
+                        style={(this.meal.tx_suitable ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
+                    <Text style={(this.meal.tx_suitable ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>TX-geeignet</Text>
+                </View>
+                <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
+                    <Icon name={"carrot"} color={getUiService().theme.primary}
+                        style={(this.meal.vegan ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
+                    <Text style={(this.meal.vegan ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>Vegan</Text>
+                </View>
             </View>
-            <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
-                <Icon name={"lungs"} color={colors.turquoise_light}
-                style={(this.meal.tx_suitable ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
-                <Text style={(this.meal.tx_suitable ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>TX-geeignet</Text>
-            </View>
-            <View style={[styles.mealInfoContainer, defaultStyles.defaultShadow, defaultStyles.defaultBorderRadius]}>
-                <Icon name={"carrot"} color={colors.turquoise_light}
-                style={(this.meal.vegan ? styles.mealActiveInfoIcon : styles.mealInactiveInfoIcon)} />
-                <Text style={(this.meal.vegan ? styles.mealActiveInfoText : styles.mealInactiveInfoText)}>Vegan</Text>
-            </View>
-        </View>
         )
     }
 
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingLeft: 10, paddingRight: 10,
-        backgroundColor: colors.turquoise_dark,
+        backgroundColor: getUiService().theme.primary,
         paddingBottom: 10
     },
     mealHeader: {
@@ -116,7 +112,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: 40,
         paddingBottom: 40, paddingTop: 40,
-        backgroundColor: colors.white,
+        backgroundColor: getUiService().theme.secondary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20
     },
@@ -130,10 +126,11 @@ const styles = StyleSheet.create({
         borderRadius: 999,
     },
     mealName: {
-        color: colors.turquoise_light
+        fontSize: 20,
+        color: getUiService().theme.primary
     },
     mealAmount: {
-        color: colors.turquoise_light,
+        color: getUiService().theme.primary,
         fontSize: 12
     },
     mealBody: {
@@ -156,28 +153,29 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        aspectRatio: 1, 
+        aspectRatio: 1,
         margin: 10
     },
     headline: {
-        color: colors.white,
+        color: getUiService().theme.secondary,
+        fontSize: 18,
         marginLeft: 10, marginRight: 10,
         marginTop: 20, marginBottom: 20
     },
     fatStyle: {
-        color: colors.silver,
+        color: '#688596',
         fontSize: 12
     },
     kcalStyle: {
-        color: colors.green,
+        color: '#8DB248',
         fontSize: 12
     },
     proteinStyle: {
-        color: colors.yellow,
+        color: '#B79D42',
         fontSize: 12
     },
     carbohydratesStyle: {
-        color: colors.red,
+        color: '#A42929',
         fontSize: 12
     },
     fontSizeMd: {
@@ -185,34 +183,36 @@ const styles = StyleSheet.create({
     },
     mealActiveInfoIcon: {
         fontSize: 20,
-        color: colors.turquoise_light,
+        color: getUiService().theme.primary,
         padding: 5,
         margin: 0
     },
     mealInactiveInfoIcon: {
         fontSize: 20,
-        color: colors.grey_light,
+        color: getUiService().theme.primary,
+        opacity: 0.25,
         padding: 5,
         margin: 0
     },
     mealActiveInfoText: {
         fontSize: 10,
-        color: colors.turquoise_light,
+        color: getUiService().theme.primary,
         paddingBottom: 5, marginBottom: 5
     },
     mealInactiveInfoText: {
         fontSize: 10,
-        color: colors.grey_light,
+        color: getUiService().theme.primary,
+        opacity: 0.25,
         paddingBottom: 5, marginBottom: 5
     },
     backgroundEvenRow: {
-        backgroundColor: colors.turquoise_light,
-        color: colors.white
+        backgroundColor: getUiService().theme.primary,
+        color:  getUiService().theme.secondary,
     },
     backgroundUnevenRow: {
-        color: colors.white
+        color: getUiService().theme.secondary,
     },
     instructionText: {
-        color: colors.white
+        color: getUiService().theme.secondary,
     }
 })

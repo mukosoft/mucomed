@@ -1,5 +1,5 @@
-import {Navigation} from "react-native-navigation";
-import {modalAnimations} from "../configs/animations";
+import { modalAnimations } from "@res/animations";
+import { Navigation } from "react-native-navigation";
 
 export default class MealService {
     static openMealInstruction(meal) {
@@ -8,7 +8,7 @@ export default class MealService {
                 children: [
                     {
                         component: {
-                            name: 'MealInstructionScreen',
+                            name: 'RecipeInstructionScreen',
                             passProps: {
                                 meal: meal
                             },

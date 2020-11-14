@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { observer } from 'mobx-react';
-
-import { colors } from '@configs/colors';
 import { defaultStyles } from '@configs/styles';
 import { getDateService } from '@service/DateService';
 import { DateTimeConverterService } from '@service/DateTimeConverterService';
+import { getUiService } from '@service/UiService';
+import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 /**
  * Renders a single element of the calendar.
@@ -54,7 +53,8 @@ export default class CalendarItem extends Component {
     animateMarginTop(px) {
         Animated.timing(this.state.animMargin, {
             toValue: px,
-            duration: 200
+            duration: 200,
+            useNativeDriver: false
         }).start();
     }
 }
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     calendarDate: {
-        backgroundColor: colors.secondary,
+        backgroundColor: getUiService().theme.secondary,
         margin: 5,
         padding: 5,
         justifyContent: 'center',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
     },
     selectedCalendarDate: {
-        backgroundColor: colors.turquoise_light,
+        backgroundColor: getUiService().theme.primary,
         margin: 5,
         padding: 5,
         justifyContent: 'center',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     calendarDayText: {  
         fontSize: 10,
         fontWeight: '100',
-        color: colors.text,
+        color: getUiService().theme.text,
         opacity: 0.35,
     },
     calendarDateText: {
@@ -97,9 +97,9 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     calendarDateUnselectedText: {
-        color: colors.turquoise_light,
+        color: getUiService().theme.primary,
     },
     CalendarDateSelectedText: {
-        color: colors.white,
+        color: getUiService().theme.secondary,
     },
 });

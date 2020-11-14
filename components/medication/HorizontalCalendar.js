@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react';
-
-import { CALENDAR_DATE_AMOUNT } from '@configs/userconfig';
 import CalendarItem from '@components/medication/CalendarItem';
+import { getConfigService } from '../../service/ConfigService';
 
 /**
  * Create a Horizontal ScrollView with Cards inside. Each card represents a date.
@@ -32,7 +31,7 @@ export default class HorizontalCalendar extends Component {
     }
 
     renderLastDays() {
-        return this.getLastDays(CALENDAR_DATE_AMOUNT).map((date) => {
+        return this.getLastDays(getConfigService().calendarDateAmount).map((date) => {
             return (
                 <CalendarItem date={date} />
             );

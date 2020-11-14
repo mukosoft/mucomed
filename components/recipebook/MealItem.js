@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
-
 import { defaultStyles } from '@configs/styles';
-import { colors } from '@configs/colors';
 import { getUiService } from '@service/UiService';
+import React, { Component } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 /**
  * Renders an element for displaying a meal. 
- * Pressing on this element opens the MealInstructionScreen.
+ * Pressing on this element opens the RecipeInstructionScreen.
  * 
  * @author Dominique Börner
  */
 export default class MealItem extends Component {
     render() {
         return (
-            <TouchableOpacity onPress={() => getUiService().showModal('MealInstructionScreen', this.props.meal)}>
+            <TouchableOpacity onPress={() => getUiService().showModal('RecipeInstructionScreen', this.props.meal)}>
                 <View style={[styles.cardStyle, defaultStyles.defaultBorderRadius, defaultStyles.defaultShadow]}>
                     {(this.props.meal.img) ? <Image style={styles.mealImage} source={{ uri: getUiService().convertRefToSrc(this.props.meal.img.asset._ref) }} /> : null}
                     <Text style={styles.mealName}>{this.props.meal.name}</Text>
@@ -38,19 +36,17 @@ const styles = StyleSheet.create({
     mealName: {
         fontSize: 20,
         fontStyle: 'italic',
-        color: colors.turquoise_light
+        color: getUiService().theme.primary
     },
     mealAmount: {
         fontSize: 16,
-        color: colors.turquoise_dark
+        color: getUiService().theme.primary
     },
     mealImage: {
         display: 'flex',
         height: 140,
         aspectRatio: 1,
         borderRadius: 1000,
-        borderWidth: 1,
-        borderColor: colors.turquoise_dark,
         marginBottom: 10
     }
 })

@@ -1,9 +1,9 @@
-import {action, observable} from "mobx";
-import {darkTheme, lightTheme} from "../configs/PaperTheme";
-import {LANGUAGES} from "../models/Languages";
-import i13n from "../configs/i13n";
+import i13n from "@configs/i13n";
+import { LightTheme } from '@res/colors';
+import { action, observable } from "mobx";
 import { Navigation } from "react-native-navigation";
-import { BottomTabNavigation } from "../components/navigation/BottomNavigation";
+
+import { LANGUAGES } from "../models/Languages";
 
 /**
  * Stores basic UI configurations, handles translation and theme
@@ -13,23 +13,11 @@ import { BottomTabNavigation } from "../components/navigation/BottomNavigation";
  * @author Dominique Börner
  */
 export class UiService {
-
-    // TODO: make this for react native paper provider
-    @observable theme = lightTheme;
+    @observable theme = new LightTheme();
     @observable language = LANGUAGES.german;
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
-    @observable navigationActivePage = BottomTabNavigation[0].componentId;
-
-    @action
-    changeTheme(theme = lightTheme) {
-        this.theme = theme;
-    }
-
-    @action
-    switchTheme() {
-        this.theme === lightTheme ? this.theme = darkTheme : this.theme = lightTheme;
-    }
+    @observable navigationActivePage;
 
     @action
     getTranslation(key) {
@@ -47,7 +35,7 @@ export class UiService {
     }
     @action
     init() {
-        // TODO: load language from config
+        this.navigateToComponent('MedicationScreen');
     }
 
     convertRefToSrc(ref) {
@@ -111,5 +99,5 @@ export class UiService {
     }
 }
 
-let instance: UiService;
+let instance;
 export function getUiService() { return instance || (instance = new UiService()) }

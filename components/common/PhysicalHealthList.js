@@ -6,7 +6,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome5";
 
 import TouchInteractionContainer from '@interaction/TouchInteractionContainer';
 import { getVitaldataService } from '@service/VitaldataService';
-import { colors } from '@configs/colors';
+import { getUiService } from '@service/UiService';
 
 /**
  * Best condition on top,
@@ -82,19 +82,19 @@ const styles = StyleSheet.create({
     },
 
     activeIcon: {
-        color: colors.secondary,
+        color: getUiService().theme.primary,
     },
     inactiveIcon: {
-        color: colors.grey_light
+        color: getUiService().theme.secondary
     },
     text: {
         fontSize: 12,
         alignSelf: 'center',
     },
     activeText: {
-        color: colors.secondary
+        color: getUiService().theme.secondary
     },
     inactiveText: {
-        color: colors.grey_light
+        color: getUiService().theme.secondary
     },
 })

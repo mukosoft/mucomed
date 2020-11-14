@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import FAIcon from "react-native-vector-icons/FontAwesome5";
 
-import { colors } from '@configs/colors';
 import { defaultStyles } from '@configs/styles';
+import { getUiService } from '@service/UiService';
 
 /**
  * Renders a medication.
@@ -36,32 +36,29 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: colors.secondary,
+        backgroundColor: getUiService().theme.secondary,
         margin: 5,
         padding: 10,
     },
     icon: {
         fontSize: 32,
-        color: colors.primary,
+        color: getUiService().theme.primary,
         margin: 10
     },
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: colors.primary,
+        color: getUiService().theme.primary,
         marginTop: 5, marginBottom: 0
     },
     dosage: {
-        color: colors.primary,
+        color: getUiService().theme.primary,
         fontSize: 12,
     },
     description: {
         marginTop: 10,
         marginBottom: 10,
-        color: colors.primary,
+        color: getUiService().theme.primary,
         fontSize: 14
     },
-    button: {
-        color: colors.white
-    }
 });
