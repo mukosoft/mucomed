@@ -27,7 +27,7 @@ export const BottomTabNavigation = [
         text: "Profil"
     },
     {
-        componentId: "ProfilScreen",
+        componentId: "MedicationCreationScreen",
         faIcon: "cogs",
         text: "Einstellungen"
     }

@@ -21,7 +21,7 @@ export class UiService {
 
     @action
     getTranslation(key) {
-        return this.language_text[this.language][key];
+        return this.language_text[this.language][key.toLowerCase()];
     }
 
     @action 

@@ -8,6 +8,7 @@ import HorizontalCalendar from "@components/medication/HorizontalCalendar";
 import MedicationList from '@components/medication/MedicationList';
 import AppContainer from '@components/common/AppContainer';
 import { getMedicationService } from '@service/MedicationService';
+import { defaultStyles } from '../../configs/styles';
 
 
 /**
@@ -26,7 +27,7 @@ export class MedicationScreen extends Component {
         return (
             <AppContainer>
                 <HorizontalCalendar />
-                <ScrollView>
+                <ScrollView style={defaultStyles.defaultContentContainer}>
                     <MedicationList medications={getMedicationService().medicationSchedule} />
                 </ScrollView>
                 <BottomNavigation />
@@ -34,3 +35,4 @@ export class MedicationScreen extends Component {
         )
     }
 }
+

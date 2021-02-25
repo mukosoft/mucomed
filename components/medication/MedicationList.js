@@ -23,7 +23,7 @@ export default class MedicationList extends Component {
         return (
             <SafeAreaView>
                     <View style={styles.filterContainer}>
-                        <TimeFilter times={this.getFilterTimesFromSchedule()}/>
+                        <TimeFilter times={this.getFilterTimesFromSchedule()} key={this.getFilterTimesFromSchedule()} />
                     </View>
                 <ScrollView showsHorizontalScrollIndicator={false}>
                         {this.showMedications()}
@@ -60,7 +60,7 @@ export default class MedicationList extends Component {
                 }).map(singleMedication => {
                     return singleMedication.medications.map(medication => {
                         if (medication.status === MEDICATION_STATUS.ACTIVE) {
-                            return <MedicationItem medication={medication} disabled={false} />
+                            return <MedicationItem medication={medication} disabled={false} key={`${medication.name}_${Math.random()}`} />
                         } else {
                             // TODO: show disabled medications, but change their styling
                             // return <MedicationItem medication={medication} disabled={true} />

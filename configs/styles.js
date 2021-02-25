@@ -12,7 +12,7 @@ export const defaultStyles = {
     defaultShadow: {
         borderWidth: 0.25,
         borderColor: "#fff",
-        elevation: 0,
+        elevation: 1,
     },
     defaultBorderRadius: {
         borderRadius: 5

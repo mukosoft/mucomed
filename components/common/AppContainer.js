@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        padding: 10,
-        minHeight: '100%',
+        justifyContent: 'space-between',
+        flex: 1,
         backgroundColor: getUiService().theme.background,
     }
 })

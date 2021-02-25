@@ -33,7 +33,7 @@ export default class HorizontalCalendar extends Component {
     renderLastDays() {
         return this.getLastDays(getConfigService().calendarDateAmount).map((date) => {
             return (
-                <CalendarItem date={date} />
+                <CalendarItem date={date} key={date} />
             );
         });
     }

@@ -11,6 +11,11 @@ export class DateService {
     @observable medicationTime;
 
     @action
+    getMedicationTime() {
+        return this.medicationTime;
+    }
+
+    @action
     setCalendarSelection(date) {
         this.calendarSelection = date;
         this.setCalendarSelectionDateId(date);

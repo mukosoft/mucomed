@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { observer } from "mobx-react";
 import { Navigation } from 'react-native-navigation';
 import { Button } from "react-native-paper";
@@ -11,6 +11,9 @@ import { defaultStyles } from "@configs/styles";
 import { API_BASE_URL } from '@configs/config';
 import { COOKBOOK_CATEGORIES } from "@models/FilterData";
 import AppContainer from '@components/common/AppContainer';
+import { getMealService } from '../../service/MealService';
+import FavoriteMeals from './FavoriteMeals';
+import Title from '../common/Title';
 
 /**
  * Renders the screen, containing the recipes.
@@ -39,15 +42,19 @@ export class RecipeBookScreen extends Component {
     render() {
         return (
             <AppContainer>
-                <ScrollView style={defaultStyles.defaultContentContainer}>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                <Title>Deine Favoriten</Title>
+                <FavoriteMeals key={'favmeals'} />
+                <View style={styles.categoryContainer}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {
                             COOKBOOK_CATEGORIES.map((food) => {
-                                return <Button onPress={() => this.setCategory(food.category)}
+                                return <Button onPress={() => this.setCategory(food.category)} key={food.category}
                                     color={this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
                             })
                         }
                     </ScrollView>
+                </View>
+                <ScrollView style={defaultStyles.defaultContentContainer}>
                     <View style={styles.foodList}>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             {this.renderMeals()}
@@ -78,7 +85,7 @@ export class RecipeBookScreen extends Component {
             });
 
             return meals.map(meal => {
-                return <MealItem meal={meal} />
+                return <MealItem meal={meal} key={meal.name} />
             })
 
         }
@@ -94,12 +101,13 @@ export class RecipeBookScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    favFoodList: {
-        margin: 10,
+    categoryContainer: {
+        display: 'flex',
+        height: 40,
     },
     foodList: {
         display: 'flex',
         flexDirection: 'row',
-        margin: 10
+        height: 560
     },
 })

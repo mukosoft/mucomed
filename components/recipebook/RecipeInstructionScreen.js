@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingLeft: 10, paddingRight: 10,
-        backgroundColor: getUiService().theme.primary,
+        backgroundColor: getUiService().theme.background,
         paddingBottom: 10
     },
     mealHeader: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: 40,
         paddingBottom: 40, paddingTop: 40,
-        backgroundColor: getUiService().theme.secondary,
+        backgroundColor: getUiService().theme.primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20
     },
@@ -127,10 +127,10 @@ const styles = StyleSheet.create({
     },
     mealName: {
         fontSize: 20,
-        color: getUiService().theme.primary
+        color: getUiService().theme.secondary
     },
     mealAmount: {
-        color: getUiService().theme.primary,
+        color: getUiService().theme.secondary,
         fontSize: 12
     },
     mealBody: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     headline: {
-        color: getUiService().theme.secondary,
+        color: getUiService().theme.text,
         fontSize: 18,
         marginLeft: 10, marginRight: 10,
         marginTop: 20, marginBottom: 20
@@ -183,25 +183,25 @@ const styles = StyleSheet.create({
     },
     mealActiveInfoIcon: {
         fontSize: 20,
-        color: getUiService().theme.primary,
+        color: getUiService().theme.secondary,
         padding: 5,
         margin: 0
     },
     mealInactiveInfoIcon: {
         fontSize: 20,
-        color: getUiService().theme.primary,
+        color: getUiService().theme.secondary,
         opacity: 0.25,
         padding: 5,
         margin: 0
     },
     mealActiveInfoText: {
         fontSize: 10,
-        color: getUiService().theme.primary,
+        color: getUiService().theme.secondary,
         paddingBottom: 5, marginBottom: 5
     },
     mealInactiveInfoText: {
         fontSize: 10,
-        color: getUiService().theme.primary,
+        color: getUiService().theme.secondary,
         opacity: 0.25,
         paddingBottom: 5, marginBottom: 5
     },
@@ -210,9 +210,9 @@ const styles = StyleSheet.create({
         color:  getUiService().theme.secondary,
     },
     backgroundUnevenRow: {
-        color: getUiService().theme.secondary,
+        color: getUiService().theme.text,
     },
     instructionText: {
-        color: getUiService().theme.secondary,
+        color: getUiService().theme.text,
     }
 })

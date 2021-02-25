@@ -30,7 +30,12 @@ export default {
         meals: "Mahlzeiten",
         vitaldata: "Vitaldaten",
         add_vitaldata: "Vitaldaten erfassen",
-        add_doctor_report: "Arztbericht einscannen"
+        add_doctor_report: "Arztbericht einscannen",
+
+        pill: "Tablette",
+        inhale: "Inhalieren",
+        injection: "Spritze",
+        other: "Anderes"
     },
     en: {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -63,6 +68,11 @@ export default {
         meals: "Meals",
         vitaldata: "Vitaldata",
         add_vitaldata: "Add vitaldata",
-        add_doctor_report: "Scan doctor's report"
+        add_doctor_report: "Scan doctor's report",
+
+        pill: "pill",
+        inhale: "inhale",
+        injection: "injection",
+        other: "other"
     }
 }

@@ -10,6 +10,7 @@ export class LightTheme {
     active = "#F27E00";
     border = "#d6d6d6";
     text = "#222";
+    red = "#8a0e1a";
 }
 
 /**

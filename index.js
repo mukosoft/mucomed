@@ -13,10 +13,11 @@ import { Navigation } from "react-native-navigation";
 
 // Services
 import { getDateService } from "./service/DateService";
+import { getMealService } from "./service/MealService";
 import { getMedicationService } from "./service/MedicationService";
 import { getUiService } from "./service/UiService";
 
-// register screens to Navigation, first component is rendered first
+// register screens to Navigation
 Navigation.registerComponent('MedicationScreen', () => MedicationScreen);
 Navigation.registerComponent('RecipeBookScreen', () => RecipeBookScreen);
 Navigation.registerComponent('InformationScreen', () => InformationScreen);
@@ -33,6 +34,7 @@ LogBox.ignoreAllLogs()
 getDateService().init();
 getUiService().init();
 getMedicationService().init();
+getMealService().init();
 
 // DateServiceService.getInstance().createNewStorageIfNotExists();
 // MedicationService.getInstance().createNewStorageIfNotExists();
