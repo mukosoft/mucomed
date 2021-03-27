@@ -1,17 +1,15 @@
-import { defaultStyles } from '@configs/styles';
 import { getUiService } from '@service/UiService';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import Icon from "react-native-vector-icons/FontAwesome5";
 import { getMealService } from '../../service/MealService';
 
 /**
  * Renders an element for displaying a meal. 
  * Pressing on this element opens the RecipeInstructionScreen.
  * 
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export default class MealItem extends Component {

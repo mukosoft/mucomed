@@ -7,13 +7,12 @@ export class DateTimeConverterService {
         return `${(dateObj.getHours() < 10 ? '0' + dateObj.getHours() : dateObj.getHours())}:${(dateObj.getMinutes() < 10 ? '0' + dateObj.getMinutes() : dateObj.getMinutes())}`;
     }
 
-    static formatDate(dateObj, withYear = true):String {
+    static formatDate(dateObj, withYear = true):String {        
         let date = `${(dateObj.getDate())}.${(dateObj.getMonth() + 1)}.`;
-
+        
         if (withYear === true) {
             date += `${dateObj.getFullYear()}`;
         }
-
         return date;
     }
 

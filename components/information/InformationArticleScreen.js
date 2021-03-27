@@ -6,7 +6,7 @@ import { Headline, Text } from "react-native-paper";
 /**
  * Renders the screen for displaying the article of an information
  * 
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export default class InformationArticleScreen extends Component {
     render() {

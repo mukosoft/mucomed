@@ -7,12 +7,13 @@ import { getDateService } from "./DateService";
 let instance;
 
 export class MedicationService {
-    @observable medicationSchedule = MedicationSchedule;
+    @observable medicationSchedule = [];
 
     @action
     init() {
         // TODO: change later to MedicationDocument
-        this.medicationSchedule = MedicationSchedule;
+        // MedicationDocument.getInstance().delete()
+        this.updateMedicationSchedule();
     }
 
     /**
@@ -57,6 +58,22 @@ export class MedicationService {
         })
 
         MedicationDocument.getInstance().update({}, this.medicationSchedule);
+    }
+
+    @action
+    addMedicationRequest(medicationRequest) {
+        MedicationDocument.getInstance().add(medicationRequest).then(() => this.updateMedicationSchedule());
+    }
+
+    @action
+    deleteMedicationRequest(medicationRequest) {
+        MedicationDocument.getInstance().delete(medicationRequest).then(() => this.updateMedicationSchedule());
+    }
+
+    updateMedicationSchedule() {
+        MedicationDocument.getInstance().get().then((medicationSchedule) => {
+            this.medicationSchedule = medicationSchedule
+        });
     }
 }
 

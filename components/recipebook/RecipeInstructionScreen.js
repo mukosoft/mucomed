@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
  * Renders the screen, showing the instruction for 
  * preparing a meal.
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class RecipeInstructionScreen extends Component {
     meal;

@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-community/async-storage";
+import Datastore from "react-native-local-mongodb";
 import AbstractMongoDocument from "../abstracts/AbstractMongoDocument";
 
 let instance: MedicationDocument;
@@ -14,6 +16,8 @@ export default class MedicationDocument extends AbstractMongoDocument {
     }
 
     constructor() {
+        super();
+        
         this.db = new Datastore({
             filename: 'MedicationDocument',
             storage: AsyncStorage,

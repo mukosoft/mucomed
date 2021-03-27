@@ -8,7 +8,7 @@ import InformationService from '@service/InformationService';
  * Renders an element for displaying a information. 
  * Pressing on this element opens the InformationArticleScreen.
  * 
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export default class InformationCard extends Component {
     render() {

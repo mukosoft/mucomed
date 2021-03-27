@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { observer } from "mobx-react";
 import { Navigation } from 'react-native-navigation';
 import { Button } from "react-native-paper";
@@ -11,14 +11,12 @@ import { defaultStyles } from "@configs/styles";
 import { API_BASE_URL } from '@configs/config';
 import { COOKBOOK_CATEGORIES } from "@models/FilterData";
 import AppContainer from '@components/common/AppContainer';
-import { getMealService } from '../../service/MealService';
 import FavoriteMeals from './FavoriteMeals';
-import Title from '../common/Title';
 
 /**
  * Renders the screen, containing the recipes.
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export class RecipeBookScreen extends Component {
@@ -42,7 +40,6 @@ export class RecipeBookScreen extends Component {
     render() {
         return (
             <AppContainer>
-                <Title>Deine Favoriten</Title>
                 <FavoriteMeals key={'favmeals'} />
                 <View style={styles.categoryContainer}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -90,13 +87,6 @@ export class RecipeBookScreen extends Component {
 
         }
 
-    }
-
-    navigationButtonPressed(button) {
-        if (button.buttonId === 'openSettings') {
-            // TODO: switch to SettingsScreen
-            alert("open_settings_screen")
-        }
     }
 }
 

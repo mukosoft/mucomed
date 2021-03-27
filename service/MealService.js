@@ -13,7 +13,6 @@ export default class MealService {
     @action
     init() {
         MealDocument.getInstance().get().then((meals) => this.favMeals = meals);
-        console.debug(JSON.stringify(this.favMeals[0]));
     }
 
     @action

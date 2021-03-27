@@ -1,69 +1,155 @@
-import LineChart from "@components/common/LineChart";
-import { defaultStyles } from "@configs/styles";
 import BottomNavigation from '@navigation/BottomNavigation';
 import { getUiService } from "@service/UiService";
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
-import { Button } from "react-native-paper";
 import AppContainer from "../common/AppContainer";
 import FavoriteMeals from "../recipebook/FavoriteMeals";
-import Title from '../common/Title';
+import Button from '@components/common/Button';
+import Text from '@components/common/Text';
+import {  aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
+import addIcon from "@assets/icons/add_white.png";
+import medicalList from "@assets/icons/medical-list_white.png";
+import pillIcon from "@assets/icons/meds_white.png";
+import hearthIcon from "@assets/icons/love_white.png";
+import reportIcon from "@assets/icons/medical-report_white.png";
+import curveIcon from "@assets/icons/statistic-curve_white.png";
+import HTML from "react-native-render-html";
 
 /**
  * Renders the user profile.
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class ProfileScreen extends Component {
 
     state = {
-        fev_chartType: 'history',
-        bmi_chartType: 'history',
-        meal: null
+        news: {},
+        newsTextVisible: false
     };
 
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
+        this.getNews();
     }
 
     render() {
-        // if (!this.state.meal) {
-        // this.getRandomMeal();
-        // return (<ActivityIndicator animating={true} color={getUiService().theme.primary} size="large" />)
-        // } else {
         return (
             <AppContainer>
-                <View style={defaultStyles.defaultContentContainer}>
-                    <ScrollView>
-                        <Title>Deine Lieblingsspeißen</Title>
-                        <FavoriteMeals />
-                        <Title>{getUiService().getTranslation('medication')}</Title>
-                        <View>
-                            <Button mode="contained" style={styles.medikamenteBtn} onPress={() => getUiService().showModal('MedicationCreationScreen')}>Medikament hinzufügen</Button>
-                            <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenplan</Button>
-                            <Button mode="contained" style={styles.medikamenteBtn}>Medikamentenvorrat</Button>
+                <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
+                    <Text title style={[textAlign.textCenter, fontSize.xxl]}>Hallo! 👋</Text>
+                    <Text title style={textAlign.textCenter}>Suchst du was zu essen?</Text>
+                    <FavoriteMeals />
+                    <View>
+                        <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
+                        <View style={flexRow}>
+                            <View>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().navigateToComponent('MedicationCreationScreen')}>Medikament hinzufügen</Button>
+                            </View>
+                            <View>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().navigateToComponent('MedicationPlanScreen')}>Medikations plan</Button>
+                            </View>
+                            <View>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().navigateToComponent('MedicationStockScreen')}>Meine{"\n"}Medikamente</Button>
+                            </View>
                         </View>
-                        <Title>Lungenfunktion - FEV1</Title>
-                        <LineChart chartType={this.state.fev_chartType} />
-                        <Title>Berichte</Title>
-                        <Button mode="contained" style={styles.medikamenteBtn}>Zu den Berichten</Button>
-                    </ScrollView>
-                </View>
+                    </View>
+                    <View>
+                        <Text title style={textAlign.textCenter}>Berichte & Gesundheit</Text>
+                        <View style={flexRow}>
+                            <View>
+                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().navigateToComponent('ReportsScreen')}>Zu den Berichten</Button>
+                            </View>
+                            <View>
+                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().navigateToComponent('VitaldataScreen')}>Vitalwerte eingeben</Button>
+                            </View>
+                            <View>
+                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().navigateToComponent('DiseaseProgressionScreen')}>Mein Verlauf</Button>
+                            </View>
+                        </View>
+                    </View>
+                    {(Object.keys(this.state.news).length !== 0) && this.renderNews()}
+                </ScrollView>
                 <BottomNavigation />
             </AppContainer>
         )
-        // }
     }
 
-    navigationButtonPressed(button) {
-        if (button.buttonId === 'openSettings') {
-            // TODO: switch to SettingsScreen
-            alert("open_settings_screen")
-        }
+    renderNews() {
+        return <>
+            <Text title style={textAlign.textCenter}>News</Text>
+            <View style={[newsContainer, flexRow]}>
+                <Image style={newsImage} source={{ uri: this.state.news[getUiService().language].imgUrl}} resizeMode={"contain"} />
+                <View style={flex.flex_1}>
+                    <Text heading>{this.state.news[getUiService().language].title}</Text>
+                    <Text>{this.state.news[getUiService().language].excerpt}</Text>
+                    {(this.state.newsTextVisible) && <HTML source={{ html: this.state.news[getUiService().language].text}} 
+                        tagsStyles={htmlTagsStyles} classesStyles={htmlClassesStyles} />}
+                    <Button primary onPress={() => this.setState({ newsTextVisible: !this.state.newsTextVisible })}>Weiter lesen</Button>
+                </View>
+            </View>
+        </>
+    }
+
+    getNews() {
+        const url = "https://api.mukosoft.de/news"
+        fetch(`${url}?${new Date()}`)
+            .then(response => response.json())
+            .then(data => this.setState({ news: data }))
     }
 }
+
+const htmlClassesStyles = {
+    'list-item': {
+        fontSize: fontSize.md.fontSize,
+        color: getUiService().theme.primary,
+        backgroundColor: getUiService().theme.secondary,
+        padding: padding.padding_3.padding,
+        borderRadius: borderRadius.roundedMD.borderRadius
+    }
+}
+
+const htmlTagsStyles = {
+    h1: {
+        fontSize: fontSize.md.fontSize,
+        paddingBottom: padding.padding_3.padding,
+        paddingTop: padding.padding_3.padding,
+        color: getUiService().theme.primary,
+    },
+    span: {
+        fontSize: fontSize.md.fontSize,
+        paddingBottom: padding.padding_3.padding,
+        paddingTop: padding.padding_3.padding,
+        color: getUiService().theme.primary,
+    },
+}
+
+const newsContainer = StyleSheet.flatten([
+    border.borderXL,
+    borderRadius.roundedMD,
+    padding.padding_3,
+    margin.margin_4,
+    flex.flex_1,
+    justifyContent.justifyCenter,
+    { borderColor: getUiService().theme.primary },
+])
+
+const newsImage = StyleSheet.flatten([
+    width.width_100,
+    height.height_100,
+    margin.margin_3
+])
+
+const flexRow = StyleSheet.flatten([
+    flex.flexRow,
+    justifyContent.justifyCenter
+])
+
+const buttons = StyleSheet.flatten([
+    width.width_100,
+    aspectRatio_1_1
+])
 
 const styles = StyleSheet.create({
     container: {

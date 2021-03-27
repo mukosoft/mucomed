@@ -4,8 +4,14 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { flex, justifyContent, padding } from '../../configs/styles';
 
 export const BottomTabNavigation = [
+    {
+        componentId: "ProfilScreen",
+        faIcon: "user",
+        text: "Profil"
+    },
     {
         componentId: "MedicationScreen",
         faIcon: "calendar",
@@ -22,12 +28,7 @@ export const BottomTabNavigation = [
         text: "Infos"
     },
     {
-        componentId: "ProfilScreen",
-        faIcon: "user",
-        text: "Profil"
-    },
-    {
-        componentId: "MedicationCreationScreen",
+        componentId: "SettingsScreen",
         faIcon: "cogs",
         text: "Einstellungen"
     }
@@ -41,7 +42,7 @@ export default class BottomNavigation extends Component {
 
     render() {
         return (
-            <View style={styles.navigationBar}>
+            <View style={navigationBar}>
                 {
                     BottomTabNavigation.map(navigationComponent => {
                         return <NavigationButton key={navigationComponent.componentId}
@@ -54,16 +55,12 @@ export default class BottomNavigation extends Component {
             </View>
         )
     }
-
 }
 
-const styles = StyleSheet.create({
-    navigationBar: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        padding: 10,
-        borderTopWidth: 0.25,
-        borderColor: getUiService().theme.primary,
-    },
-})
+const navigationBar = StyleSheet.flatten([
+    flex.flexRow,
+    justifyContent.justifyEvenly,
+    padding.padding_3,
+    { borderTopWidth: 0.25 },
+    { borderColor: getUiService().theme.primary }
+])

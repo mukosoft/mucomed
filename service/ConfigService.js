@@ -3,7 +3,7 @@ import { action, observable } from "mobx";
 /**
  * FIXME:
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class ConfigService {
     @observable calendarDateAmount = 7;

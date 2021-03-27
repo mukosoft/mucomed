@@ -14,7 +14,7 @@ import BottomNavigation from './../navigation/BottomNavigation';
  * This screen shows various information about different 
  * cf-related topics.
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export class InformationScreen extends Component {
@@ -87,13 +87,6 @@ export class InformationScreen extends Component {
             return this.state.informations[this.state.category].map((information) => {
                 return <InformationCard information={information} key={information.name} />
             })
-        }
-    }
-
-    navigationButtonPressed(button) {
-        if (button.buttonId === 'openSettings') {
-            // TODO: switch to SettingsScreen
-            alert("open_settings_screen")
         }
     }
 }

@@ -10,22 +10,33 @@ import { VitaldataScreen } from "@components/vitaldata/VitaldataScreen";
 import { LogBox } from "react-native";
 // Components
 import { Navigation } from "react-native-navigation";
+import { MedicationPlanScreen } from "./components/medication/MedicationPlanScreen";
+import { MedicationStockScreen } from "./components/medication/MedicationStockScreen";
+import { DiseaseProgressionScreen } from "./components/progression/DiseaseProgressionScreen";
+import { ReportsScreen } from "./components/reports/ReportsScreen";
+import { SettingsScreen } from "./components/settings/SettingsScreen";
 
 // Services
 import { getDateService } from "./service/DateService";
 import { getMealService } from "./service/MealService";
 import { getMedicationService } from "./service/MedicationService";
 import { getUiService } from "./service/UiService";
+import { getVitaldataService } from "./service/VitaldataService";
 
 // register screens to Navigation
+Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
 Navigation.registerComponent('MedicationScreen', () => MedicationScreen);
 Navigation.registerComponent('RecipeBookScreen', () => RecipeBookScreen);
 Navigation.registerComponent('InformationScreen', () => InformationScreen);
-Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
+Navigation.registerComponent('ReportsScreen', () => ReportsScreen);
+Navigation.registerComponent('DiseaseProgressionScreen', () => DiseaseProgressionScreen);
 Navigation.registerComponent('MedicationCreationScreen', () => MedicationCreationScreen);
+Navigation.registerComponent('MedicationPlanScreen', () => MedicationPlanScreen);
+Navigation.registerComponent('MedicationStockScreen', () => MedicationStockScreen);
 Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
 Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionScreen);
 Navigation.registerComponent('InformationArticleScreen', () => InformationArticleScreen);
+Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 
 
 LogBox.ignoreAllLogs()
@@ -35,6 +46,7 @@ getDateService().init();
 getUiService().init();
 getMedicationService().init();
 getMealService().init();
+getVitaldataService().init();
 
 // DateServiceService.getInstance().createNewStorageIfNotExists();
 // MedicationService.getInstance().createNewStorageIfNotExists();
@@ -52,7 +64,7 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            name: 'MedicationScreen',
+                            name: 'ProfilScreen',
                             options: {
                                 topBar: {
                                     visible: false

@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { observer } from "mobx-react";
 
-import TimeFilter from "@components/common/TimeFilter";
+import MedicationTimePicker from "@components/medication/MedicationTimePicker";
 import MedicationItem from '@components/medication/MedicationItem';
 import { getDateService } from "@service/DateService";
 import { getMedicationService } from '@service/MedicationService';
-import { MEDICATION_STATUS } from '@models/Medication';
+import { MedicationRequestStatus } from '../../models/MedicationRequest';
+import Text from "@components/common/Text";
+import Button from "@components/common/Button";
+
+import { alignItems, flex, justifyContent, margin, padding, textAlign } from "../../configs/styles";
+import { getUiService } from '../../service/UiService';
 
 /**
- * Renders a list of medications and a filter element.
+ * Renders a list of medications and the medicationTimePicker for changing, 
+ * which medication should be shown.
+ * 
+ * @todo change StyleSheet definitions
+ * 
+ * @see MedicationTimePicker
+ * @see MedicationItem
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export default class MedicationList extends Component {
@@ -22,70 +33,72 @@ export default class MedicationList extends Component {
     render() {
         return (
             <SafeAreaView>
-                    <View style={styles.filterContainer}>
-                        <TimeFilter times={this.getFilterTimesFromSchedule()} key={this.getFilterTimesFromSchedule()} />
-                    </View>
+                <View style={styles.filterContainer}>
+                    <MedicationTimePicker times={getDateService().sortTimeArray(this.getMedicationTimesFromSchedule())} key={this.getMedicationTimesFromSchedule()} />
+                </View>
                 <ScrollView showsHorizontalScrollIndicator={false}>
-                        {this.showMedications()}
+                    {(getMedicationService().medicationSchedule.length > 0) ? this.showMedications() : this.renderNoMedications()}
                 </ScrollView>
             </SafeAreaView >
         );
     }
 
-    getCurrentMedication() {
-        return getMedicationService().medicationSchedule.schedule.filter((day) => {
-            return day.id.toLowerCase() === getDateService().calendarSelectionDateId;
-        })[0];
+    renderNoMedications() {
+        return <View style={[flex.flexCol, justifyContent.justifyCenter, alignItems.itemsCenter]}>
+            <Text title>😕</Text>
+            <Text title>Keine Medikament</Text>
+            <Text heading style={[margin.margin_x_4, padding.padding_y_4, textAlign.textCenter]}>Bisher hast du noch keine Medikamente angelegt.</Text>
+            <Button primary onPress={() => getUiService().navigateToComponent("MedicationCreationScreen")}>Medikamente anlegen</Button>
+        </View>
     }
 
-    getFilterTimesFromSchedule() {
-        let filterTimes = [];
+    getMedicationTimesFromSchedule() {
+        let medicationTimes = [];
 
-        if (this.getCurrentMedication().medicationList.length > 0) {
-            this.getCurrentMedication().medicationList.map(singleMedication => {
-                if (!filterTimes[singleMedication.time]) {
-                    filterTimes.push(singleMedication.time);
-                }
-            })
-        }
+        getMedicationService().medicationSchedule.map((medicationRequest) => {
+            if (this.isMedicationToday(medicationRequest)) {
+                // concat without duplicates
+                medicationTimes = medicationTimes.concat(medicationRequest.dosageInstruction.timing.repeat.timeOfDay
+                    .filter((day) => medicationTimes.indexOf(day) < 0));
+            }
+        });
 
-        return filterTimes;
+        return medicationTimes;
+    }
+
+    isMedicationToday(medicationRequest) {
+        return medicationRequest.dosageInstruction.timing.repeat.dayOfWeek.indexOf(getDateService().calendarSelectionDateId) >= 0;
+    }
+
+    isMedicationSelectedTime(medicationRequest) {
+        return medicationRequest.dosageInstruction.timing.repeat.timeOfDay.indexOf(getDateService().medicationTime) >= 0;
     }
 
     showMedications() {
         if (getMedicationService().medicationSchedule) {
-            if (this.getCurrentMedication().medicationList.length > 0) {
-                return this.getCurrentMedication().medicationList.filter(singleMedication => {
-                    return singleMedication.time === getDateService().medicationTime;
-                }).map(singleMedication => {
-                    return singleMedication.medications.map(medication => {
-                        if (medication.status === MEDICATION_STATUS.ACTIVE) {
-                            return <MedicationItem medication={medication} disabled={false} key={`${medication.name}_${Math.random()}`} />
-                        } else {
-                            // TODO: show disabled medications, but change their styling
-                            // return <MedicationItem medication={medication} disabled={true} />
-                        }
-                    })
+
+            return getMedicationService().medicationSchedule
+                .filter((medicationRequest) => this.isMedicationToday(medicationRequest))
+                .filter((medicationRequest) => this.isMedicationSelectedTime(medicationRequest))
+                .filter((medicationRequest) => (medicationRequest.status === MedicationRequestStatus.ACTIVE))
+                .map((medicationRequest) => {
+                    return <MedicationItem medicationRequest={medicationRequest} key={`${medicationRequest.medication.name}}`} />
                 })
-            } else {
-                return <View style={styles.row}>
-                    <View style={styles.column}>
-                        <Image source={require('./../../assets/sad-sleepy-emoticon-face-square.png')} style={styles.img} />
-                        <Text style={styles.text}>Keine Medikamente</Text>
-                    </View>
-                </View>
-            }
+        } else {
+            return <Text>Keine Medikamente</Text>
         }
     }
 }
 
+// style definitions
+
 const styles = StyleSheet.create({
     filterContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
+        // display: 'flex',
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // width: '100%',
         backgroundColor: 'transparent'
     },
     row: {

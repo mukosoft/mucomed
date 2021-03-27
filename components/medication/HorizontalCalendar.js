@@ -3,19 +3,20 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react';
 import CalendarItem from '@components/medication/CalendarItem';
 import { getConfigService } from '../../service/ConfigService';
+import { height, padding } from '../../configs/styles';
 
 /**
- * Create a Horizontal ScrollView with Cards inside. Each card represents a date.
- * If a card is clicked, DateService gets updated.
- *
- * @author Dominique Börner
+ * Create a Horizontal ScrollView with CalendarItems inside.
+ * 
+ * @see CalendarItem
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export default class HorizontalCalendar extends Component {
     render() {
         return (
             <SafeAreaView>
-                <View style={styles.layout}>
+                <View style={container}>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
@@ -51,9 +52,9 @@ export default class HorizontalCalendar extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    layout: {
-        marginTop: 10, marginBottom: 10,
-        minHeight: 110,
-    }
-})
+// style definitions 
+
+const container = StyleSheet.flatten([
+    padding.padding_y_3,
+    height.height_100
+])

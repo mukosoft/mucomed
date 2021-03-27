@@ -1,21 +1,28 @@
-import LineChart from "@components/common/LineChart";
 import { defaultStyles } from "@configs/styles";
-import BottomNavigation from '@navigation/BottomNavigation';
 import { getUiService } from "@service/UiService";
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, Switch, Text, View, TouchableWithoutFeedback } from "react-native";
-import { Button, Checkbox } from "react-native-paper";
+import { Image, ScrollView, StyleSheet, Switch, View, TouchableWithoutFeedback } from "react-native";
+import { Checkbox } from "react-native-paper";
 import AppContainer from "../common/AppContainer";
-import Title from '../common/Title';
 import Medication, { MEDICATION_FORM } from "../../models/Medication";
 import TextInput from "../common/Textinput";
-import NumericInput from "react-native-numeric-input";
 import DatePicker from "@react-native-community/datetimepicker";
+import MedicationRequest from "../../models/MedicationRequest";
+import Timing from "../../models/Timing";
+import Dosage from "../../models/Dosage";
+import { getMedicationService } from "../../service/MedicationService";
+import Text from "../common/Text";
+import { flex, justifyContent, margin, padding } from "../../configs/styles";
+import Button from '@components/common/Button';
 
 /**
- * Renders the screen for creation a medication.
- *
- * @author Dominique Börner
+ * Renders the screen for creation a medication. The medication is saved
+ * in MedicationDocument via MedicationService.
+ * 
+ * @todo create a mode (create, edit)
+ * 
+ * @see MedicationService
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class MedicationCreationScreen extends Component {
 
@@ -32,9 +39,10 @@ export class MedicationCreationScreen extends Component {
         friday: true,
         saturday: true,
         sunday: true,
-        amount: 0,
         showTimePicker: false,
-        times: []
+        times: [],
+        showError: false,
+        isValid: false
     };
 
     constructor(props) {
@@ -42,66 +50,112 @@ export class MedicationCreationScreen extends Component {
     }
 
     render() {
-        console.debug(this.state)
         return (
             <AppContainer>
                 <ScrollView style={defaultStyles.defaultContentContainer}>
-                    <Title>Medikament hinzufügen</Title>
-                    <Text style={styles.heading}>Name:</Text>
+                    <Text title>Medikament hinzufügen</Text>
+                    { (this.state.showError ? <Text error>Bitte überprüfen Sie die Eingaben.</Text> : <></>)}
+                    <Text heading>Name:</Text>
                     <TextInput onChangeText={(value) => this.setState({ name: value })} />
-                    <Text style={styles.heading}>Dosierung:</Text>
+                    <Text heading>Dosierung:</Text>
                     <TextInput onChangeText={(value) => this.setState({ dosage: value })} />
-                    <View style={styles.flexRow}>
-                        <View>
-                            <Text style={styles.heading}>Anzahl:</Text>
-                            <NumericInput onChange={(value) => this.setState({ amount: value })} />
-                        </View>
-                        <View style={styles.flexRow}>
-                            <Text style={styles.heading}>Tägliche Einnahme?</Text>
-                            <Switch style={styles.switch} value={this.state.daily} onValueChange={() => { this.setDaily() }} />
-                        </View>
-                    </View>
 
-                    <Text style={styles.heading}>Form der Medikation:</Text>
+                    <Text heading>Form der Medikation:</Text>
                     <View style={styles.medicationForms}>
                         {MEDICATION_FORM.map((form) => {
                             return (<TouchableWithoutFeedback onPress={() => this.setState({ form: form.form })}>
                                 <View style={[styles.medicationFormContainer, defaultStyles.defaultShadow, (this.state.form === form.form) ? styles.activeForm : null]}>
-                                    <Image source={form.icon} style={styles.formIcon} /><Text style={styles.medicationFormText}>{getUiService().getTranslation(form.form)}</Text>
+                                    <Image source={form.icon} style={styles.formIcon} /><Text>{getUiService().getTranslation(form.form)}</Text>
                                 </View>
                             </TouchableWithoutFeedback>)
                         })}
                     </View>
 
-                    <Text style={styles.heading}>Beschreibung:</Text>
+                    <Text heading>Beschreibung:</Text>
                     <TextInput onChangeText={(value) => this.setState({ description: value })} multiline={true} />
+
+                    <View style={styles.flexRow}>
+                        <View style={styles.flexRow}>
+                            <Text heading>Tägliche Einnahme?</Text>
+                            <Switch style={styles.switch} value={this.state.daily} onValueChange={() => { this.setDaily() }} />
+                        </View>
+                    </View>
                     {(!this.state.daily) ? this.renderDayList() : <></>}
 
-                    <Text style={styles.heading}>Zeiten wählen:</Text>
+                    <Text heading>Zeiten wählen:</Text>
                     {this.state.showTimePicker && <DatePicker mode="time" format="hh:mm" value={new Date()} onChange={(event, time) => this.addTime(time)} />}
-                    <Button mode="text" color={getUiService().theme.primary} style={styles.addTimeBtn} onPress={() => this.setState({ showTimePicker: true })}>Zeit hinzufügen</Button>
+                    <Button primary onPress={() => this.setState({ showTimePicker: true })}>Zeit hinzufügen</Button>
                     {this.state.times.map((time) => {
                         return <View style={styles.singleTimeContainer}>
                             <Text style={styles.singleTimeText}>{`${time?.getHours()}:${(time?.getMinutes()<10?'0':'') + time?.getMinutes()}`} Uhr</Text>
-                            <Button mode="text" color={getUiService().theme.primary} onPress={() => this.removeTime(time)}>Entfernen</Button>
+                            <Button secondary onPress={() => this.removeTime(time)}>Entfernen</Button>
                         </View>
                     }
                     )}
                 </ScrollView>
-                    <Button mode="contained" style={styles.saveBtn}>Speichern</Button>
+                <View style={buttonRow}>
+                    <Button secondary onPress={() => getUiService().navigateToComponent("ProfilScreen")}>Zurück</Button>
+                    <Button primary onPress={() => this.saveMedication()}>Speichern</Button>
+                </View>
             </AppContainer>
         )
     }
 
     saveMedication() {
-        const medication = new Medication();
-        medication.name = this.state.name;
-        medication.dosage = this.state.dosage;
-        medication.description = this.state.description;
-        medication.times = this.state.times;
-        medication.form = this.state.form;
+        if (this.isFormValid()) {
+            let medication = new Medication();
+            medication.name = this.state.name;
 
-        // TODO: Save to store
+            // remove empty space
+            if (medication.name.charAt(medication.name.length -1) === " ") {
+                medication.name = medication.name.slice(0, -1);
+            }
+
+            medication.form = this.state.form;
+    
+            let timing = new Timing();
+    
+            let dayOfWeek = [];
+            if (this.state.monday) dayOfWeek.push('monday');
+            if (this.state.tuesday) dayOfWeek.push('tuesday');
+            if (this.state.wednesday) dayOfWeek.push('wednesday');
+            if (this.state.thursday) dayOfWeek.push('thursday');
+            if (this.state.friday) dayOfWeek.push('friday');
+            if (this.state.saturday) dayOfWeek.push('saturday');
+            if (this.state.sunday) dayOfWeek.push('sunday');
+            timing.repeat.dayOfWeek = dayOfWeek;
+    
+            let times = [];
+            this.state.times.map((time) => {
+                let hours = time.getHours();
+                let minutes = time.getMinutes();
+    
+                if ((hours) < 10) { hours = `0${hours}`} 
+                if ((minutes) < 10) { minutes = `0${minutes}`} 
+    
+                times.push(`${hours}:${minutes}:00`)
+            })
+            timing.repeat.timeOfDay = times;
+    
+            let dosage = new Dosage();
+            dosage.patientInstruction = this.state.description
+            dosage.timing = timing;
+            dosage.doseAndRate.dose = this.state.dosage;
+    
+            let medicationrequest = new MedicationRequest();
+            medicationrequest.medication = medication;
+            medicationrequest.dosageInstruction = dosage;
+    
+            getMedicationService().addMedicationRequest(medicationrequest);
+
+            getUiService().navigateToComponent("MedicationScreen")
+        } else {
+            this.setState({ showError: true });
+        }
+    }
+
+    isFormValid() {
+        return (this.state.name !== "" && this.state.times.length > 0);
     }
 
     addTime(time: Date) {
@@ -124,13 +178,6 @@ export class MedicationCreationScreen extends Component {
         }
 
         this.setState({ times: newTimes });
-    }
-
-    navigationButtonPressed(button) {
-        if (button.buttonId === 'openSettings') {
-            // TODO: switch to SettingsScreen
-            alert("open_settings_screen")
-        }
     }
 
     setDaily() {
@@ -185,6 +232,15 @@ export class MedicationCreationScreen extends Component {
             </View></>)
     }
 }
+
+// style definitions
+
+const buttonRow = StyleSheet.flatten([
+    flex.flexRow,
+    justifyContent.justifyEvenly,
+    padding.padding_3,
+    margin.margin_3
+])
 
 const styles = StyleSheet.create({
     flexRow: {

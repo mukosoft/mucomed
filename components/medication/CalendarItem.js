@@ -1,18 +1,17 @@
-import { defaultStyles } from '@configs/styles';
+import React, { Component } from 'react';
 import { getDateService } from '@service/DateService';
 import { DateTimeConverterService } from '@service/DateTimeConverterService';
 import { getUiService } from '@service/UiService';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { alignContent, alignItems, aspectRatio_1_1, flex, fontSize, fontStyle, height, shadow, justifyContent, margin, padding, borderRadius } from '../../configs/styles';
 
 /**
- * Renders a single element of the calendar.
+ * Renders a single element of the calendar. If the CalendarItem element is 
+ * clicked, dateService sets the date to the clicked date. Also, the 
+ * calendarItem slides down.
  * 
- * If the CalendarItem element is clicked, dateService sets the date
- * for showing content.
- * 
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export default class CalendarItem extends Component {
@@ -23,31 +22,38 @@ export default class CalendarItem extends Component {
     
     render() {
         const date = this.props.date;
-        let selected = false;
+        let style;
+        let styleText;
+        let styleDate;
 
-        if (this.props.date.getDay() === getDateService().calendarSelection.getDay()) {
-            style = styles.selectedCalendarDate;
-            styleText = styles.CalendarDateSelectedText;
-            selected = true;
+        if (this.isSelected()) {
+            style = itemSelected;
+            styleText = itemSelectedText;
+            styleDate = dateSelectedText;
             this.animateMarginTop(10);
         } else {
-            style = styles.calendarDate;
-            styleText = styles.calendarDateUnselectedText;
+            style = item;
+            styleText = itemText;
+            styleDate = dateText;
             this.animateMarginTop(0);
         }
 
         return (
-            <TouchableOpacity onPress={() => getDateService().setCalendarSelection(date)}>
-                <View style={styles.container}>
+            <TouchableWithoutFeedback onPress={() => getDateService().setCalendarSelection(date)}>
+                <View style={container}>
                     <Animated.View
-                    style={[style, defaultStyles.defaultBorderRadius, { marginTop: this.state.animMargin }]}
+                    style={[style, borderRadius.roundedMD, { marginTop: this.state.animMargin }]}
                     key={this.props.date}>
-                        <Text style={[styles.calendarDateText, styleText]}>{DateTimeConverterService.formatDate(date, false)}</Text>
+                        <Text style={styleText}>{DateTimeConverterService.formatDate(date, false)}</Text>
+                        <Text style={styleDate}>{DateTimeConverterService.getDateName(date)}</Text>
                     </Animated.View>
-                    <Text style={[styles.calendarDayText, defaultStyles.fontLight]}>{DateTimeConverterService.getDateName(date)}</Text>
                 </View>
-            </TouchableOpacity> 
+            </TouchableWithoutFeedback> 
         );
+    }
+
+    isSelected() {
+        return this.props.date.getDay() === getDateService().calendarSelection.getDay();
     }
 
     animateMarginTop(px) {
@@ -59,47 +65,55 @@ export default class CalendarItem extends Component {
     }
 }
 
+// style definitions
 
-const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center'
-    },
-    calendarDate: {
-        backgroundColor: getUiService().theme.secondary,
-        margin: 5,
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 50,
-        aspectRatio: 1,
-    },
-    selectedCalendarDate: {
-        backgroundColor: getUiService().theme.primary,
-        margin: 5,
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 60,
-        aspectRatio: 1
-    },
-    calendarDayText: {  
-        fontSize: 10,
-        fontWeight: '100',
-        color: getUiService().theme.text,
-        opacity: 0.35,
-    },
-    calendarDateText: {
-        fontWeight: '900',
-        fontSize: 14
-    },
-    calendarDateUnselectedText: {
-        color: getUiService().theme.primary,
-    },
-    CalendarDateSelectedText: {
-        color: getUiService().theme.secondary,
-    },
-});
+const container = StyleSheet.flatten([
+    flex.flexCol,
+    justifyContent.justifyCenter,
+    alignContent.contentCenter,
+    alignItems.itemsCenter
+])
+
+const item = StyleSheet.flatten([
+    padding.padding_2,
+    margin.margin_2,
+    justifyContent.justifyCenter,
+    alignItems.itemsCenter,
+    height.height_75,
+    aspectRatio_1_1,
+    { backgroundColor: getUiService().theme.secondary }
+])
+
+const itemText = StyleSheet.flatten([
+    fontSize.lg,
+    fontStyle.bold,
+    { color: getUiService().theme.primary }
+])
+
+const dateText = StyleSheet.flatten([
+    fontSize.sm,
+    padding.padding_y_2,
+    { color: getUiService().theme.primary }
+])
+
+const itemSelected = StyleSheet.flatten([
+    padding.padding_2,
+    margin.margin_2,
+    justifyContent.justifyCenter,
+    alignItems.itemsCenter,
+    height.height_75,
+    aspectRatio_1_1,
+    { backgroundColor: getUiService().theme.primary }
+])
+
+const itemSelectedText = StyleSheet.flatten([
+    fontSize.lg,
+    fontStyle.bold,
+    { color: getUiService().theme.secondary }
+])
+
+const dateSelectedText = StyleSheet.flatten([
+    fontSize.sm,
+    padding.padding_y_2,
+    { color: getUiService().theme.secondary }
+])

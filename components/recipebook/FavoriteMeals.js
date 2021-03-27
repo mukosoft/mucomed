@@ -1,79 +1,80 @@
-import { defaultStyles } from '@configs/styles';
 import { getUiService } from '@service/UiService';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
-import MealService, { getMealService } from '../../service/MealService';
+import { alignContent, alignSelf, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from '../../configs/styles';
+import { getMealService } from '../../service/MealService';
 
 /**
  * Renders a List with favorite meals inside.
  * 
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
 export default class FavoriteMeals extends Component {
+
     render() {
-        return (
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>                
-                {(getMealService().favMeals.length > 0) ? getMealService().favMeals.map((meal) => {
-                    return this.renderFavMealCard(meal)
-                }) : <Text style={styles.noFav}>Noch keine Favoriten. Speichere jetzt Favoriten, um schnell auf interesannte Rezepte zugreifen zu können!</Text>}
-            </ScrollView>
-        )
+        if (getMealService().favMeals.length > 0) {
+            return (
+                <View style={favMealContainer}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>                
+                        { getMealService().favMeals.map((meal) => {
+                            return this.renderFavMealCard(meal)
+                        })}
+                    </ScrollView>
+                </View>
+            )
+        }
+
+        return <></>
+        
     }
 
     renderFavMealCard(meal) {
         return <TouchableOpacity onPress={() => getUiService().showModal('RecipeInstructionScreen', meal)} key={meal._id}>
-                <View style={[styles.mealCard, defaultStyles.defaultShadow]}>
-                    {(meal.img) ? <Image style={styles.mealImage} source={{ uri: getUiService().convertRefToSrc(meal.img.asset._ref) }} /> : null}
-                    <Text style={styles.mealName}>{meal.name}</Text>
-                    <IconButton style={styles.removeButton} size={12} icon={"close"} onPress={() => getMealService().removeFavMeal(meal)} />
+                <View style={mealCard}>
+                    {(meal.img) ? <Image style={mealImage} source={{ uri: getUiService().convertRefToSrc(meal.img.asset._ref) }} /> : null}
+                    <Text style={mealName}>{meal.name}</Text>
+                    <IconButton style={removeButton} size={fontSize.lg.fontSize} icon={"close"} onPress={() => getMealService().removeFavMeal(meal)} />
                 </View>
             </TouchableOpacity>
     }
 }
 
-const styles = StyleSheet.create({
-    scrollContainer: {
-        // height: 200,
-    },
-    mealCard: {
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: getUiService().theme.background,
-        margin: 10,
-        marginTop: 20, marginBottom: 40,
-        padding: 10,
-        justifyContent: 'space-around',
-        alignContent: 'space-between',
-        height: 120, width: 100
-    },
-    mealImage: {
-        borderRadius: 999,
-        alignSelf: 'center',
-        width: 50, height: 50,
-        margin: 5
-    },
-    mealName: {
-        textAlign: 'center',
-        marginTop: 10,
-        padding: 5,
-        fontSize: 11
-    },
-    removeButton: {
-        alignSelf: 'center',
-        marginTop: 15
-    },
-    noFav: {
-        width: 300,
-        textAlign: 'left',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        padding: 10,
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: getUiService().theme.text
-    }
-})
+const favMealContainer = StyleSheet.flatten([
+    height.height_150,
+    padding.padding_3
+])
+
+const mealCard = StyleSheet.flatten([
+    flex.flexCol,
+    margin.margin_3,
+    padding.padding_3,
+    borderRadius.roundedSM,
+    shadow.shadowMD,
+    height.height_125,
+    width.width_100,
+    justifyContent.justifyAround,
+    alignContent.contentBetween,
+])
+
+const mealImage = StyleSheet.flatten([
+    borderRadius.roundedFull,
+    alignSelf.selfCenter,
+    width.width_50,
+    height.height_50,
+])
+
+const mealName = StyleSheet.flatten([
+    textAlign.textCenter,
+    margin.margin_y_2,
+    padding.padding_1,
+    fontSize.sm
+])
+
+const removeButton = StyleSheet.flatten([
+    flex.flex_1,
+    alignSelf.selfCenter,
+])

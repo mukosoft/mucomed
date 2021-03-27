@@ -10,7 +10,7 @@ import { LANGUAGES } from "../models/Languages";
  *
  * TODO: make global toast notification visible
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class UiService {
     @observable theme = new LightTheme();
@@ -35,7 +35,7 @@ export class UiService {
     }
     @action
     init() {
-        this.navigateToComponent('MedicationScreen');
+        this.navigateToComponent('ProfilScreen');
     }
 
     convertRefToSrc(ref) {

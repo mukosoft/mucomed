@@ -6,7 +6,7 @@ let instance;
 /**
  * MealStore
  *
- * @author Dominique Börner
+ * @author Dominique Börner (dominique@mukosoft.de)
  */
 export class MealStore {
 

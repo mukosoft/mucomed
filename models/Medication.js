@@ -1,12 +1,7 @@
-import pillIcon from '@assets//icons/meds.png';
-import inhaleIcon from '@assets//icons/inhalator.png';
-import injectionIcon from '@assets//icons/injection.png';
-import otherIcon from '@assets/icons/medicine.png';
-
-export const MEDICATION_STATUS = {
-    ACTIVE: "active",
-    INACTIVE: "inactive"
-}
+import pillIcon from '@assets//icons/meds_primary.png';
+import inhaleIcon from '@assets//icons/inhalator_primary.png';
+import injectionIcon from '@assets//icons/injection_primary.png';
+import otherIcon from '@assets/icons/medicine_primary.png';
 
 export const MEDICATION_FORM = [
     {
@@ -28,11 +23,7 @@ export const MEDICATION_FORM = [
 ];
 
 export default class Medication {
-    id = Medication;
-    status = MEDICATION_STATUS.ACTIVE;
-    name = "";
-    dosage = "";
-    description = "";
-    times = [];
+    identifier: String = "Medication";
+    name: String = "";
     form: String = MEDICATION_FORM.OTHER;
 }
