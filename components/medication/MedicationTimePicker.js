@@ -3,7 +3,7 @@ import { getUiService } from '@service/UiService';
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { alignItems, borderRadius, flex, fontSize, fontStyle,+ opacity, padding } from '../../configs/styles';
+import { alignItems, borderRadius, flex, fontSize, fontStyle, opacity, padding } from '../../configs/styles';
 
 /**
  * Renders the current time, with buttons on the left and right of it
