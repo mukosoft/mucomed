@@ -62,7 +62,7 @@ const favMealContainer = StyleSheet.flatten([
     flex.flexCol,
     justifyContent.justifyAround,
     borderRadius.roundedSM,
-    shadow.shadowMD,
+    shadow.shadowSM,
     height.height_125,
     width.width_100,
     margin.margin_3,
