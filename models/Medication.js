@@ -3,6 +3,9 @@ import inhaleIcon from '@assets//icons/inhalator_primary.png';
 import injectionIcon from '@assets//icons/injection_primary.png';
 import otherIcon from '@assets/icons/medicine_primary.png';
 
+/**
+ * aviable medication forms.
+ */
 export const MEDICATION_FORM = [
     {
         form: "pill",
@@ -22,6 +25,12 @@ export const MEDICATION_FORM = [
     },
 ];
 
+/**
+ * FHIR Medication
+ * 
+ * @see https://www.hl7.org/fhir/medication.html
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
 export default class Medication {
     identifier: String = "Medication";
     name: String = "";

@@ -1,7 +1,6 @@
 import {action, observable} from "mobx";
 import MedicationDocument from "../documents/MedicationDocument";
 import Medication from "../models/Medication";
-import MedicationSchedule from "../models/MedicationSchedule";
 import { getDateService } from "./DateService";
 
 let instance;
