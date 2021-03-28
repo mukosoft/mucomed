@@ -1,5 +1,13 @@
 import { Datastore } from 'react-native-local-mongodb';
 
+/**
+ * Uses the react-native-local-mongodb package and creats an abstract
+ * class for CRUD functions. Each mongo document inherits from this 
+ * class, to avoid unnecessary duplicated source code.
+ * 
+ * @see https://github.com/antoniopresto/react-native-local-mongodb
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
 export default class AbstractMongoDocument {
     db:Datastore;
 
