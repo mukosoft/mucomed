@@ -22,6 +22,7 @@ import { getMealService } from "./service/MealService";
 import { getMedicationService } from "./service/MedicationService";
 import { getUiService } from "./service/UiService";
 import { getVitaldataService } from "./service/VitaldataService";
+import { getSettingsService } from "./service/SettingsService";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -47,6 +48,7 @@ getUiService().init();
 getMedicationService().init();
 getMealService().init();
 getVitaldataService().init();
+getSettingsService().init();
 
 // DateServiceService.getInstance().createNewStorageIfNotExists();
 // MedicationService.getInstance().createNewStorageIfNotExists();
