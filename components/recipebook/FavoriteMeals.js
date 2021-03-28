@@ -1,15 +1,18 @@
 import { getUiService } from '@service/UiService';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
-import { alignContent, alignSelf, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from '../../configs/styles';
+import { alignItems, alignSelf, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from '../../configs/styles';
 import { getMealService } from '../../service/MealService';
+import Text from "@components/common/Text";
 
 /**
- * Renders a List with favorite meals inside.
+ * Renders a List with favorite meals inside. F
+ * avorite meals are coming from MealService.
  * 
+ * @see MealService
  * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
@@ -18,9 +21,11 @@ export default class FavoriteMeals extends Component {
     render() {
         if (getMealService().favMeals.length > 0) {
             return (
-                <View style={favMealContainer}>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>                
-                        { getMealService().favMeals.map((meal) => {
+                <View style={favListContainer}>
+
+                    { getMealService().favMeals.length > 0 && <Text heading>Deine Favoriten</Text>}
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                        {getMealService().favMeals.map((meal) => {
                             return this.renderFavMealCard(meal)
                         })}
                     </ScrollView>
@@ -29,35 +34,46 @@ export default class FavoriteMeals extends Component {
         }
 
         return <></>
-        
+
     }
 
     renderFavMealCard(meal) {
         return <TouchableOpacity onPress={() => getUiService().showModal('RecipeInstructionScreen', meal)} key={meal._id}>
+            <View style={favMealContainer}>
                 <View style={mealCard}>
                     {(meal.img) ? <Image style={mealImage} source={{ uri: getUiService().convertRefToSrc(meal.img.asset._ref) }} /> : null}
-                    <Text style={mealName}>{meal.name}</Text>
-                    <IconButton style={removeButton} size={fontSize.lg.fontSize} icon={"close"} onPress={() => getMealService().removeFavMeal(meal)} />
+                    <Text heading style={mealName}>{getUiService().shortenString(meal.name, 26)}</Text>
                 </View>
-            </TouchableOpacity>
+                <IconButton style={removeButton} size={fontSize.lg.fontSize} icon={"close"} onPress={() => getMealService().removeFavMeal(meal)} />
+            </View>
+        </TouchableOpacity>
     }
 }
 
-const favMealContainer = StyleSheet.flatten([
-    height.height_150,
-    padding.padding_3
+// style defintions
+
+const favListContainer = StyleSheet.flatten([
+    padding.padding_3,
+    justifyContent.justifyBetween,
+    alignItems.itemsCenter
 ])
 
-const mealCard = StyleSheet.flatten([
+const favMealContainer = StyleSheet.flatten([
     flex.flexCol,
-    margin.margin_3,
-    padding.padding_3,
+    justifyContent.justifyAround,
     borderRadius.roundedSM,
     shadow.shadowMD,
     height.height_125,
     width.width_100,
-    justifyContent.justifyAround,
-    alignContent.contentBetween,
+    margin.margin_3,
+    padding.padding_x_3,
+    padding.padding_y_1,
+])
+
+const mealCard = StyleSheet.flatten([
+    flex.flexCol,
+    alignItems.itemsCenter,
+    height.height_75
 ])
 
 const mealImage = StyleSheet.flatten([
@@ -69,12 +85,11 @@ const mealImage = StyleSheet.flatten([
 
 const mealName = StyleSheet.flatten([
     textAlign.textCenter,
-    margin.margin_y_2,
-    padding.padding_1,
     fontSize.sm
 ])
 
 const removeButton = StyleSheet.flatten([
+    height.height_25,
     flex.flex_1,
     alignSelf.selfCenter,
 ])

@@ -49,6 +49,14 @@ export class UiService {
         return src;
     }
 
+    shortenString(string: String, chars: Number) {
+        if (string.length > chars) {
+            return `${string.substr(0, chars)}...`;
+        }
+
+        return string;
+    }
+
     navigateToComponent(componentId) {
         if (componentId !== this.navigationActivePage) {
             this.navigationActivePage = componentId;

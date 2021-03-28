@@ -12,11 +12,12 @@ import { API_BASE_URL } from '@configs/config';
 import { COOKBOOK_CATEGORIES } from "@models/FilterData";
 import AppContainer from '@components/common/AppContainer';
 import FavoriteMeals from './FavoriteMeals';
-import { alignItems, flex, justifyContent, margin, padding } from '../../configs/styles';
-
+import { alignItems, flex, justifyContent, margin } from '../../configs/styles';
 /**
- * Renders the screen, containing the recipes.
- *
+ * Renders the screen, containing the recipes. The recipes are coming
+ * from the server.
+ * 
+ * @see https://cms.mukosoft.de
  * @author Dominique Börner (dominique@mukosoft.de)
  */
 @observer
