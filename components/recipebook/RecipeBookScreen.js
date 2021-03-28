@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { observer } from "mobx-react";
 import { Navigation } from 'react-native-navigation';
-import { Button } from "react-native-paper";
+import Button from "@components/common/Button";
 
 import BottomNavigation from '@navigation/BottomNavigation';
 import MealItem from '@components/recipebook/MealItem';
@@ -12,6 +12,7 @@ import { API_BASE_URL } from '@configs/config';
 import { COOKBOOK_CATEGORIES } from "@models/FilterData";
 import AppContainer from '@components/common/AppContainer';
 import FavoriteMeals from './FavoriteMeals';
+import { alignItems, flex, justifyContent, margin, padding } from '../../configs/styles';
 
 /**
  * Renders the screen, containing the recipes.
@@ -41,22 +42,22 @@ export class RecipeBookScreen extends Component {
         return (
             <AppContainer>
                 <FavoriteMeals key={'favmeals'} />
-                <View style={styles.categoryContainer}>
+                <View style={categoryContainer}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {
                             COOKBOOK_CATEGORIES.map((food) => {
-                                return <Button onPress={() => this.setCategory(food.category)} key={food.category}
-                                    color={this.setSelectedColor(food.category)}>{getUiService().getTranslation(food.category)}</Button>
+                                return <Button text onPress={() => this.setCategory(food.category)} key={food.category}
+                                    style={this.isSelected(food.category)}>{getUiService().getTranslation(food.category)}</Button>
                             })
                         }
                     </ScrollView>
                 </View>
                 <ScrollView style={defaultStyles.defaultContentContainer}>
-                    <View style={styles.foodList}>
                         <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={foodList}>
                             {this.renderMeals()}
-                        </ScrollView>
                     </View>
+                        </ScrollView>
                 </ScrollView>
                 <BottomNavigation />
             </AppContainer>
@@ -67,11 +68,9 @@ export class RecipeBookScreen extends Component {
         this.setState({ category: category })
     }
 
-    setSelectedColor(category) {
+    isSelected(category) {
         if (this.state.category === category) {
-            return getUiService().theme.active
-        } else {
-            return getUiService().theme.primary
+            return selectedButtonStyle;
         }
     }
 
@@ -90,14 +89,20 @@ export class RecipeBookScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    categoryContainer: {
-        display: 'flex',
-        height: 40,
-    },
-    foodList: {
-        display: 'flex',
-        flexDirection: 'row',
-        height: 560
-    },
-})
+// style definitions
+
+const selectedButtonStyle = StyleSheet.flatten([
+    { backgroundColor: getUiService().theme.secondary }
+])
+
+const categoryContainer = StyleSheet.flatten([
+    flex.flexRow,
+    margin.margin_x_3
+])
+
+const foodList = StyleSheet.flatten([
+    flex.flexCol,
+    margin.margin_y_4,
+    alignItems.itemsCenter,
+    justifyContent.justifyCenter
+])
