@@ -25,7 +25,7 @@ export default class Button extends Component {
 
         if (this.props.primary) {style = primaryStyle; textStyle = primaryTextStyle}
         if (this.props.secondary) {style = secondaryStyle; textStyle = secondaryTextStyle}
-        if (this.props.text) {style = textStyle}
+        if (this.props.text) {style = textButtonStyle}
         
         return (
             <View style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
@@ -99,7 +99,7 @@ const secondaryTextStyle = StyleSheet.flatten([
     { color: getUiService().theme.primary }
 ])
 
-const textStyle = StyleSheet.flatten([
+const textButtonStyle = StyleSheet.flatten([
     flex.flexCol,
     margin.margin_2,
     padding.padding_x_4,
