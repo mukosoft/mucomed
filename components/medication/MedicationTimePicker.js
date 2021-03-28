@@ -46,7 +46,7 @@ export default class MedicationTimePicker extends Component {
                             }        
                         </View>
                         <View>
-                            <Text style={timeCaption}>{getDateService().removeSecondsFromTime(getDateService().getMedicationTime())} Uhr</Text>
+                            <Text style={timeCaption}>{getDateService().removeSecondsFromTime(getDateService().getMedicationTime())} {getUiService().getTranslation("clock")}</Text>
                         </View>
                         <View style={[flex.flex_1, alignItems.itemsStart]}>
                         {

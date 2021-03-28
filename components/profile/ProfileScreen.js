@@ -41,34 +41,34 @@ export class ProfileScreen extends Component {
         return (
             <AppContainer>
                 <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
-                    <Text title style={[textAlign.textCenter, fontSize.xxl]}>Hallo! 👋</Text>
-                    <Text title style={textAlign.textCenter}>Suchst du was zu essen?</Text>
+                    <Text title style={[textAlign.textCenter, fontSize.xxl]}>{getUiService().getTranslation('hello')} 👋</Text>
+                    <Text title style={textAlign.textCenter}>{getUiService().getTranslation('search_for_something_to_eat')}</Text>
                     { this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} /> }
                     <View>
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().navigateToComponent('MedicationCreationScreen')}>Medikament hinzufügen</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().navigateToComponent('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().navigateToComponent('MedicationPlanScreen')}>Medikations plan</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().navigateToComponent('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().navigateToComponent('MedicationStockScreen')}>Meine{"\n"}Medikamente</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().navigateToComponent('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
                             </View>
                         </View>
                     </View>
                     <View>
-                        <Text title style={textAlign.textCenter}>Berichte & Gesundheit</Text>
+                        <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().navigateToComponent('ReportsScreen')}>Zu den Berichten</Button>
+                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().navigateToComponent('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().navigateToComponent('VitaldataScreen')}>Vitalwerte eingeben</Button>
+                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().navigateToComponent('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().navigateToComponent('DiseaseProgressionScreen')}>Mein Verlauf</Button>
+                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().navigateToComponent('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
                             </View>
                         </View>
                     </View>
@@ -81,7 +81,7 @@ export class ProfileScreen extends Component {
 
     renderNews() {
         return <>
-            <Text title style={textAlign.textCenter}>News</Text>
+            <Text title style={textAlign.textCenter}>{getUiService().getTranslation('news')}</Text>
             <View style={[newsContainer, flexRow]}>
                 <Image style={newsImage} source={{ uri: this.state.news[getUiService().language].imgUrl }} resizeMode={"contain"} />
                 <View style={flex.flex_1}>

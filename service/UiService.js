@@ -14,14 +14,14 @@ import { LANGUAGES } from "../models/Languages";
  */
 export class UiService {
     @observable theme = new LightTheme();
-    @observable language = LANGUAGES.german;
+    @observable language = LANGUAGES.english;
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
     @observable navigationActivePage;
 
     @action
     getTranslation(key) {
-        return this.language_text[this.language][key.toLowerCase()];
+        return this.language_text[this.language][key.toLowerCase()] || "";
     }
 
     @action 

@@ -49,7 +49,7 @@ export class SettingsScreen extends Component {
 
     renderGeneralSection() {
         return <View>
-            <Text title>Allgemein</Text>
+            <Text title>{getUiService().getTranslation("settings_general")}</Text>
             <Text heading>Kreoneinnahme am ende des Tages abfragen?</Text>
         </View>
     }

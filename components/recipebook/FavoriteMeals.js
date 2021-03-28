@@ -23,7 +23,7 @@ export default class FavoriteMeals extends Component {
             return (
                 <View style={favListContainer}>
 
-                    { getMealService().favMeals.length > 0 && <Text heading>Deine Favoriten</Text>}
+                    { getMealService().favMeals.length > 0 && <Text heading>{getUiService().getTranslation("recipe_favorites")}</Text>}
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {getMealService().favMeals.map((meal) => {
                             return this.renderFavMealCard(meal)

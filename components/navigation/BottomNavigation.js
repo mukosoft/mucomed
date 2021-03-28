@@ -10,27 +10,27 @@ export const BottomTabNavigation = [
     {
         componentId: "ProfilScreen",
         faIcon: "user",
-        text: "Profil"
+        translationId: "navigation_home"
     },
     {
         componentId: "MedicationScreen",
         faIcon: "calendar",
-        text: "Kalendar"
+        translationId: "navigation_medication"
     },
     {
         componentId: "RecipeBookScreen",
         faIcon: "utensils",
-        text: "Kochbuch"
+        translationId: "navigation_cookbook"
     },
     {
         componentId: "InformationScreen",
         faIcon: "info",
-        text: "Infos"
+        translationId: "navigation_informations"
     },
     {
         componentId: "SettingsScreen",
         faIcon: "cogs",
-        text: "Einstellungen"
+        translationId: "navigation_settings"
     }
 ];
 
@@ -48,7 +48,7 @@ export default class BottomNavigation extends Component {
                         return <NavigationButton key={navigationComponent.componentId}
                             onPress={() => {getUiService().navigateToComponent(navigationComponent.componentId)}} 
                             active={ (getUiService().navigationActivePage === navigationComponent.componentId) ? true : false} 
-                            icon={navigationComponent.faIcon} text={navigationComponent.text}>
+                            icon={navigationComponent.faIcon} text={getUiService().getTranslation(navigationComponent.translationId)}>
                         </NavigationButton>
                     })
                 }
