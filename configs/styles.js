@@ -1,5 +1,22 @@
 import { getUiService } from "@service/UiService";
 
+/**
+ * This file contains all styles, we can use inside the app. It's
+ * important to use these objects and variables, so that the apps 
+ * design is all the same, have same paddings, sizes etc.
+ * 
+ * 
+ * This concept is based on tailwindcss.
+ * @see https://tailwindcss.com/
+ * 
+ * You can use it via StyleSheet.flatten.
+ * @example const style = StyleSheet.flatten([ padding.p-3, border.roundedMD ]);
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
+
+/**
+ * @todo remove this!
+ */ 
 export const defaultStyles = {
     defaultContentContainer: {
         display: 'flex',
@@ -38,6 +55,8 @@ const _margin_padding_1 = 2;
 const _margin_padding_2 = 4;
 const _margin_padding_3 = 6;
 const _margin_padding_4 = 10;
+
+// style definitions for the app
 
 export const opacity = {
     opacity75: { opacity: 0.75 },
