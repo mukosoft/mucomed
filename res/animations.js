@@ -1,3 +1,4 @@
+// animation, if a modal is opened
 export const modalAnimations = {
     showModal: {
         alpha: {
