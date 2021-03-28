@@ -27,7 +27,7 @@ import { getUiService } from '../../service/UiService';
 @observer
 export default class MedicationList extends Component {
     state = {
-        timeToShow: this.getFilterTimesFromSchedule()[0]
+        timeToShow: this.getMedicationTimesFromSchedule()[0]
     }
 
     render() {
