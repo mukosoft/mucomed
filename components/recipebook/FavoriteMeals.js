@@ -9,8 +9,8 @@ import { getMealService } from '../../service/MealService';
 import Text from "@components/common/Text";
 
 /**
- * Renders a List with favorite meals inside. F
- * avorite meals are coming from MealService.
+ * Renders a List with favorite meals inside. 
+ * Favorite meals are coming from MealService.
  * 
  * @see MealService
  * @author Dominique Börner (dominique@mukosoft.de)

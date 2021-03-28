@@ -7,7 +7,7 @@ import AppContainer from "../common/AppContainer";
 import FavoriteMeals from "../recipebook/FavoriteMeals";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
-import {  aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
+import { alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
 import addIcon from "@assets/icons/add_white.png";
 import medicalList from "@assets/icons/medical-list_white.png";
 import pillIcon from "@assets/icons/meds_white.png";
@@ -15,6 +15,8 @@ import hearthIcon from "@assets/icons/love_white.png";
 import reportIcon from "@assets/icons/medical-report_white.png";
 import curveIcon from "@assets/icons/statistic-curve_white.png";
 import HTML from "react-native-render-html";
+import { API_BASE_URL } from '@configs/config';
+import MealItem from '../recipebook/MealItem';
 
 /**
  * Renders the user profile.
@@ -32,6 +34,7 @@ export class ProfileScreen extends Component {
         super(props);
         Navigation.events().bindComponent(this);
         this.getNews();
+        this.getRandomMeal();
     }
 
     render() {
@@ -40,7 +43,7 @@ export class ProfileScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
                     <Text title style={[textAlign.textCenter, fontSize.xxl]}>Hallo! 👋</Text>
                     <Text title style={textAlign.textCenter}>Suchst du was zu essen?</Text>
-                    <FavoriteMeals />
+                    { this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} /> }
                     <View>
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
                         <View style={flexRow}>
@@ -80,11 +83,11 @@ export class ProfileScreen extends Component {
         return <>
             <Text title style={textAlign.textCenter}>News</Text>
             <View style={[newsContainer, flexRow]}>
-                <Image style={newsImage} source={{ uri: this.state.news[getUiService().language].imgUrl}} resizeMode={"contain"} />
+                <Image style={newsImage} source={{ uri: this.state.news[getUiService().language].imgUrl }} resizeMode={"contain"} />
                 <View style={flex.flex_1}>
                     <Text heading>{this.state.news[getUiService().language].title}</Text>
                     <Text>{this.state.news[getUiService().language].excerpt}</Text>
-                    {(this.state.newsTextVisible) && <HTML source={{ html: this.state.news[getUiService().language].text}} 
+                    {(this.state.newsTextVisible) && <HTML source={{ html: this.state.news[getUiService().language].text }}
                         tagsStyles={htmlTagsStyles} classesStyles={htmlClassesStyles} />}
                     <Button primary onPress={() => this.setState({ newsTextVisible: !this.state.newsTextVisible })}>Weiter lesen</Button>
                 </View>
@@ -97,6 +100,16 @@ export class ProfileScreen extends Component {
         fetch(`${url}?${new Date()}`)
             .then(response => response.json())
             .then(data => this.setState({ news: data }))
+    }
+
+    getRandomMeal() {
+        fetch(`${API_BASE_URL}query=*[_type%20=="meals"]`)
+            .then(response => response.json())
+            .then(data => {
+                console.debug(data.result.length);
+                const random = Math.floor(Math.random() * Math.floor(data.result.length));
+                this.setState({ meal: data.result[random] })
+            })
     }
 }
 
