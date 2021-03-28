@@ -34,7 +34,6 @@ export class SettingsScreen extends Component {
     }
 
     render() {
-
         return (
             <AppContainer>
                 <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
@@ -51,6 +50,7 @@ export class SettingsScreen extends Component {
     renderGeneralSection() {
         return <View>
             <Text title>Allgemein</Text>
+            <Text heading>Kreoneinnahme am ende des Tages abfragen?</Text>
         </View>
     }
 
@@ -129,11 +129,6 @@ export class SettingsScreen extends Component {
         }
     }
 }
-
-const dangerAmountStyle = StyleSheet.flatten([
-    flex.flex_1,
-    textAlign.textCenter,
-])
 
 const dangerInfoStyle = StyleSheet.flatten([
     { backgroundColor: getUiService().theme.dangerLight },
