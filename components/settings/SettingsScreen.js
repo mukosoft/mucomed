@@ -77,7 +77,7 @@ export class SettingsScreen extends Component {
                 <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}
                     secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}>{getUiService().getTranslation("settings_color_dark")}</Button>
             </View>
-            <Text heading>Sprache</Text>
+            <Text heading>{getUiService().getTranslation("settings_language")}</Text>
             <View>
                 <Button primary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? true : false}
                     secondary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? false : true}
