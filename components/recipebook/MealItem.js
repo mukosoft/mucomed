@@ -94,7 +94,8 @@ const cardStyle = StyleSheet.flatten([
     justifyContent.justifyCenter,
     alignItems.itemsCenter,
     flex.flexCol,
-    shadow.shadowSM
+    shadow.shadowSM,
+    borderRadius.roundedMD
 ])
 
 const cardStyleRow = StyleSheet.flatten([
@@ -104,7 +105,8 @@ const cardStyleRow = StyleSheet.flatten([
     justifyContent.justifyStart,
     alignItems.itemsCenter,
     flex.flexRow,
-    shadow.shadowSM
+    shadow.shadowSM,
+    borderRadius.roundedMD
 ])
 
 const mealImage = StyleSheet.flatten([
@@ -116,6 +118,7 @@ const mealImage = StyleSheet.flatten([
 const mealImageRow = StyleSheet.flatten([
     width.width_100,
     aspectRatio_1_1,
+    borderRadius.roundedMD
 ])
 
 const cardContentContainer = StyleSheet.flatten([
