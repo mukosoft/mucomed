@@ -43,19 +43,12 @@ Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 LogBox.ignoreAllLogs()
 
 // initialize services
+getSettingsService().init();
 getDateService().init();
-getUiService().init();
 getMedicationService().init();
 getMealService().init();
 getVitaldataService().init();
-getSettingsService().init();
-
-// DateServiceService.getInstance().createNewStorageIfNotExists();
-// MedicationService.getInstance().createNewStorageIfNotExists();
-
-// fetch(API_BASE_URL`?query=*[_type%20=="post"]`)
-//            .then(response => response.json())
-//            .then(data => console.log(data))
+getUiService().init();
 
 // set navigation structure
 Navigation.events().registerAppLaunchedListener(() => {

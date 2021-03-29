@@ -17,6 +17,7 @@ import curveIcon from "@assets/icons/statistic-curve_white.png";
 import HTML from "react-native-render-html";
 import { API_BASE_URL } from '@configs/config';
 import MealItem from '../recipebook/MealItem';
+import { getSettingsService } from '../../service/SettingsService';
 
 /**
  * Renders the user profile.
@@ -83,11 +84,11 @@ export class ProfileScreen extends Component {
         return <>
             <Text title style={textAlign.textCenter}>{getUiService().getTranslation('news')}</Text>
             <View style={[newsContainer, flexRow]}>
-                <Image style={newsImage} source={{ uri: this.state.news[getUiService().language].imgUrl }} resizeMode={"contain"} />
+                <Image style={newsImage} source={{ uri: this.state.news[getSettingsService().getCurrentLanguage()].imgUrl }} resizeMode={"contain"} />
                 <View style={flex.flex_1}>
-                    <Text heading>{this.state.news[getUiService().language].title}</Text>
-                    <Text>{this.state.news[getUiService().language].excerpt}</Text>
-                    {(this.state.newsTextVisible) && <HTML source={{ html: this.state.news[getUiService().language].text }}
+                    <Text heading>{this.state.news[getSettingsService().getCurrentLanguage()].title}</Text>
+                    <Text>{this.state.news[getSettingsService().getCurrentLanguage()].excerpt}</Text>
+                    {(this.state.newsTextVisible) && <HTML source={{ html: this.state.news[getSettingsService().getCurrentLanguage()].text }}
                         tagsStyles={htmlTagsStyles} classesStyles={htmlClassesStyles} />}
                     <Button primary onPress={() => this.setState({ newsTextVisible: !this.state.newsTextVisible })}>Weiter lesen</Button>
                 </View>
@@ -106,7 +107,6 @@ export class ProfileScreen extends Component {
         fetch(`${API_BASE_URL}query=*[_type%20=="meals"]`)
             .then(response => response.json())
             .then(data => {
-                console.debug(data.result.length);
                 const random = Math.floor(Math.random() * Math.floor(data.result.length));
                 this.setState({ meal: data.result[random] })
             })

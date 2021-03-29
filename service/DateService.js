@@ -32,6 +32,7 @@ export class DateService {
 
     @action
     init() {
+        console.debug(`Initializing DateService`)
         const date = new Date();
         this.setCalendarSelection(date);
         this.setCalendarSelectionDateId(date);

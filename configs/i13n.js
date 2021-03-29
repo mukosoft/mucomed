@@ -9,9 +9,9 @@ export default {
         saturday: "Samstag",
         sunday: "Sonntag",
 
-        navigation_home: "Home",
+        navigation_home: "Profil",
         navigation_cookbook: "Kochbuch",
-        navigation_informations: "Informationen",
+        navigation_informations: "Infos",
         navigation_medication: "Medikamente",
         navigation_settings: "Einstellungen",
 

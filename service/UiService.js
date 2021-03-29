@@ -1,9 +1,9 @@
 import i13n from "@configs/i13n";
 import { LightTheme } from '@res/colors';
 import { action, observable } from "mobx";
+import { observer } from "mobx-react";
 import { Navigation } from "react-native-navigation";
-
-import { LANGUAGES } from "../models/Languages";
+import { getSettingsService } from "./SettingsService";
 
 /**
  * Stores basic UI configurations, handles translation and theme
@@ -14,14 +14,13 @@ import { LANGUAGES } from "../models/Languages";
  */
 export class UiService {
     @observable theme = new LightTheme();
-    @observable language = LANGUAGES.english;
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
     @observable navigationActivePage;
 
     @action
     getTranslation(key) {
-        return this.language_text[this.language][key.toLowerCase()] || "";
+        return this.language_text[getSettingsService().getCurrentLanguage()][key.toLowerCase()] || "";
     }
 
     @action 

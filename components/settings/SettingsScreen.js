@@ -7,7 +7,7 @@ import { Navigation } from 'react-native-navigation';
 import AppContainer from "../common/AppContainer";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
-import { aspectRatio_1_1, border, borderRadius, flex, fontSize, fontStyle, margin, opacity, padding, textAlign } from "../../configs/styles";
+import { border, borderRadius, flex, fontSize, fontStyle, margin, padding, textAlign } from "../../configs/styles";
 import { observer } from "mobx-react";
 import MealDocument from "../../documents/MealDocument";
 import MedicationDocument from "../../documents/MedicationDocument";
@@ -15,6 +15,8 @@ import VitaldataDocument from "../../documents/VitaldataDocument";
 import { getMedicationService } from '../../service/MedicationService';
 import { getVitaldataService } from '../../service/VitaldataService';
 import { getMealService } from '../../service/MealService';
+import { getSettingsService } from '../../service/SettingsService';
+import { LANGUAGES } from '../../models/Languages';
 
 /**
  * Renders the SettingsScreen
@@ -23,6 +25,8 @@ import { getMealService } from '../../service/MealService';
  */
 @observer
 export class SettingsScreen extends Component {
+
+    settings = [];
 
     state = {
         showDataDeleteHint: false
@@ -34,6 +38,9 @@ export class SettingsScreen extends Component {
     }
 
     render() {
+        // important, so that this screen rerenders after every change
+        this.settings = getSettingsService().settings;
+
         return (
             <AppContainer>
                 <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
@@ -50,44 +57,46 @@ export class SettingsScreen extends Component {
     renderGeneralSection() {
         return <View>
             <Text title>{getUiService().getTranslation("settings_general")}</Text>
-            <Text heading>Kreoneinnahme am ende des Tages abfragen?</Text>
+            <Text heading>{getUiService().getTranslation("settings_creon_notification")}</Text>
         </View>
     }
 
     renderNotificationSection() {
         return <View>
-            <Text title>Benachrichtigungen</Text>
+            <Text title>{getUiService().getTranslation("settings_notification")}</Text>
         </View>
     }
 
     renderLayoutSection() {
         return <View>
-            <Text title>Design</Text>
-            <Text heading>Farbschema</Text>
+            <Text title>{getUiService().getTranslation("settings_design")}</Text>
+            <Text heading>{getUiService().getTranslation("settings_color")}</Text>
             <View>
                 <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}
-                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}>Helles Design</Button>
+                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}>{getUiService().getTranslation("settings_color_light")}</Button>
                 <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}
-                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}>Dunkles Design</Button>
+                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}>{getUiService().getTranslation("settings_color_dark")}</Button>
             </View>
             <Text heading>Sprache</Text>
             <View>
-                <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}
-                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}>Deutsch</Button>
-                <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}
-                    secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}>English</Button>
+                <Button primary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? true : false}
+                    secondary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? false : true}
+                    onPress={() => getSettingsService().changeLanguage(LANGUAGES.german)}>{getUiService().getTranslation("settings_language_german")}</Button>
+                <Button primary={(getSettingsService().getCurrentLanguage() === LANGUAGES.english) ? true : true}
+                    secondary={(getSettingsService().getCurrentLanguage() === LANGUAGES.english) ? false : true}
+                    onPress={() => getSettingsService().changeLanguage(LANGUAGES.english)}>{getUiService().getTranslation("settings_language_english")}</Button>
             </View>
         </View>
     }
 
     renderDataSection() {
         return <View>
-            <Text title>Daten</Text>
-            <Text>Alle Daten werden für maximalen Datenschutz nur auf Ihrem Smartphone gespeichert.</Text>
-            <Text heading>Verwaltung</Text>
-            <Button primary>Daten exportieren</Button>
-            <Text heading>Daten löschen</Text>
-            <Button primary danger onPress={() => this.deleteAllData()}>{(this.state.showDataDeleteHint === false) ? "Alle Daten löschen" : "Löschen bestätigen"}</Button>
+            <Text title>{getUiService().getTranslation("settings_data")}</Text>
+            <Text>{getUiService().getTranslation("settings_data_description")}</Text>
+            <Text heading>{getUiService().getTranslation("settings_data_management")}</Text>
+            <Button primary>{getUiService().getTranslation("settings_data_export")}</Button>
+            <Text heading>{getUiService().getTranslation("settings_data_delete")}</Text>
+            <Button primary danger onPress={() => this.deleteAllData()}>{(this.state.showDataDeleteHint === false) ? getUiService().getTranslation("settings_data_delete_all") : getUiService().getTranslation("settings_data_delete_confirm")}</Button>
             {(this.state.showDataDeleteHint) && this.showDataDeleteHint()}
         </View>
     }
@@ -98,18 +107,17 @@ export class SettingsScreen extends Component {
             <View style={flex.flexRow}>
                 <View style={[flex.flex_1, dangerInfoStyle]}>
                     <Text danger style={[textAlign.textCenter, fontSize.xl]}>{getMedicationService().medicationSchedule.length}</Text>
-                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>Erfasste Medikationen</Text>
+                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>{getUiService().getTranslation("settings_data_collected_medication")}</Text>
                 </View>
                 <View style={[flex.flex_1, dangerInfoStyle]}>
                     <Text danger style={[textAlign.textCenter, fontSize.xl]}>{getVitaldataService().vitaldata.length}</Text>
-                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>Erfasste Vitaldaten</Text>
+                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>{getUiService().getTranslation("settings_data_collected_vitaldata")}</Text>
                 </View>
                 <View style={[flex.flex_1, dangerInfoStyle]}>
                     <Text danger style={[textAlign.textCenter, fontSize.xl]}>{getMealService().favMeals.length}</Text>
-                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>Gespeicherte Mahlzeiten</Text>
+                    <Text danger style={[textAlign.textCenter, fontSize.sm, fontStyle.bold]}>{getUiService().getTranslation("settings_data_collected_meals")}</Text>
                 </View>
             </View>
-
         </View>
     }
 
