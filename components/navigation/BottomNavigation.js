@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { flex, justifyContent, padding } from '../../configs/styles';
+import { flex, justifyContent, margin, padding } from '../../configs/styles';
 import { getSettingsService } from '../../service/SettingsService';
 
 export const BottomTabNavigation = [
@@ -67,7 +67,7 @@ export default class BottomNavigation extends Component {
 const navigationBar = StyleSheet.flatten([
     flex.flexRow,
     justifyContent.justifyEvenly,
-    padding.padding_3,
+    padding.padding_1,
     { borderTopWidth: 0.25 },
     { borderColor: getUiService().theme.primary }
 ])

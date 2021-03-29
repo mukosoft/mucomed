@@ -2,9 +2,9 @@ import { getUiService } from '@service/UiService';
 import React, { Component } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import Text from "@components/common/Text";
 import FAIcon from 'react-native-vector-icons/FontAwesome5';
-import { alignContent, alignSelf, aspectRatio_1_1, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin } from '../../configs/styles';
+import { alignContent, alignItems, alignSelf, aspectRatio_1_1, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding } from '../../configs/styles';
 
 export default class NavigationButton extends Component {
     render() {
@@ -23,9 +23,12 @@ const nonActiveButton = StyleSheet.flatten([
     flex.flexCol,
     height.height_60,
     alignContent.contentCenter,
-    justifyContent.justifyCenter,
+    justifyContent.justifyStart,
+    alignItems.itemsCenter,
     aspectRatio_1_1,
     borderRadius.roundedMD,
+    padding.padding_y_4,
+    padding.padding_x_1,
     { color: getUiService().theme.secondary }
 ])
 
@@ -33,9 +36,12 @@ const activeButton = StyleSheet.flatten([
     flex.flexCol,
     height.height_60,
     alignContent.contentCenter,
-    justifyContent.justifyCenter,
+    justifyContent.justifyStart,
+    alignItems.itemsCenter,
     aspectRatio_1_1,
     borderRadius.roundedMD,
+    padding.padding_y_4,
+    padding.padding_x_1,
     { color: getUiService().theme.secondary },
     { backgroundColor: getUiService().theme.primary }
 ])
