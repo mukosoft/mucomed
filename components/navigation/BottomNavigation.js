@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { flex, justifyContent, padding } from '../../configs/styles';
+import { getSettingsService } from '../../service/SettingsService';
 
 export const BottomTabNavigation = [
     {
@@ -36,18 +37,24 @@ export const BottomTabNavigation = [
 
 @observer
 export default class BottomNavigation extends Component {
+
+    settings = [];
+
     constructor(props) {
         super(props);
     }
 
     render() {
+        // important, so that this screen rerenders after every change
+        this.settings = getSettingsService().settings;
+
         return (
             <View style={navigationBar}>
                 {
                     BottomTabNavigation.map(navigationComponent => {
                         return <NavigationButton key={navigationComponent.componentId}
-                            onPress={() => {getUiService().navigateToComponent(navigationComponent.componentId)}} 
-                            active={ (getUiService().navigationActivePage === navigationComponent.componentId) ? true : false} 
+                            onPress={() => { getUiService().navigateToComponent(navigationComponent.componentId) }}
+                            active={(getUiService().navigationActivePage === navigationComponent.componentId) ? true : false}
                             icon={navigationComponent.faIcon} text={getUiService().getTranslation(navigationComponent.translationId)}>
                         </NavigationButton>
                     })
