@@ -12,7 +12,7 @@ export default {
         navigation_home: "Profil",
         navigation_cookbook: "Kochbuch",
         navigation_informations: "Infos",
-        navigation_medication: "Medikamente",
+        navigation_medication: "Kalendar",
         navigation_settings: "Einstellungen",
 
         clock: "Uhr",
@@ -31,7 +31,7 @@ export default {
         bueaucracy: "Bürokratie",
 
         add_medication: "Medikament hinzufügen",
-        medication_schedule: "Medikationsplan",
+        medication_schedule: "Meine Medikationen",
         medication_stock: "Medikamentenlager",
         medication: "Medikamente",
         meals: "Mahlzeiten",
@@ -87,7 +87,7 @@ export default {
         navigation_home: "Home",
         navigation_cookbook: "Cookery Book",
         navigation_informations: "Informations",
-        navigation_medication: "Medication",
+        navigation_medication: "Calendar",
         navigation_settings: "Settings",
 
         clock: "",
@@ -106,7 +106,7 @@ export default {
         bueaucracy: "Bureaucracy",
 
         add_medication: "Add Medication",
-        medication_schedule: "Medication schedule",
+        medication_schedule: "My medications",
         medication_stock: "Medication stock",
         medication: "Medication",
         meals: "Meals",

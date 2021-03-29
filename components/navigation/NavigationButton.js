@@ -21,7 +21,7 @@ export default class NavigationButton extends Component {
 
 const nonActiveButton = StyleSheet.flatten([
     flex.flexCol,
-    height.height_60,
+    height.height_65,
     alignContent.contentCenter,
     justifyContent.justifyStart,
     alignItems.itemsCenter,
@@ -34,7 +34,7 @@ const nonActiveButton = StyleSheet.flatten([
 
 const activeButton = StyleSheet.flatten([
     flex.flexCol,
-    height.height_60,
+    height.height_65,
     alignContent.contentCenter,
     justifyContent.justifyStart,
     alignItems.itemsCenter,

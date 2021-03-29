@@ -167,7 +167,7 @@ export const height = {
     height_10: { height: 10 },
     height_25: { height: 25 },
     height_50: { height: 50 },
-    height_60: { height: 60 },
+    height_65: { height: 65 },
     height_75: { height: 75 },
     height_100: { height: 100 },
     height_125: { height: 125 },

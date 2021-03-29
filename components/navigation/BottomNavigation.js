@@ -67,7 +67,8 @@ export default class BottomNavigation extends Component {
 const navigationBar = StyleSheet.flatten([
     flex.flexRow,
     justifyContent.justifyEvenly,
-    padding.padding_1,
+    padding.padding_y_3,
+    padding.padding_x_1,
     { borderTopWidth: 0.25 },
     { borderColor: getUiService().theme.primary }
 ])
