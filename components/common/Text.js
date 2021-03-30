@@ -59,5 +59,5 @@ const titleStyle = StyleSheet.flatten([
 const errorStyle = StyleSheet.flatten([
     fontSize.md,
     fontStyle.bold,
-    { color: getUiService().theme.red }
+    { color: getUiService().theme.danger }
 ])

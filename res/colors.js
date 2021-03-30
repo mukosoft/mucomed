@@ -10,10 +10,13 @@ export class LightTheme {
     active = "#F27E00";
     border = "#d6d6d6";
     text = "#222";
-    red = "#8a0e1a";
     info = "#d6f5ff";
     danger = "#771e1e";
     dangerLight = "#ffd6d6";
+    fat = '#688596';
+    kcal = '#8DB248';
+    protein = '#B79D42';
+    carbohydrates = 'A42929';
 }
 
 /**
