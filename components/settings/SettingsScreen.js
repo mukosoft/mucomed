@@ -7,7 +7,7 @@ import { Navigation } from 'react-native-navigation';
 import AppContainer from "../common/AppContainer";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
-import { border, borderRadius, flex, fontSize, fontStyle, margin, padding, textAlign } from "../../configs/styles";
+import { alignItems, border, borderRadius, flex, fontSize, fontStyle, margin, padding, textAlign } from "../../configs/styles";
 import { observer } from "mobx-react";
 import MealDocument from "../../documents/MealDocument";
 import MedicationDocument from "../../documents/MedicationDocument";
@@ -17,6 +17,7 @@ import { getVitaldataService } from '../../service/VitaldataService';
 import { getMealService } from '../../service/MealService';
 import { getSettingsService } from '../../service/SettingsService';
 import { LANGUAGES } from '../../models/Languages';
+import TextInput from "@components/common/Textinput";
 
 /**
  * Renders the SettingsScreen
@@ -29,7 +30,8 @@ export class SettingsScreen extends Component {
     settings = [];
 
     state = {
-        showDataDeleteHint: false
+        showDataDeleteHint: false,
+        calendarDateAmount: getSettingsService().getCurrentCalendarDateAmount()
     }
 
     constructor(props) {
@@ -71,20 +73,25 @@ export class SettingsScreen extends Component {
         return <View>
             <Text title>{getUiService().getTranslation("settings_design")}</Text>
             <Text heading>{getUiService().getTranslation("settings_color")}</Text>
-            <View>
+            <View style={[ flex.flexRow ]}>
                 <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}
                     secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}>{getUiService().getTranslation("settings_color_light")}</Button>
                 <Button primary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? false : true}
                     secondary={(LightTheme.prototype.isPrototypeOf(getUiService().theme)) ? true : false}>{getUiService().getTranslation("settings_color_dark")}</Button>
             </View>
             <Text heading>{getUiService().getTranslation("settings_language")}</Text>
-            <View>
+            <View style={[ flex.flexRow ]}>
                 <Button primary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? true : false}
                     secondary={(getSettingsService().getCurrentLanguage() === LANGUAGES.german) ? false : true}
                     onPress={() => getSettingsService().changeLanguage(LANGUAGES.german)}>{getUiService().getTranslation("settings_language_german")}</Button>
                 <Button primary={(getSettingsService().getCurrentLanguage() === LANGUAGES.english) ? true : true}
                     secondary={(getSettingsService().getCurrentLanguage() === LANGUAGES.english) ? false : true}
                     onPress={() => getSettingsService().changeLanguage(LANGUAGES.english)}>{getUiService().getTranslation("settings_language_english")}</Button>
+            </View>
+            <Text heading>{getUiService().getTranslation("settings_calendar_days")}</Text>
+            <View style={[ flex.flexRow, alignItems.itemsCenter ]}>
+                <TextInput onChangeText={(amount) => {getSettingsService().changeCalendarDateAmount(amount); this.setState({ calendarDateAmount: amount })}} value={this.state.calendarDateAmount} />
+                <Text heading>{getUiService().getTranslation("days_caption")}</Text>
             </View>
         </View>
     }

@@ -58,6 +58,7 @@ export default {
         settings_color: "Farbschema",
         settings_color_light: "Helles Design",
         settings_color_dark: "Dunkles Design",
+        settings_calendar_days: "Anzahl Tage im Kalendar",
         settings_language: "Sprache",
         settings_language_german: "Deutsch",
         settings_language_english: "English",
@@ -73,6 +74,8 @@ export default {
         settings_data_collected_meals: "Gespeicherte Mahlzeiten",
         settings_data_delete_all: "Alle Daten löschen",
         settings_data_delete_confirm: "Löschen bestätigen",
+
+        days_caption: "Tage",
     },
     en: {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -133,6 +136,7 @@ export default {
         settings_color: "Color scheme",
         settings_color_light: "Light colors",
         settings_color_dark: "Dark colors",
+        settings_calendar_days: "Amount of calendar days",
         settings_language: "Language",
         settings_language_german: "Deutsch",
         settings_language_english: "English",
@@ -148,5 +152,7 @@ export default {
         settings_data_collected_meals: "Recorded Meals",
         settings_data_delete_all: "Delete all data",
         settings_data_delete_confirm: "Confirm deletion",
+
+        days_caption: "days",
     }
 }

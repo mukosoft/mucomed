@@ -53,7 +53,7 @@ export default class CalendarItem extends Component {
     }
 
     isSelected() {
-        return this.props.date.getDay() === getDateService().calendarSelection.getDay();
+        return (`${this.props.date.getDate()}${this.props.date.getMonth()}`) === (`${getDateService().calendarSelection.getDate()}${getDateService().calendarSelection.getMonth()}`);
     }
 
     animateMarginTop(px) {

@@ -41,6 +41,20 @@ export class SettingsService {
         })
     }
 
+    @action
+    getCurrentCalendarDateAmount() {
+         return getSettingsService().settings
+            .filter(settings => settings.id === "calendarDateAmount")
+            .map(amountSetting => amountSetting.value)[0];
+    }
+
+    @action
+    changeCalendarDateAmount(amount) {
+        SettingsDocument.getInstance().update({ id: "calendarDateAmount" }, { id: "calendarDateAmount", value: amount }).then(() => {
+            this.loadSettings();
+        })
+    }
+
     loadSettings() {
         SettingsDocument.getInstance().get().then(settings => this.settings = settings);
     }

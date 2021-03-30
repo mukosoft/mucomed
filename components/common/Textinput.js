@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput as RNTextInput } from 'react-native';
+import { border, borderRadius, fontSize, height, margin, padding, width } from '../../configs/styles';
 import { getUiService } from '../../service/UiService';
 
 /**
@@ -15,20 +16,21 @@ import { getUiService } from '../../service/UiService';
 export default class TextInput extends Component {
     render() {
         return (
-            <RNTextInput style={[styles.input, this.props.style]} onChangeText={this.props.onChangeText} value={this.props.value} keyboardType={this.props.keyboardType} placeholder={this.props.placeholder}/>             
+            <RNTextInput style={[inputStyle, this.props.style]} onChangeText={this.props.onChangeText} value={this.props.value} keyboardType={this.props.keyboardType} placeholder={this.props.placeholder}/>             
         )
     }
 }
 
 // style definitions
 
-const styles = StyleSheet.create({
-    input: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: getUiService().theme.primary,
-        fontSize: 18,
-        paddingLeft: 10,
-        color: getUiService().theme.text1
-    }
-})
+const inputStyle = StyleSheet.flatten([
+    { borderColor: getUiService().theme.primary },
+    { color: getUiService().theme.primary },
+    padding.padding_x_2,
+    margin.margin_x_3,
+    height.height_50,
+    width.width_50,
+    border.borderXL, 
+    fontSize.lg,
+    borderRadius.roundedMD,
+])

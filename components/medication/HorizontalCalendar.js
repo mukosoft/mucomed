@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import CalendarItem from '@components/medication/CalendarItem';
 import { getConfigService } from '../../service/ConfigService';
 import { height, padding } from '../../configs/styles';
+import { getSettingsService } from '../../service/SettingsService';
 
 /**
  * Create a Horizontal ScrollView with CalendarItems inside.
@@ -32,7 +33,7 @@ export default class HorizontalCalendar extends Component {
     }
 
     renderLastDays() {
-        return this.getLastDays(getConfigService().calendarDateAmount).map((date) => {
+        return this.getLastDays(parseInt(getSettingsService().getCurrentCalendarDateAmount())).map((date) => {
             return (
                 <CalendarItem date={date} key={date} />
             );
