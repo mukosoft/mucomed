@@ -38,7 +38,7 @@ export default {
         vitaldata: "Vitaldaten",
         add_vitaldata: "Vitaldaten erfassen",
         add_doctor_report: "Arztbericht einscannen",
-        to_reports: "Zu den Berichten",
+        to_reports: "Berichte",
         my_medical_progression: "Mein Verlauf",
 
         hello: "Hallo!",
@@ -116,7 +116,7 @@ export default {
         vitaldata: "Vitaldata",
         add_vitaldata: "Add vitaldata",
         add_doctor_report: "Scan doctor's report",
-        to_reports: "To reports",
+        to_reports: "Reports",
         my_medical_progression: "My progression",
 
         hello: "Hi!",
