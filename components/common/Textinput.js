@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput as RNTextInput } from 'react-native';
-import { border, borderRadius, fontSize, height, margin, padding, width } from '../../configs/styles';
+import { border, borderRadius, fontSize, height, margin, opacity, padding, width } from '../../configs/styles';
 import { getUiService } from '../../service/UiService';
 
 /**
@@ -10,13 +10,20 @@ import { getUiService } from '../../service/UiService';
  * 
  * @property {eventListener} onChangeText - what should be happen if a user type
  * @property {Object} style - StyleSheet object
+ * @property {String} keyboardType
+ * @property {String} placeholder
  * 
  * @author Dominique Börner (dominique@mukosoft.de)
  */
 export default class TextInput extends Component {
     render() {
         return (
-            <RNTextInput style={[inputStyle, this.props.style]} onChangeText={this.props.onChangeText} value={this.props.value} keyboardType={this.props.keyboardType} placeholder={this.props.placeholder}/>             
+            <RNTextInput style={[inputStyle, this.props.style]} 
+            onChangeText={this.props.onChangeText} 
+            value={this.props.value} 
+            keyboardType={this.props.keyboardType} 
+            placeholder={this.props.placeholder} 
+            placeholderTextColor={getUiService().theme.primary} />             
         )
     }
 }
@@ -24,13 +31,12 @@ export default class TextInput extends Component {
 // style definitions
 
 const inputStyle = StyleSheet.flatten([
-    { borderColor: getUiService().theme.primary },
     { color: getUiService().theme.primary },
-    padding.padding_x_2,
+    padding.padding_x_3,
     margin.margin_x_3,
-    height.height_50,
+    { height: 40 }, 
     width.width_50,
-    border.borderXL, 
     fontSize.lg,
     borderRadius.roundedMD,
+    { backgroundColor: getUiService().theme.secondary }
 ])
