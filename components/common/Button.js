@@ -23,9 +23,12 @@ export default class Button extends Component {
 
     handleViewRef = ref => this.view = ref;
 
-    animateRubberband = () => this.view.rubberBand(1000).then(this.props.onPress);
-
-
+    
+    animateRubberband = () => { 
+        this.props.onPress()
+        this.view.rubberBand(800); 
+    }; 
+    
     render() {
         let style = defaultStyle
         let textStyle = defaultTextStyle;
@@ -35,7 +38,7 @@ export default class Button extends Component {
         if (this.props.text) { style = textButtonStyle }
 
         return (
-            <TouchableWithoutFeedback onPress={this.animateRubberband} onPressIn={this.props.onPress}>
+            <TouchableWithoutFeedback onPress={this.animateRubberband}>
                 <Animatable.View ref={this.handleViewRef} style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
                     {(this.props.icon) ? <Image source={this.props.icon} style={iconStyle} /> : null}
                     <Animatable.Text style={[textStyle, this.props.fontStyle]}>{this.props.children}</Animatable.Text>
