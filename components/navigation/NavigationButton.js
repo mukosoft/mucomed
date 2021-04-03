@@ -1,19 +1,30 @@
 import { getUiService } from '@service/UiService';
 import React, { Component } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Text from "@components/common/Text";
 import FAIcon from 'react-native-vector-icons/FontAwesome5';
+import * as Animatable from 'react-native-animatable';
 import { alignContent, alignItems, alignSelf, aspectRatio_1_1, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding } from '../../configs/styles';
 
+/**
+ * With this element, the user can navigate between the app.
+ * 
+ * @property {event} onPress
+ * @property {boolean} active - is the screen, which this button navigates to, open
+ * 
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
 export default class NavigationButton extends Component {
+    handleViewRef = ref => this.view = ref;
     render() {
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
-                <View style={(this.props.active === true) ? activeButton : nonActiveButton}>
+                <Animatable.View ref={this.handleViewRef} animation={(this.props.active === true) && "bounceIn"}
+                    style={(this.props.active === true) ? activeButton : nonActiveButton}>
                     <FAIcon name={this.props.icon} style={(this.props.active === true) ? activeIcon : nonActiveIcon}/>
                     <Text style={(this.props.active === true) ? activeText : nonActiveText}>{this.props.text}</Text>
-                </View>
+                </Animatable.View>
             </TouchableWithoutFeedback>
         )
     }
