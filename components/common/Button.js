@@ -40,7 +40,7 @@ export default class Button extends Component {
 
         if (this.props.primary) { style = primaryStyle; textStyle = primaryTextStyle }
         if (this.props.secondary) { style = secondaryStyle; textStyle = secondaryTextStyle }
-        if (this.props.text) { style = textButtonStyle }
+        if (this.props.text) { style = textButtonStyle; textStyle = textFontStyle }
 
         return (
             <TouchableWithoutFeedback onPress={this.animate}>
@@ -120,5 +120,11 @@ const textButtonStyle = StyleSheet.flatten([
     padding.padding_x_4,
     padding.padding_y_2,
     borderRadius.roundedMD,
+    { color: getUiService().theme.primary }
+])
+
+const textFontStyle = StyleSheet.flatten([
+    fontSize.lg,
+    textAlign.textCenter,
     { color: getUiService().theme.primary }
 ])
