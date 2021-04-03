@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { getUiService } from "@service/UiService";
 import { alignItems, alignSelf, border, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding, textAlign, width } from '../../configs/styles';
 import Text from './Text';
+import * as Animatable from 'react-native-animatable';
 
 /**
  * Renders a button. Based on which property was set, the button will be 
@@ -19,21 +20,27 @@ import Text from './Text';
  */
 @observer
 export default class Button extends Component {
+
+    handleViewRef = ref => this.view = ref;
+
+    animateRubberband = () => this.view.rubberBand(1000).then(this.props.onPress);
+
+
     render() {
         let style = defaultStyle
         let textStyle = defaultTextStyle;
 
-        if (this.props.primary) {style = primaryStyle; textStyle = primaryTextStyle}
-        if (this.props.secondary) {style = secondaryStyle; textStyle = secondaryTextStyle}
-        if (this.props.text) {style = textButtonStyle}
-        
+        if (this.props.primary) { style = primaryStyle; textStyle = primaryTextStyle }
+        if (this.props.secondary) { style = secondaryStyle; textStyle = secondaryTextStyle }
+        if (this.props.text) { style = textButtonStyle }
+
         return (
-            <View style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
-                <TouchableOpacity onPress={this.props.onPress}>
-                    { (this.props.icon) ? <Image source={this.props.icon} style={iconStyle} /> : null }
-                    <Text style={[textStyle, this.props.fontSize]}>{this.props.children}</Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableWithoutFeedback onPress={this.animateRubberband} onPressIn={this.props.onPress}>
+                <Animatable.View ref={this.handleViewRef} style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
+                    {(this.props.icon) ? <Image source={this.props.icon} style={iconStyle} /> : null}
+                    <Animatable.Text style={[textStyle, this.props.fontStyle]}>{this.props.children}</Animatable.Text>
+                </Animatable.View>
+            </TouchableWithoutFeedback>
         )
     }
 }

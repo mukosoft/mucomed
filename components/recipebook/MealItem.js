@@ -6,6 +6,8 @@ import { IconButton } from 'react-native-paper';
 import { getMealService } from '../../service/MealService';
 import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, width } from '../../configs/styles';
 import Text from "@components/common/Text";
+import Button from '../common/Button';
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 /**
  * Renders an element for displaying a meal. Pressing on this 
@@ -48,17 +50,19 @@ export default class MealItem extends Component {
                     </View>
                 </View>
                 <View style={width.width_25}>
-                    {
-
-
+                {
                         (filteredMeal.length > 0) ?
-                            <IconButton icon={"heart"} color={getUiService().theme.primary}
-                                size={22} onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id} />
+                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                                fontStyle={{ color: getUiService().theme.primary }}>
+                                    <MaterialIcon name="heart" size={fontSize.xl.fontSize} />
+                                </Button>
                             :
-                            <IconButton icon={"heart-outline"} color={getUiService().theme.primary}
-                                size={22} onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id} />
+                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                                fontStyle={{ color: getUiService().theme.primary }}>
+                                    <MaterialIcon name="heart-outline" size={fontSize.xl.fontSize} />
+                                </Button>
                     }
-                    </View>
+                </View>
             </View>
         </TouchableOpacity>
     }
@@ -71,14 +75,16 @@ export default class MealItem extends Component {
                     <Text heading>{this.props.meal.name}</Text>
                     <Text>Für {this.props.meal.meal_amount}</Text>
                     {
-
-
                         (filteredMeal.length > 0) ?
-                            <IconButton icon={"heart"} color={getUiService().theme.primary}
-                                size={22} onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id} />
+                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                                fontStyle={{ color: getUiService().theme.primary }} >
+                                    <MaterialIcon name="heart" size={fontSize.xxl.fontSize} />
+                                </Button>
                             :
-                            <IconButton icon={"heart-outline"} color={getUiService().theme.primary}
-                                size={22} onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id} />
+                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                                fontStyle={{ color: getUiService().theme.primary }} >
+                                    <MaterialIcon name="heart-outline" size={fontSize.xxl.fontSize}  />
+                                </Button>
                     }
                 </View>
             </View>
