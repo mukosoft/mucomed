@@ -13,8 +13,11 @@ import * as Animatable from 'react-native-animatable';
  * @property primary
  * @property secondary
  * @property text
+ * @property animation - (optional) animation from animation package
  * @property {eventListener} onPress - event, which should be executed
  * @property {Object} style - StyleSheet object
+ * 
+ * @see https://github.com/oblador/react-native-animatable
  * 
  * @author Dominique Börner (dominique@mukosoft.de)
  */
@@ -25,8 +28,11 @@ export default class Button extends Component {
 
     
     animateRubberband = () => { 
-        this.props.onPress()
-        this.view.rubberBand(800); 
+        this.props.onPress();
+
+        // animations
+        if (this.props.animation === "rubberBand") {console.log(true); this.view.rubberBand(800)}; 
+        if (this.props.animation === "pulse") {this.view.rubberBand(800)}; 
     }; 
     
     render() {

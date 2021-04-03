@@ -53,12 +53,12 @@ export default class MealItem extends Component {
                 {
                         (filteredMeal.length > 0) ?
                             <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
-                                fontStyle={{ color: getUiService().theme.primary }}>
+                                fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand">
                                     <MaterialIcon name="heart" size={fontSize.xl.fontSize} />
                                 </Button>
                             :
                             <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
-                                fontStyle={{ color: getUiService().theme.primary }}>
+                                fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand">
                                     <MaterialIcon name="heart-outline" size={fontSize.xl.fontSize} />
                                 </Button>
                     }
@@ -77,12 +77,12 @@ export default class MealItem extends Component {
                     {
                         (filteredMeal.length > 0) ?
                             <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
-                                fontStyle={{ color: getUiService().theme.primary }} >
+                                fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand" >
                                     <MaterialIcon name="heart" size={fontSize.xxl.fontSize} />
                                 </Button>
                             :
                             <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
-                                fontStyle={{ color: getUiService().theme.primary }} >
+                                fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand" >
                                     <MaterialIcon name="heart-outline" size={fontSize.xxl.fontSize}  />
                                 </Button>
                     }
