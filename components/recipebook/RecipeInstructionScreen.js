@@ -38,7 +38,7 @@ export class RecipeInstructionScreen extends Component {
                                         <Text style={textStyles.kcal}>Kcal</Text>
                                     </View>
                                     <View style={information}>
-                                        <Text heading>{this.meal.protein}g</Text>
+                                        <Text heading>{this.meal.protein} g</Text>
                                         <Text style={textStyles.protein}>Eiweiß</Text>
                                     </View>
                                     <View style={information}>
@@ -67,7 +67,7 @@ export class RecipeInstructionScreen extends Component {
             <View style={[flex.flexCol, justifyContent.justifyCenter, alignItems.itemsStart]}>
                 <View>
                     <Infobox>
-                        <Text style={margin.margin_x_3}>Für die Mahlzeit benötigst du {creonIntake} Einheiten Kreon.
+                        <Text style={margin.margin_x_3}>Für die Mahlzeit benötigst du {Math.round(creonIntake)} Einheiten Kreon.
                         Dies entspricht {this.getCreonPills(creonIntake)} x 25.000er Kapseln.</Text>
                     </Infobox>
                     <Text title style={headingStyle}>Weitere informationen</Text>
@@ -116,12 +116,14 @@ export class RecipeInstructionScreen extends Component {
     }
 
     getCreonPills(creonIntake) {
+        const creonPill = 25000;
+
         let creonBalance = creonIntake;
         let amount25000 = 0;
 
-        while (creonBalance > 25000) {
+        while (creonBalance > creonPill) {
             amount25000++;
-            creonBalance = creonBalance % 25000;
+            creonBalance = creonBalance - creonPill;
 
         }
 
