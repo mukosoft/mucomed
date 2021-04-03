@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { getUiService } from "@service/UiService";
 import { alignItems, alignSelf, border, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding, textAlign, width } from '../../configs/styles';
-import Text from './Text';
 import * as Animatable from 'react-native-animatable';
 
 /**
@@ -27,7 +26,7 @@ export default class Button extends Component {
     handleViewRef = ref => this.view = ref;
 
     
-    animateRubberband = () => { 
+    animate = () => { 
         this.props.onPress();
 
         // animations
@@ -44,7 +43,7 @@ export default class Button extends Component {
         if (this.props.text) { style = textButtonStyle }
 
         return (
-            <TouchableWithoutFeedback onPress={this.animateRubberband}>
+            <TouchableWithoutFeedback onPress={this.animate}>
                 <Animatable.View ref={this.handleViewRef} style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
                     {(this.props.icon) ? <Image source={this.props.icon} style={iconStyle} /> : null}
                     <Animatable.Text style={[textStyle, this.props.fontStyle]}>{this.props.children}</Animatable.Text>
