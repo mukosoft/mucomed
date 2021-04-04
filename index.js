@@ -23,6 +23,7 @@ import { getMedicationService } from "./service/MedicationService";
 import { getUiService } from "./service/UiService";
 import { getVitaldataService } from "./service/VitaldataService";
 import { getSettingsService } from "./service/SettingsService";
+import { CreditsScreen } from "./components/credits/CreditsScreen";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -38,6 +39,7 @@ Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
 Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionScreen);
 Navigation.registerComponent('InformationArticleScreen', () => InformationArticleScreen);
 Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
+Navigation.registerComponent('CreditsScreen', () => CreditsScreen);
 
 
 LogBox.ignoreAllLogs()

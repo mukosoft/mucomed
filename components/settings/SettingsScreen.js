@@ -7,7 +7,7 @@ import { Navigation } from 'react-native-navigation';
 import AppContainer from "../common/AppContainer";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
-import { alignItems, border, borderRadius, flex, fontSize, fontStyle, margin, padding, textAlign } from "../../configs/styles";
+import { alignItems, aspectRatio_1_1, border, borderRadius, flex, fontSize, fontStyle, margin, padding, textAlign, width } from "../../configs/styles";
 import { observer } from "mobx-react";
 import MealDocument from "../../documents/MealDocument";
 import MedicationDocument from "../../documents/MedicationDocument";
@@ -45,11 +45,12 @@ export class SettingsScreen extends Component {
 
         return (
             <AppContainer>
-                <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
+                <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_x_4}>
                     {this.renderGeneralSection()}
                     {this.renderNotificationSection()}
                     {this.renderLayoutSection()}
                     {this.renderDataSection()}
+                    {this.renderSupportSection()}
                 </ScrollView>
                 <BottomNavigation />
             </AppContainer>
@@ -108,6 +109,15 @@ export class SettingsScreen extends Component {
         </View>
     }
 
+    renderSupportSection() {
+        return <View>
+            <Text title>Supporter</Text>
+            <Text>Viele Menschen haben bei der Entwicklung von MucoMed geholfen.</Text>
+            <Button primary style={rectButton} onPress={() => getUiService().showModal("CreditsScreen")} >Zu den Unterstützern</Button>
+
+        </View>
+    }
+
     showDataDeleteHint() {
         return <View>
             <Text heading danger>Achtung! Hierbei werden alle Daten (Gespeicherte Mahlzeiten, Medikamente und Vitaldaten) gelöscht!</Text>
@@ -154,4 +164,9 @@ const dangerInfoStyle = StyleSheet.flatten([
     fontStyle.bold,
     fontSize.sm,
     { borderColor: getUiService().theme.danger }
+])
+
+const rectButton = StyleSheet.flatten([
+    width.width_100,
+    aspectRatio_1_1
 ])
