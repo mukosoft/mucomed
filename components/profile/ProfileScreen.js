@@ -7,7 +7,7 @@ import AppContainer from "../common/AppContainer";
 import FavoriteMeals from "../recipebook/FavoriteMeals";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
-import { alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
+import { alignItems, alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from "../../configs/styles";
 import addIcon from "@assets/icons/add_white.png";
 import medicalList from "@assets/icons/medical-list_white.png";
 import pillIcon from "@assets/icons/meds_white.png";
@@ -18,6 +18,7 @@ import HTML from "react-native-render-html";
 import { API_BASE_URL } from '@configs/config';
 import MealItem from '../recipebook/MealItem';
 import { getSettingsService } from '../../service/SettingsService';
+import TextInput from "@components/common/Textinput";
 
 /**
  * Renders the user profile.
@@ -28,7 +29,8 @@ export class ProfileScreen extends Component {
 
     state = {
         news: {},
-        newsTextVisible: false
+        newsTextVisible: false,
+        fat: 0
     };
 
     constructor(props) {
@@ -45,17 +47,24 @@ export class ProfileScreen extends Component {
                     <Text title style={[textAlign.textCenter, fontSize.xxl]}>{getUiService().getTranslation('hello')} 👋</Text>
                     <Text title style={textAlign.textCenter}>{getUiService().getTranslation('search_for_something_to_eat')}</Text>
                     { this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} /> }
+                    <View style={creonCalc}>
+                        <Text heading style={textAlign.textCenter}>Kreon-Rechner</Text>
+                        <View style={[flex.flexCol, alignItems.itemsCenter]}>
+                        <TextInput onChangeText={(value) => this.setState({ fat: value })} value={this.state.fat} style={width.width_50} keyboardType="number-pad" />
+                        {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
+                        </View>
+                    </View>
                     <View>
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
+                                <Button primary style={buttons} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
+                                <Button primary style={buttons} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().showModal('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
+                                <Button primary style={buttons} icon={pillIcon} onPress={() => getUiService().showModal('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
                             </View>
                         </View>
                     </View>
@@ -63,13 +72,13 @@ export class ProfileScreen extends Component {
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
+                                <Button primary icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
+                                <Button primary icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().showModal('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
+                                <Button primary icon={curveIcon} style={buttons} onPress={() => getUiService().showModal('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
                             </View>
                         </View>
                     </View>
@@ -137,6 +146,18 @@ const htmlTagsStyles = {
         color: getUiService().theme.primary,
     },
 }
+
+const creonCalc = StyleSheet.flatten([
+    margin.margin_4,
+    alignSelf.selfCenter,
+    { width: "90%" },
+    height.height_100,
+    justifyContent.justifyStart,
+    alignItems.itemsCenter,
+    flex.flexCol,
+    shadow.shadowSM,
+    borderRadius.roundedMD
+])
 
 const newsContainer = StyleSheet.flatten([
     border.borderXL,
