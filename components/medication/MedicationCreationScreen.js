@@ -94,7 +94,7 @@ export class MedicationCreationScreen extends Component {
                     )}
                 </ScrollView>
                 <View style={buttonRow}>
-                    <Button primary onPress={() => this.saveMedication()}>Speichern</Button>
+                    <Button primary animation="pulse" onPress={() => this.saveMedication()}>Speichern</Button>
                 </View>
             </AppContainer>
         )

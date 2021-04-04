@@ -79,7 +79,7 @@ export class VitaldataScreen extends Component {
 
                 </ScrollView>
                 <View style={buttonRow}>
-                    <Button primary onPress={() => this.saveVitaldata()}>Speichern</Button>
+                    <Button primary animation="pulse" onPress={() => this.saveVitaldata()}>Speichern</Button>
                 </View>
             </AppContainer>
         )
