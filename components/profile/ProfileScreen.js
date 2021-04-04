@@ -30,7 +30,7 @@ export class ProfileScreen extends Component {
     state = {
         news: {},
         newsTextVisible: false,
-        fat: 0
+        fat: ""
     };
 
     constructor(props) {
@@ -50,8 +50,8 @@ export class ProfileScreen extends Component {
                     <View style={creonCalc}>
                         <Text heading style={textAlign.textCenter}>Kreon-Rechner</Text>
                         <View style={[flex.flexCol, alignItems.itemsCenter]}>
-                        <TextInput onChangeText={(value) => this.setState({ fat: value })} value={this.state.fat} style={width.width_50} keyboardType="number-pad" />
-                        {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
+                        <TextInput onChangeText={(value) => this.setCreonState(value)} value={this.state.fat.replace('.', ',')} style={width.width_50} keyboardType="number-pad" />
+                        {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat.replace('.', ',')} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
                         </View>
                     </View>
                     <View>
@@ -87,6 +87,13 @@ export class ProfileScreen extends Component {
                 <BottomNavigation />
             </AppContainer>
         )
+    }
+
+    setCreonState(value) {
+        let newValue = value.replace(',', '.');
+        if (!isNaN(newValue)) {
+            this.setState({ fat: newValue });
+        }
     }
 
     renderNews() {
