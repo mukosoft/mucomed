@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { alignContent, alignItems, border, borderRadius, flex, height, justifyContent, margin, padding, textAlign, width } from '../../configs/styles';
+import { alignItems, borderRadius, flex, margin, padding, textAlign } from '../../configs/styles';
 import AppContainer from '../common/AppContainer';
 import Text from "@components/common/Text";
 import { getSettingsService } from '../../service/SettingsService';
 import { getUiService } from '../../service/UiService';
-import Button from '../common/Button';
 
+/**
+ * This screen renders a list, coming from the api.
+ * 
+ * @see https://api.mukosoft.de/credits.json
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
 export class CreditsScreen extends Component {
     state = {
         supporter: []
