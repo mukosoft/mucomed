@@ -71,7 +71,7 @@ export class RecipeInstructionScreen extends Component {
                         <Text style={margin.margin_x_3}>Für die Mahlzeit benötigst du {Math.round(creonIntake)} Einheiten Kreon.
                         Dies entspricht {this.getCreonPills(creonIntake)} x 25.000er Kapseln.</Text>
                     </Infobox>
-                    <Text title style={headingStyle}>Weitere informationen</Text>
+                    {(this.hasInformations()) && <Text title style={headingStyle}>Weitere informationen</Text>}
                 </View>
                 <View>
                     {this.meal.high_fat && <View style={[mealInfoContainer, (this.meal.high_fat && { backgroundColor: getUiService().theme.primary })]}>
@@ -89,6 +89,10 @@ export class RecipeInstructionScreen extends Component {
                 </View>
             </View>
         )
+    }
+
+    hasInformations() {
+        return (this.meal.high_fat) || (this.meal.tx_suitable) || (this.meal.vegan);
     }
 
     renderInstruction() {
