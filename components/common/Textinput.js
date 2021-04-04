@@ -16,11 +16,16 @@ import { getUiService } from '../../service/UiService';
  * @author Dominique Börner (dominique@mukosoft.de)
  */
 export default class TextInput extends Component {
+    onChangeText = (value) => {
+        this.props.onChangeText(value);
+    }
     render() {
         return (
             <RNTextInput style={[inputStyle, this.props.style]} 
-            onChangeText={this.props.onChangeText} 
-            value={this.props.value} 
+            onFocus={this.props.onFocus}
+            onChangeText={this.onChangeText} 
+            onBlur={this.props.onBlur}
+            value={this.props.value}
             keyboardType={this.props.keyboardType} 
             placeholder={this.props.placeholder} 
             placeholderTextColor={getUiService().theme.primary} />             
@@ -33,9 +38,7 @@ export default class TextInput extends Component {
 const inputStyle = StyleSheet.flatten([
     { color: getUiService().theme.primary },
     padding.padding_x_3,
-    margin.margin_x_3,
     { height: 40 }, 
-    width.width_50,
     fontSize.lg,
     borderRadius.roundedMD,
     { backgroundColor: getUiService().theme.secondary }

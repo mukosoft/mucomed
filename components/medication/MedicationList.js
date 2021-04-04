@@ -46,7 +46,7 @@ export default class MedicationList extends Component {
     renderNoMedications() {
         return <View style={[flex.flexCol, justifyContent.justifyCenter, alignItems.itemsCenter]}>
             <Text title>😕</Text>
-            <Text title>Keine Medikament</Text>
+            <Text title>Keine Medikamente</Text>
             <Text heading style={[margin.margin_x_4, padding.padding_y_4, textAlign.textCenter]}>Bisher hast du noch keine Medikamente angelegt.</Text>
             <Button primary onPress={() => getUiService().navigateToComponent("MedicationCreationScreen")}>Medikamente anlegen</Button>
         </View>

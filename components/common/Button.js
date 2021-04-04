@@ -82,7 +82,7 @@ const primaryStyle = StyleSheet.flatten([
     flex.flexCol,
     justifyContent.justifyCenter,
     alignItems.itemsCenter,
-    margin.margin_2,
+    margin.margin_x_2,
     padding.padding_4,
     borderRadius.roundedMD,
     { backgroundColor: getUiService().theme.primary }
@@ -98,7 +98,7 @@ const secondaryStyle = StyleSheet.flatten([
     flex.flexCol,
     justifyContent.justifyCenter,
     alignItems.itemsCenter,
-    margin.margin_2,
+    margin.margin_x_2,
     padding.padding_4,
     border.borderXL,
     borderRadius.roundedMD,
@@ -114,7 +114,7 @@ const secondaryTextStyle = StyleSheet.flatten([
 
 const textButtonStyle = StyleSheet.flatten([
     flex.flexCol,
-    margin.margin_2,
+    margin.margin_x_2,
     padding.padding_4,
     borderRadius.roundedMD,
     { color: getUiService().theme.primary }

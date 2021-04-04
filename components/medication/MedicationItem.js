@@ -33,14 +33,17 @@ export default class MedicationItem extends Component {
                     <FAIcon name="pills" style={icon} />
                     <View>
                         <Text style={name}>{this.props.medicationRequest.medication.name}
-                            {(this.props.medicationRequest.dosageInstruction.doseAndRate.dose) ? ', ' : null}
+                            {(this.props.medicationRequest.dosageInstruction.doseAndRate.dose) && ', '}
                             <Text style={dosage}>{this.props.medicationRequest.dosageInstruction.doseAndRate.dose}</Text></Text>
-                        {(this.props.detailed) ? this.renderDetails() : null}
-                        {(this.props.detailed) ? <Text heading>Beschreibung:</Text> : null}
+                        {(this.props.detailed) && this.renderDetails()}
+                        {(this.props.detailed) && <Text heading>Beschreibung:</Text>}
                         <Text style={description}>{this.props.medicationRequest.dosageInstruction.patientInstruction}</Text>
-                    {(this.props.stockEditable) ? <TextInput value="2" style={textAmount} /> : null}
+                    {(this.props.stockEditable) && <TextInput value="2" style={textAmount} />}
                     </View>
-                    {(this.props.canBeDeleted) ? <Button primary onPress={() => getMedicationService().deleteMedicationRequest(this.props.medicationRequest)}>Löschen</Button> : null}
+                    <View>
+                    {(this.props.canBeDeleted) && 
+                        <Button primary onPress={() => getMedicationService().deleteMedicationRequest(this.props.medicationRequest)}>Löschen</Button>}
+                    </View>
                 </View>
             </TouchableOpacity>
         )
@@ -84,7 +87,6 @@ const dateTimeText = StyleSheet.flatten([
 const medicationCardDetailed = StyleSheet.flatten([
     flex.flexCol,
     flex.flexWrap,
-    margin.margin_x_4,
     padding.padding_4,
     borderRadius.roundedMD,
     { backgroundColor: getUiService().theme.secondary }

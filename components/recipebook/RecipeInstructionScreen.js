@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { alignItems, aspectRatio_1_1, border, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
 import Text from "@components/common/Text";
 import { Infobox } from '../common/Infobox';
+import { getSettingsService } from '../../service/SettingsService';
 
 /**
  * Renders the screen, showing the instruction for 
@@ -61,7 +62,7 @@ export class RecipeInstructionScreen extends Component {
 
     renderMealInfo() {
         // todo: from settingsService
-        const creonIntake = 3000 * this.meal.fat;
+        const creonIntake = getSettingsService().getCreon() * this.meal.fat;
 
         return (
             <View style={[flex.flexCol, justifyContent.justifyCenter, alignItems.itemsStart]}>

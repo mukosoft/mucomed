@@ -18,6 +18,7 @@ import { getMealService } from '../../service/MealService';
 import { getSettingsService } from '../../service/SettingsService';
 import { LANGUAGES } from '../../models/Languages';
 import TextInput from "@components/common/Textinput";
+import SettingsDocument from '../../documents/SettingsDocument';
 
 /**
  * Renders the SettingsScreen
@@ -143,10 +144,12 @@ export class SettingsScreen extends Component {
             MedicationDocument.getInstance().delete();
             VitaldataDocument.getInstance().delete();
             MealDocument.getInstance().delete();
+            SettingsDocument.getInstance().delete();
 
             getMedicationService().medicationSchedule = [];
             getVitaldataService.vitaldata = [];
             getMealService().favMeals = [];
+            getSettingsService().settings = [{ id: "language", value: LANGUAGES.german }];
 
             this.setState({ showDataDeleteHint: false })
         } else {

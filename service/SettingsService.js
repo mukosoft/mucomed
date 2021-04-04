@@ -16,6 +16,7 @@ export class SettingsService {
     ];
 
     init() {
+        // SettingsDocument.getInstance().delete();
         SettingsDocument.getInstance().get().then(data => {
             console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
             if (data.length < 1) {
@@ -25,6 +26,20 @@ export class SettingsService {
 
             this.settings = data;       
         });
+    }
+
+    @action
+    getCreon() {
+        return creon = getSettingsService().settings
+            .filter(settings => settings.id === "creonIntake")
+            .map(creonSetting => creonSetting.value)[0]
+    }
+
+    @action
+    changeCreon(amount) {
+        SettingsDocument.getInstance().update({ id: "creonIntake" }, { id: "creonIntake", value: amount }).then(() => {
+            this.loadSettings();
+        })
     }
 
     @action
@@ -62,6 +77,7 @@ export class SettingsService {
     _addInitialSettings() {
         SettingsDocument.getInstance().add({ id: "calendarDateAmount", value: CALENDAR_DEFAULT_DATE_AMOUNT });
         SettingsDocument.getInstance().add({ id: "language", value: LANGUAGES.english });
+        SettingsDocument.getInstance().add({ id: "creonIntake", value: 4000 });
     }
 
     /**
