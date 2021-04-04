@@ -79,7 +79,6 @@ export class VitaldataScreen extends Component {
 
                 </ScrollView>
                 <View style={buttonRow}>
-                    <Button secondary onPress={() => getUiService().navigateToComponent("ProfilScreen")}>Zurück</Button>
                     <Button primary onPress={() => this.saveVitaldata()}>Speichern</Button>
                 </View>
             </AppContainer>

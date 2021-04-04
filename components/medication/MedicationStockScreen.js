@@ -37,9 +37,6 @@ export class MedicationStockScreen extends Component {
                         </View>
                     })}
                 </ScrollView>
-                <View style={buttonRow}>
-                    <Button secondary onPress={() => getUiService().navigateToComponent("ProfilScreen")}>Zurück</Button>
-                </View>
             </AppContainer>
         )
     }
@@ -57,11 +54,4 @@ const medicationListContainer = StyleSheet.flatten([
 
 const itemWrapper = StyleSheet.flatten([
     padding.padding_3
-])
-
-const buttonRow = StyleSheet.flatten([
-    flex.flexRow,
-    justifyContent.justifyEvenly,
-    padding.padding_3,
-    margin.margin_3
 ])

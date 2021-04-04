@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
 import AppContainer from "../common/AppContainer";
 import Text from '@components/common/Text';
-import { alignItems, aspectRatio_1_1, border, borderRadius, flex, fontSize, fontStyle, height, justifyContent, margin, padding, shadow, textAlign, width } from "../../configs/styles";
+import { alignItems, border, borderRadius, flex, fontStyle, height, justifyContent, margin, padding, textAlign, width } from "../../configs/styles";
 import { getVitaldataService } from "../../service/VitaldataService";
 import { DateTimeConverterService } from "../../service/DateTimeConverterService";
 import Button from '@components/common/Button';
@@ -68,9 +68,6 @@ export class DiseaseProgressionScreen extends Component {
                             && getVitaldataService().chartSelectedValue)) && this.renderDetailView()}
                     </View>
                 </ScrollView>
-                <View style={buttonRow}>
-                    <Button secondary onPress={() => getUiService().navigateToComponent("ProfilScreen")}>Zurück</Button>
-                </View>
             </AppContainer>
         )
     }
@@ -160,47 +157,3 @@ const detailContainer = StyleSheet.flatten([
 const detailContentContainer = StyleSheet.flatten([
     flex.flexCol
 ])
-
-const buttonRow = StyleSheet.flatten([
-    flex.flexRow,
-    justifyContent.justifyEvenly,
-    padding.padding_3,
-    margin.margin_3
-])
-
-const flexRow = StyleSheet.flatten([
-    flex.flexRow,
-    justifyContent.justifyCenter
-])
-
-const buttons = StyleSheet.flatten([
-    width.width_100,
-    aspectRatio_1_1
-])
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        margin: 10
-    },
-    randomRecipeContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        margin: 10
-    },
-    mealImg: {
-        flex: 1,
-        width: 150, aspectRatio: 1,
-        borderRadius: 8
-    },
-    mealTextContainer: {
-        flex: 1,
-        marginLeft: 10,
-    },
-    medikamenteBtn: {
-        margin: 5,
-        backgroundColor: getUiService().theme.primary
-    },
-
-})

@@ -49,13 +49,13 @@ export class ProfileScreen extends Component {
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().navigateToComponent('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().navigateToComponent('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
                             </View>
                             <View>
-                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().navigateToComponent('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
+                                <Button primary style={buttons} fontSize={fontSize.sm} icon={pillIcon} onPress={() => getUiService().showModal('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
                             </View>
                         </View>
                     </View>
@@ -63,13 +63,13 @@ export class ProfileScreen extends Component {
                         <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
                         <View style={flexRow}>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().navigateToComponent('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
+                                <Button primary fontSize={fontSize.sm} icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().navigateToComponent('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
+                                <Button primary fontSize={fontSize.sm} icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
                             </View>
                             <View>
-                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().navigateToComponent('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
+                                <Button primary fontSize={fontSize.sm} icon={curveIcon} style={buttons} onPress={() => getUiService().showModal('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
                             </View>
                         </View>
                     </View>

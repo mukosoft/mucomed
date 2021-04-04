@@ -94,7 +94,6 @@ export class MedicationCreationScreen extends Component {
                     )}
                 </ScrollView>
                 <View style={buttonRow}>
-                    <Button secondary onPress={() => getUiService().navigateToComponent("ProfilScreen")}>Zurück</Button>
                     <Button primary onPress={() => this.saveMedication()}>Speichern</Button>
                 </View>
             </AppContainer>
