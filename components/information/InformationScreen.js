@@ -1,14 +1,16 @@
-import InformationCard from "@components/information/InformationCard";
 import { getUiService } from '@service/UiService';
 import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
-import { ActivityIndicator, Button } from "react-native-paper";
-
-import { defaultStyles } from "../../configs/styles";
-import { INFORMATION_CATEGORIES } from "../../models/FilterData";
-import BottomNavigation from './../navigation/BottomNavigation';
+import Text from "@components/common/Text";
+import Button from "@components/common/Button";
+import { API_BASE_URL } from '@configs/config';
+import AppContainer from '../common/AppContainer';
+import { getSettingsService } from '../../service/SettingsService';
+import BottomNavigation from '@components/navigation/BottomNavigation';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, width } from '../../configs/styles';
 
 /**
  * This screen shows various information about different 
@@ -20,84 +22,62 @@ import BottomNavigation from './../navigation/BottomNavigation';
 export class InformationScreen extends Component {
 
     state = {
-        category: 'food',
-        informations: null
+        infos: []
     }
 
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
+        this.getCookbookData();
     }
 
     render() {
-        if (!this.state.informations) {
-            this.getInformationData();
-            return (<ActivityIndicator animating={true} color={getUiService().theme.primary} size="large" />)
-        } else {
-            return (
-                <View style={defaultStyles.themeContainer}>
-                    <View style={defaultStyles.defaultContentContainer}>
-                        <View style={styles.filter}>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                {
-                                    INFORMATION_CATEGORIES.map((information) => {
-                                        return <Button onPress={() => this.setState({ category: category })}
-                                            color={this.setSelectedColor(information.category)}>{getUiService().getTranslation(information.category)}</Button>
-                                    })
-                                }
-                            </ScrollView>
-                        </View>
-                        <View style={styles.informationList}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                {this.renderInformations()}
-                            </ScrollView>
-                        </View>
+        return (
+            <AppContainer>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={articleContainer}>
+                        <Text title> Informationen</Text>
+                        {this.state.infos.map(information => this.renderInformationCard(information))}
+                        {/* <Text>{JSON.stringify(this.state.infos)}</Text> */}
                     </View>
-                    <BottomNavigation />
-                </View>
-            )
-        }
+                </ScrollView>
+                <BottomNavigation />
+            </AppContainer>
+        )
     }
 
-    getInformationData() {
-        fetch("https://api.mukosoft.de/informations.json", {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'pragma': 'no-cache',
-                'cache-control': 'no-cache'
+    renderInformationCard(information) {
+        return <TouchableWithoutFeedback>
+            <View style={articleCard}>
+                <Text heading>{information[`name_${getSettingsService().getCurrentLanguage()}`]}</Text>
+                <Text>debug_category: {information[`category`]}</Text>
+                <Text style={padding.padding_y_4}>{information[`excerpt_${getSettingsService().getCurrentLanguage()}`]}</Text>
+            </View>
+        </TouchableWithoutFeedback>
 
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({ informations: json })
-            })
     }
 
-    setSelectedColor(category) {
-        if (this.state.category === category) {
-            return getUiService().theme.active
-        }
-    }
-
-    renderInformations() {
-        if (this.state.informations[this.state.category]) {
-            return this.state.informations[this.state.category].map((information) => {
-                return <InformationCard information={information} key={information.name} />
-            })
-        }
+    getCookbookData() {
+        fetch(`${API_BASE_URL}query=*[_type%20=="infos"]`)
+            .then(response => response.json())
+            .then(data => this.setState({ infos: data.result }))
     }
 }
 
-const styles = StyleSheet.create({
-    filter: {
-        height: 30
-    },
-    informationList: {
-        flex: 1,
-        flexDirection: 'column',
-        margin: 10
-    },
-})
+// style definitions
+
+const articleCard = StyleSheet.flatten([
+    margin.margin_4,
+    padding.padding_3,
+    justifyContent.justifyCenter,
+    flex.flexCol,
+    shadow.shadowSM,
+    borderRadius.roundedMD
+])
+
+const articleContainer = StyleSheet.flatten([
+    flex.flexRow,
+    flex.flexWrap,
+    justifyContent.justifyCenter,
+    alignItems.itemsCenter
+])

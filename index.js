@@ -1,4 +1,3 @@
-import { InformationArticleScreen } from "@components/information/InformationArticleScreen";
 import { InformationScreen } from "@components/information/InformationScreen";
 import { MedicationCreationScreen } from "@components/medication/MedicationCreationScreen";
 import { MedicationScreen } from '@components/medication/MedicationScreen';
@@ -37,7 +36,7 @@ Navigation.registerComponent('MedicationPlanScreen', () => MedicationPlanScreen)
 Navigation.registerComponent('MedicationStockScreen', () => MedicationStockScreen);
 Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
 Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionScreen);
-Navigation.registerComponent('InformationArticleScreen', () => InformationArticleScreen);
+Navigation.registerComponent('InformationScreen', () => InformationScreen);
 Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 Navigation.registerComponent('CreditsScreen', () => CreditsScreen);
 
