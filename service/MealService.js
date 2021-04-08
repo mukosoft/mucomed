@@ -1,11 +1,13 @@
-import { modalAnimations } from "@res/animations";
 import { action, observable } from "mobx";
-import { Navigation } from "react-native-navigation";
 import MealDocument from "../documents/MealDocument";
-import MedicationDocument from "../documents/MedicationDocument";
 
 let instance;
 
+/**
+ * Service class, holding meal data.
+ * 
+ * @author Dominique Börner (dominique@mukosoft.de)
+ */
 export default class MealService {
 
     @observable favMeals = [];
@@ -40,31 +42,6 @@ export default class MealService {
             this.favMeals.splice(index, 1);
             MealDocument.getInstance().delete(meal)
         }
-    }
-
-    static openMealInstruction(meal) {
-        Navigation.showModal({
-            stack: {
-                children: [
-                    {
-                        component: {
-                            name: 'RecipeInstructionScreen',
-                            passProps: {
-                                meal: meal
-                            },
-                            options: {
-                                topBar: {
-                                    title: {
-                                        text: 'Rezept',
-                                    },
-                                },
-                                animations: modalAnimations
-                            },
-                        },
-                    },
-                ],
-            },
-        })
     }
 }
 
