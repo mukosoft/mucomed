@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
 import Text from "@components/common/Text";
+import Button from "@components/common/Button";
 import { API_BASE_URL } from '@configs/config';
 import AppContainer from '../common/AppContainer';
 import { getSettingsService } from '../../service/SettingsService';
 import BottomNavigation from '@components/navigation/BottomNavigation';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, opacity, padding, shadow, width } from '../../configs/styles';
+import { getUiService } from "../../service/UiService";
 
 /**
  * This screen shows various information about different 
@@ -34,7 +36,9 @@ export class InformationScreen extends Component {
             <AppContainer>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={articleContainer}>
-                        <Text title> Informationen</Text>
+                        <Text title>Informationen</Text>
+                        { /** This button is used later, its now just for testing the my-doc api */}
+                        {/* <Button primary onPress={() => getUiService().showModal('selfhelpScreen')}>Selbsthilfegruppen</Button> */}
                         {this.state.infos.map(information => this.renderInformationCard(information))}
                         {/* <Text>{JSON.stringify(this.state.infos)}</Text> */}
                     </View>

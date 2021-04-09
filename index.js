@@ -23,6 +23,7 @@ import { getUiService } from "./service/UiService";
 import { getVitaldataService } from "./service/VitaldataService";
 import { getSettingsService } from "./service/SettingsService";
 import { CreditsScreen } from "./components/credits/CreditsScreen";
+import { selfhelpScreen } from "./components/selfhelp/SelfhelpScreen";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -39,6 +40,7 @@ Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionS
 Navigation.registerComponent('InformationScreen', () => InformationScreen);
 Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 Navigation.registerComponent('CreditsScreen', () => CreditsScreen);
+Navigation.registerComponent('selfhelpScreen', () => selfhelpScreen);
 
 
 LogBox.ignoreAllLogs()
