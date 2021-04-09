@@ -1,16 +1,14 @@
-import { getUiService } from '@service/UiService';
 import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
 import Text from "@components/common/Text";
-import Button from "@components/common/Button";
 import { API_BASE_URL } from '@configs/config';
 import AppContainer from '../common/AppContainer';
 import { getSettingsService } from '../../service/SettingsService';
 import BottomNavigation from '@components/navigation/BottomNavigation';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, width } from '../../configs/styles';
+import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, opacity, padding, shadow, width } from '../../configs/styles';
 
 /**
  * This screen shows various information about different 
@@ -50,7 +48,7 @@ export class InformationScreen extends Component {
         return <TouchableWithoutFeedback>
             <View style={articleCard}>
                 <Text heading>{information[`name_${getSettingsService().getCurrentLanguage()}`]}</Text>
-                <Text>debug_category: {information[`category`]}</Text>
+                <Text heading style={fontSize.sm}>von {information[`author_de`]}</Text>
                 <Text style={padding.padding_y_4}>{information[`excerpt_${getSettingsService().getCurrentLanguage()}`]}</Text>
             </View>
         </TouchableWithoutFeedback>
@@ -68,6 +66,7 @@ export class InformationScreen extends Component {
 
 const articleCard = StyleSheet.flatten([
     margin.margin_4,
+    { width: "90%" },
     padding.padding_3,
     justifyContent.justifyCenter,
     flex.flexCol,
