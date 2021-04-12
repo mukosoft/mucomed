@@ -75,6 +75,11 @@ export default {
         settings_data_delete_all: "Alle Daten löschen",
         settings_data_delete_confirm: "Löschen bestätigen",
 
+        info_hygiene: "Hygiene",
+        info_food: "Ernährung",
+        info_spores: "Keime",
+        info_therapy: "Therapien",
+
         days_caption: "Tage",
     },
     en: {
@@ -152,6 +157,11 @@ export default {
         settings_data_collected_meals: "Recorded Meals",
         settings_data_delete_all: "Delete all data",
         settings_data_delete_confirm: "Confirm deletion",
+
+        info_hygiene: "hygiene",
+        info_food: "food",
+        info_spores: "spores",
+        info_therapy: "therapy",
 
         days_caption: "days",
     }

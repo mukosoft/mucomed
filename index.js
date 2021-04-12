@@ -24,6 +24,7 @@ import { getVitaldataService } from "./service/VitaldataService";
 import { getSettingsService } from "./service/SettingsService";
 import { CreditsScreen } from "./components/credits/CreditsScreen";
 import { selfhelpScreen } from "./components/selfhelp/SelfhelpScreen";
+import { InformationArticleScreen } from "./components/information/InformationArticleScreen";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -38,6 +39,7 @@ Navigation.registerComponent('MedicationStockScreen', () => MedicationStockScree
 Navigation.registerComponent('VitaldataScreen', () => VitaldataScreen);
 Navigation.registerComponent('RecipeInstructionScreen', () => RecipeInstructionScreen);
 Navigation.registerComponent('InformationScreen', () => InformationScreen);
+Navigation.registerComponent('InformationArticleScreen', () => InformationArticleScreen);
 Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 Navigation.registerComponent('CreditsScreen', () => CreditsScreen);
 Navigation.registerComponent('selfhelpScreen', () => selfhelpScreen);
