@@ -12,7 +12,7 @@ import Timing from "../../models/Timing";
 import Dosage from "../../models/Dosage";
 import { getMedicationService } from "../../service/MedicationService";
 import Text from "../common/Text";
-import { flex, justifyContent, margin, padding } from "../../configs/styles";
+import { alignSelf, flex, justifyContent, margin, padding } from "../../configs/styles";
 import Button from '@components/common/Button';
 
 /**
@@ -65,7 +65,7 @@ export class MedicationCreationScreen extends Component {
                         {MEDICATION_FORM.map((form) => {
                             return (<TouchableWithoutFeedback onPress={() => this.setState({ form: form.form })}>
                                 <View style={[styles.medicationFormContainer, defaultStyles.defaultShadow, (this.state.form === form.form) ? styles.activeForm : null]}>
-                                    <Image source={form.icon} style={styles.formIcon} /><Text>{getUiService().getTranslation(form.form)}</Text>
+                                    <Image source={form.icon} style={styles.formIcon} /><Text heading style={alignSelf.selfCenter}>{getUiService().getTranslation(form.form)}</Text>
                                 </View>
                             </TouchableWithoutFeedback>)
                         })}
