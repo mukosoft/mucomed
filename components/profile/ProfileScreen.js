@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
 import AppContainer from "../common/AppContainer";
-import FavoriteMeals from "../recipebook/FavoriteMeals";
 import Button from '@components/common/Button';
 import Text from '@components/common/Text';
 import { alignItems, alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from "../../configs/styles";
