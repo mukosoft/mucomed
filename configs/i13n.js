@@ -79,6 +79,7 @@ export default {
         info_food: "Ernährung",
         info_spores: "Keime",
         info_therapy: "Therapien",
+        info_selfhelp: "Selbsthilfe",
 
         days_caption: "Tage",
     },
@@ -162,6 +163,7 @@ export default {
         info_food: "food",
         info_spores: "spores",
         info_therapy: "therapy",
+        info_selfhelp: "Selfhelp",
 
         days_caption: "days",
     }

@@ -10,6 +10,7 @@ import { getSettingsService } from '../../service/SettingsService';
 import BottomNavigation from '@components/navigation/BottomNavigation';
 import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, opacity, padding, shadow, width } from '../../configs/styles';
 import { getUiService } from "../../service/UiService";
+import { MY_DOC_SHOW_DOCTOR_URL, selfhelpGroups } from "../../configs/config";
 
 /**
  * This screen shows various information about different 
@@ -28,7 +29,7 @@ export class InformationScreen extends Component {
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);
-        this.getCookbookData();
+        this.getInformationData();
     }
 
     render() {
@@ -39,11 +40,9 @@ export class InformationScreen extends Component {
                         <Text title>Informationen</Text>
                         <View style={[flex.flexRow, margin.margin_x_4]}>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-
                                 {this.state.categories.map((category) => {
-
-                                    return <Button onPress={() => this.setState({ selectedCategorie: category })}
-                                        text style={this.buttonIsSelected(category) && { backgroundColor: getUiService().theme.secondary }}> {getUiService().getTranslation(`info_${category}`)}</Button>
+                                        return <Button onPress={() => this.setState({ selectedCategorie: category })}
+                                            text style={this.buttonIsSelected(category) && { backgroundColor: getUiService().theme.secondary }}> {getUiService().getTranslation(`info_${category}`)}</Button>
                                 })}
                             </ScrollView>
                         </View>
@@ -52,7 +51,7 @@ export class InformationScreen extends Component {
                         { /** This button is used later, its now just for testing the my-doc api */}
                         {/* <Button primary onPress={() => getUiService().showModal('selfhelpScreen')}>Selbsthilfegruppen</Button> */}
                         {this.state.infos.filter(information => information.category === this.state.selectedCategorie)
-                            .map(information => this.renderInformationCard(information))}
+                            .map(information => (information.category === "selfhelp") ? this.renderSelfhelpCard(information) : this.renderInformationCard(information))}
                     </View>
                 </ScrollView>
                 <BottomNavigation />
@@ -68,14 +67,45 @@ export class InformationScreen extends Component {
                 <Text style={padding.padding_y_4}>{information[`excerpt_${getSettingsService().getCurrentLanguage()}`]}</Text>
             </View>
         </TouchableWithoutFeedback>
-
     }
 
-    getCookbookData() {
-        fetch(`${API_BASE_URL}query=*[_type%20=="infos"]`)
+    renderSelfhelpCard(group) {
+        return <TouchableWithoutFeedback onPress={() => getUiService().showModal("InformationArticleScreen", information)}>
+            <View style={articleCard}>
+                <Text heading>{group.data.company}</Text>
+                {/* <Text heading style={fontSize.sm}>von {information[`author_de`]}</Text>
+                <Text style={padding.padding_y_4}>{information[`excerpt_${getSettingsService().getCurrentLanguage()}`]}</Text> */}
+            </View>
+        </TouchableWithoutFeedback>
+    }
+
+    async getInformationData() {
+        let information = await fetch(`${API_BASE_URL}query=*[_type%20=="infos"]`)
             .then(response => response.json())
-            .then(data => this.setState({ infos: data.result }))
-            .then(() => this.getCategories())
+            .then(data => data.result);
+
+
+        information = information.concat(await this.getSelfhelpData());
+
+        this.setState({ infos: information });
+        this.getCategories();
+    }
+
+    async getSelfhelpData() {
+        groups = [];
+
+        await Promise.all(
+            selfhelpGroups.map(async groupdId => {
+                await fetch(`${MY_DOC_SHOW_DOCTOR_URL}${groupdId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.category = "selfhelp";
+                        groups.push(data)
+                    })
+            })
+        )
+
+        return groups;
     }
 
     getCategories() {
@@ -86,6 +116,12 @@ export class InformationScreen extends Component {
                 categories.push(info.category)
             }
         });
+
+        // adds category for selfhelp group, if user is german
+        if (categories.indexOf("selfhelp") < 0 && (getSettingsService().getCurrentLanguage() === "de")) {
+            categories.push("selfhelp");
+        }
+
 
         this.setState({ categories: categories })
         this.setState({ selectedCategorie: categories[0] })
