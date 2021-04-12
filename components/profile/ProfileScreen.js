@@ -46,12 +46,14 @@ export class ProfileScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
                     <Text title style={[textAlign.textCenter, fontSize.xxl]}>{getUiService().getTranslation('hello')} 👋</Text>
                     <Text title style={textAlign.textCenter}>{getUiService().getTranslation('search_for_something_to_eat')}</Text>
-                    { this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} /> }
+                    {this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} />}
                     <View style={creonCalc}>
                         <Text heading style={textAlign.textCenter}>Kreon-Rechner</Text>
                         <View style={[flex.flexCol, alignItems.itemsCenter]}>
-                        <TextInput onChangeText={(value) => this.setCreonState(value)} value={this.state.fat.replace('.', ',')} style={width.width_50} keyboardType="number-pad" />
-                        {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat.replace('.', ',')} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
+                            <View style={[flex.flexRow, justifyContent.justifyCenter, alignItems.itemsCenter]}>
+                                <TextInput onChangeText={(value) => this.setCreonState(value)} value={this.state.fat.replace('.', ',')} style={width.width_50} keyboardType="number-pad" /><Text> g</Text>
+                            </View>
+                            {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat.replace('.', ',')} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
                         </View>
                     </View>
                     <View>
