@@ -31,7 +31,7 @@ export default class Button extends Component {
 
         // animations
         if (this.props.animation === "rubberBand") {this.view.rubberBand(800)}; 
-        if (this.props.animation === "pulse") {this.view.rubberBand(800)}; 
+        if (this.props.animation === "pulse") {this.view.pulse(800)}; 
     }; 
     
     render() {
