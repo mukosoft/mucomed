@@ -8,9 +8,10 @@ import { API_BASE_URL } from '@configs/config';
 import AppContainer from '../common/AppContainer';
 import { getSettingsService } from '../../service/SettingsService';
 import BottomNavigation from '@components/navigation/BottomNavigation';
-import { alignContent, alignItems, aspectRatio_1_1, borderRadius, flex, fontSize, height, justifyContent, margin, opacity, padding, shadow, width } from '../../configs/styles';
+import { alignItems, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow } from '../../configs/styles';
 import { getUiService } from "../../service/UiService";
 import { MY_DOC_SHOW_DOCTOR_URL, selfhelpGroups } from "../../configs/config";
+import { LANGUAGES } from "../../models/Languages";
 
 /**
  * This screen shows various information about different 
@@ -46,10 +47,6 @@ export class InformationScreen extends Component {
                                 })}
                             </ScrollView>
                         </View>
-
-
-                        { /** This button is used later, its now just for testing the my-doc api */}
-                        {/* <Button primary onPress={() => getUiService().showModal('selfhelpScreen')}>Selbsthilfegruppen</Button> */}
                         {this.state.infos.filter(information => information.category === this.state.selectedCategorie)
                             .map(information => (information.category === "selfhelp") ? this.renderSelfhelpCard(information) : this.renderInformationCard(information))}
                     </View>
@@ -70,11 +67,9 @@ export class InformationScreen extends Component {
     }
 
     renderSelfhelpCard(group) {
-        return <TouchableWithoutFeedback onPress={() => getUiService().showModal("InformationArticleScreen", information)}>
+        return <TouchableWithoutFeedback onPress={() => getUiService().showModal("SelfhelpScreen", group)}>
             <View style={articleCard}>
                 <Text heading>{group.data.company}</Text>
-                {/* <Text heading style={fontSize.sm}>von {information[`author_de`]}</Text>
-                <Text style={padding.padding_y_4}>{information[`excerpt_${getSettingsService().getCurrentLanguage()}`]}</Text> */}
             </View>
         </TouchableWithoutFeedback>
     }
@@ -117,11 +112,10 @@ export class InformationScreen extends Component {
             }
         });
 
-        // adds category for selfhelp group, if user is german
-        if (categories.indexOf("selfhelp") < 0 && (getSettingsService().getCurrentLanguage() === "de")) {
-            categories.push("selfhelp");
+        // remove selfhelp, if user language is not german
+        if (getSettingsService().getCurrentLanguage() === LANGUAGES.english) {
+            categories.splice(categories.indexOf("selfhelp") , 1)
         }
-
 
         this.setState({ categories: categories })
         this.setState({ selectedCategorie: categories[0] })

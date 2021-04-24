@@ -46,6 +46,7 @@ export default class Button extends Component {
             <TouchableWithoutFeedback onPress={this.animate}>
                 <Animatable.View ref={this.handleViewRef} style={[style, this.props.style, (this.props.danger && dangerStyle)]}>
                     {(this.props.icon) ? <Image source={this.props.icon} style={iconStyle} /> : null}
+                    { (this.props.vectorIcon) && this.props.vectorIcon }
                     <Animatable.Text style={[textStyle, this.props.fontStyle]}>{this.props.children}</Animatable.Text>
                 </Animatable.View>
             </TouchableWithoutFeedback>
