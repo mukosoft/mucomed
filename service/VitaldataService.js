@@ -17,7 +17,10 @@ export class VitaldataService {
 
     @action
     init() {
-        this.getVitaldata();
+        return new Promise((resolve) => {
+            this.getVitaldata();
+            resolve(true);
+        })
     }
 
     @action

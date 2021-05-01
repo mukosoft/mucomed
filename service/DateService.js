@@ -32,10 +32,13 @@ export class DateService {
 
     @action
     init() {
-        console.debug(`Initializing DateService`)
-        const date = new Date();
-        this.setCalendarSelection(date);
-        this.setCalendarSelectionDateId(date);
+        console.debug(`Initializing DateService`);
+        return new Promise((resolve) => {
+            const date = new Date();
+            this.setCalendarSelection(date);
+            this.setCalendarSelectionDateId(date);
+            resolve(true);
+        })
     }
 
     @action

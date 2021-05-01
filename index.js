@@ -25,6 +25,7 @@ import { getSettingsService } from "./service/SettingsService";
 import { CreditsScreen } from "./components/credits/CreditsScreen";
 import { SelfhelpScreen } from "./components/information/SelfhelpScreen";
 import { InformationArticleScreen } from "./components/information/InformationArticleScreen";
+import IntroductionScreen from "./components/introduction/IntroductionScreen";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -43,37 +44,46 @@ Navigation.registerComponent('InformationArticleScreen', () => InformationArticl
 Navigation.registerComponent('SettingsScreen', () => SettingsScreen);
 Navigation.registerComponent('CreditsScreen', () => CreditsScreen);
 Navigation.registerComponent('SelfhelpScreen', () => SelfhelpScreen);
+Navigation.registerComponent('IntroductionScreen', () => IntroductionScreen);
+
+LogBox.ignoreAllLogs();
 
 
-LogBox.ignoreAllLogs()
+async function loadSettings() {
+    const settingsPromise = getSettingsService().init();
+    const mealPromise = getMealService().init();
+    const datePromise = getDateService().init();
+    const medicationPromise = getMedicationService().init();
+    const vitaldataPromise = getVitaldataService().init();
+    const uiPromise = getUiService().init();
 
-// initialize services
-getSettingsService().init();
-getDateService().init();
-getMedicationService().init();
-getMealService().init();
-getVitaldataService().init();
-getUiService().init();
+    Promise.all([settingsPromise, mealPromise, uiPromise, datePromise, medicationPromise, vitaldataPromise]).then(() => {
+            return setRoot()
+    })
+}
 
-// set navigation structure
-Navigation.events().registerAppLaunchedListener(() => {
-    Navigation.setRoot({
-        root: {
-            stack: {
-                id: "MainStack",
-                children: [
-                    {
-                        component: {
-                            name: 'ProfilScreen',
-                            options: {
-                                topBar: {
-                                    visible: false
+function setRoot() {
+    Navigation.events().registerAppLaunchedListener(async () => {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    id: "MainStack",
+                    children: [
+                        {
+                            component: {
+                                name: 'ProfilScreen',
+                                options: {
+                                    topBar: {
+                                        visible: false
+                                    }
                                 }
-                            }
+                            },
                         },
-                    },
-                ]
-            }
-        },
-    });
-});
+                    ]
+                }
+            },
+        });
+    })
+}
+
+loadSettings();

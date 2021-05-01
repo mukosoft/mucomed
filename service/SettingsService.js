@@ -4,6 +4,25 @@ import SettingsDocument from "../documents/SettingsDocument";
 import { LANGUAGES } from "../models/Languages";
 import { getUiService } from "./UiService";
 
+const initialSettings = [
+    {
+        id: "language",
+        value: LANGUAGES.german
+    },
+    {
+        id: "calendarDateAmount",
+        value: 7
+    },
+    {
+        id: "creonIntake",
+        value: 4000
+    },
+    {
+        id: "firstStart",
+        value: true
+    },
+]
+
 /**
  * Service for managing user settings.
  *
@@ -11,21 +30,23 @@ import { getUiService } from "./UiService";
  */
 export class SettingsService {
     @observable calendarDateAmount = CALENDAR_DEFAULT_DATE_AMOUNT;
-    @observable settings = [
-        { id: "language", value: LANGUAGES.german }
-    ];
+    @observable settings = initialSettings;
 
     init() {
         // SettingsDocument.getInstance().delete();
-        SettingsDocument.getInstance().get().then(data => {
-            console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
-            if (data.length < 1) {
-                console.debug("Populate SettingsDocument with initial settings.");
-                this._addInitialSettings();
-            }
+        return new Promise((resolve, reject) => {
+            return SettingsDocument.getInstance().get().then(data => {
+                console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
+                if (data.length < 1) {
+                    console.debug("Populate SettingsDocument with initial settings.");
+                    this._addInitialSettings();
+                } else {
+                    this.settings = data;
+                }
+                resolve(true);
+            }).then(resolve(true))
 
-            this.settings = data;       
-        });
+        })
     }
 
     @action
@@ -57,8 +78,21 @@ export class SettingsService {
     }
 
     @action
+    isFirstStart() {
+        return firstStart = getSettingsService().settings
+            .find(settings => settings.id === "firstStart").value;
+    }
+
+    @action
+    changeFirstStart(val) {
+        SettingsDocument.getInstance().update({ id: "firstStart" }, { id: "firstStart", value: val }).then(() => {
+            this.loadSettings();
+        })
+    }
+
+    @action
     getCurrentCalendarDateAmount() {
-         return getSettingsService().settings
+        return getSettingsService().settings
             .filter(settings => settings.id === "calendarDateAmount")
             .map(amountSetting => amountSetting.value)[0];
     }
@@ -75,9 +109,7 @@ export class SettingsService {
     }
 
     _addInitialSettings() {
-        SettingsDocument.getInstance().add({ id: "calendarDateAmount", value: CALENDAR_DEFAULT_DATE_AMOUNT });
-        SettingsDocument.getInstance().add({ id: "language", value: LANGUAGES.english });
-        SettingsDocument.getInstance().add({ id: "creonIntake", value: 4000 });
+        initialSettings.forEach(setting => SettingsDocument.getInstance().add(setting));
     }
 
     /**

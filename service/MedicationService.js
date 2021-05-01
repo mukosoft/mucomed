@@ -1,4 +1,4 @@
-import {action, observable} from "mobx";
+import { action, observable } from "mobx";
 import MedicationDocument from "../documents/MedicationDocument";
 import Dosage from "../models/Dosage";
 import Medication from "../models/Medication";
@@ -13,7 +13,10 @@ export class MedicationService {
 
     @action
     init() {
-        this.updateMedicationSchedule();
+        return new Promise((resolve) => {
+            this.updateMedicationSchedule();
+            resolve(true);
+        })
     }
 
     /**
@@ -22,7 +25,7 @@ export class MedicationService {
      * @param {Medication} medication 
      * @param {Date} dateObj 
      */
-    @action addMedicationToSchedule(medication:Medication, dateObj:[dateObj]) {
+    @action addMedicationToSchedule(medication: Medication, dateObj: [dateObj]) {
         dateObj.map(day => {
             const dayId = getDateService().getDateId(day);
 

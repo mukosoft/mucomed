@@ -14,7 +14,10 @@ export default class MealService {
 
     @action
     init() {
-        MealDocument.getInstance().get().then((meals) => this.favMeals = meals);
+        return new Promise((resolve, reject) => {
+            MealDocument.getInstance().get().then((meals) => this.favMeals = meals);
+            resolve(true);
+        })
     }
 
     @action

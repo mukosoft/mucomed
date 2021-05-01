@@ -139,7 +139,7 @@ export class SettingsScreen extends Component {
         </View>
     }
 
-    deleteAllData() {
+    async deleteAllData() {
         if (this.state.showDataDeleteHint) {
             MedicationDocument.getInstance().delete();
             VitaldataDocument.getInstance().delete();
@@ -151,10 +151,22 @@ export class SettingsScreen extends Component {
             getMealService().favMeals = [];
             getSettingsService().settings = [{ id: "language", value: LANGUAGES.german }];
 
+            await this.loadSettings;
             this.setState({ showDataDeleteHint: false })
         } else {
             this.setState({ showDataDeleteHint: true })
         }
+    }
+
+    async loadSettings() {
+        const settingsPromise = getSettingsService().init();
+        const mealPromise = getMealService().init();
+        const datePromise = getDateService().init();
+        const medicationPromise = getMedicationService().init();
+        const vitaldataPromise = getVitaldataService().init();
+        const uiPromise = getUiService().init();
+    
+        Promise.all([settingsPromise, mealPromise, uiPromise, datePromise, medicationPromise, vitaldataPromise]);
     }
 }
 

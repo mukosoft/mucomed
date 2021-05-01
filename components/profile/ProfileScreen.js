@@ -18,6 +18,7 @@ import { API_BASE_URL } from '@configs/config';
 import MealItem from '../recipebook/MealItem';
 import { getSettingsService } from '../../service/SettingsService';
 import TextInput from "@components/common/Textinput";
+import * as Animatable from 'react-native-animatable';
 
 /**
  * Renders the user profile.
@@ -40,54 +41,62 @@ export class ProfileScreen extends Component {
     }
 
     render() {
-        return (
-            <AppContainer>
-                <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
-                    <Text title style={[textAlign.textCenter, fontSize.xxl]}>{getUiService().getTranslation('hello')} 👋</Text>
-                    <Text title style={textAlign.textCenter}>{getUiService().getTranslation('search_for_something_to_eat')}</Text>
-                    {this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} />}
-                    <View style={creonCalc}>
-                        <Text heading style={textAlign.textCenter}>Kreon-Rechner</Text>
-                        <View style={[flex.flexCol, alignItems.itemsCenter]}>
-                            <View style={[flex.flexRow, justifyContent.justifyCenter, alignItems.itemsCenter]}>
-                                <TextInput onChangeText={(value) => this.setCreonState(value)} value={this.state.fat.replace('.', ',')} style={width.width_50} keyboardType="number-pad" /><Text> g</Text>
-                            </View>
-                            {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat.replace('.', ',')} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
-                        </View>
-                    </View>
-                    <View>
-                        <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
-                        <View style={flexRow}>
-                            <View>
-                                <Button primary style={buttons} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
-                            </View>
-                            <View>
-                                <Button primary style={buttons} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
-                            </View>
-                            <View>
-                                <Button primary style={buttons} icon={pillIcon} onPress={() => getUiService().showModal('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
+        if (getSettingsService().isFirstStart() === true) {
+            console.debug(getSettingsService().isFirstStart())
+            getUiService().navigateToComponent("IntroductionScreen");
+        } else {
+            return (<AppContainer>
+                    <ScrollView showsVerticalScrollIndicator={false} style={padding.padding_3}>
+                        <Animatable.View animation="fadeIn">
+                        <Text title style={[textAlign.textCenter, fontSize.xxl]}>{getUiService().getTranslation('hello')} 👋</Text>
+                        <Text title style={textAlign.textCenter}>{getUiService().getTranslation('search_for_something_to_eat')}</Text>
+                        {this.state.meal && <MealItem meal={this.state.meal} row cardStyle={[alignSelf.selfCenter]} />}
+                        <View style={creonCalc}>
+                            <Text heading style={textAlign.textCenter}>Kreon-Rechner</Text>
+                            <View style={[flex.flexCol, alignItems.itemsCenter]}>
+                                <View style={[flex.flexRow, justifyContent.justifyCenter, alignItems.itemsCenter]}>
+                                    <TextInput onChangeText={(value) => this.setCreonState(value)} value={this.state.fat.replace('.', ',')} style={width.width_50} keyboardType="number-pad" /><Text> g</Text>
+                                </View>
+                                {(this.state.fat !== 0 && this.state.fat !== "") && <Text>{this.state.fat.replace('.', ',')} g Fett entspricht {this.state.fat * getSettingsService().getCreon()} IE</Text>}
                             </View>
                         </View>
-                    </View>
-                    <View>
-                        <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
-                        <View style={flexRow}>
-                            <View>
-                                <Button primary icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
-                            </View>
-                            <View>
-                                <Button primary icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
-                            </View>
-                            <View>
-                                <Button primary icon={curveIcon} style={buttons} onPress={() => getUiService().showModal('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
+                        <View>
+                            <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
+                            <View style={flexRow}>
+                                <View>
+                                    <Button primary style={buttons} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
+                                </View>
+                                <View>
+                                    <Button primary style={buttons} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
+                                </View>
+                                <View>
+                                    <Button primary style={buttons} icon={pillIcon} onPress={() => getUiService().showModal('MedicationStockScreen')}>{getUiService().getTranslation('medication_stock')}</Button>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    {(Object.keys(this.state.news).length !== 0) && this.renderNews()}
-                </ScrollView>
-                <BottomNavigation />
-            </AppContainer>
-        )
+                        <View>
+                            <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
+                            <View style={flexRow}>
+                                <View>
+                                    <Button primary icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
+                                </View>
+                                <View>
+                                    <Button primary icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
+                                </View>
+                                <View>
+                                    <Button primary icon={curveIcon} style={buttons} onPress={() => getUiService().showModal('DiseaseProgressionScreen')}>{getUiService().getTranslation('my_medical_progression')}</Button>
+                                </View>
+                            </View>
+                        </View>
+                        {(Object.keys(this.state.news).length !== 0) && this.renderNews()}
+                        </Animatable.View>    
+                    </ScrollView>
+                    <BottomNavigation />
+                </AppContainer>
+            )
+        }
+
+        return null;
     }
 
     setCreonState(value) {

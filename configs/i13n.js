@@ -42,6 +42,9 @@ export default {
         my_medical_progression: "Mein Verlauf",
 
         hello: "Hallo!",
+        welcome_to_mucomed: "Herzlich Wilkommen bei MucoMed!",
+        next: "Weiter",
+        finished: "Fertig",
         news: "Neuigkeiten",
         search_for_something_to_eat: "Suchst du was zu essen?",
         reports_and_health: "Berichte & Gesundheit",
@@ -50,6 +53,13 @@ export default {
         inhale: "Inhalieren",
         injection: "Spritze",
         other: "Anderes",
+
+        introduction_about: "Über MucoMed",
+        introduction_about_text: "MucoMed soll euch dabei helfen, euren Tag besser zu organisieren, euch an Medikationen erinnern und euren Gesundheitsverlauf selber nachvollziehen zu können. Das hier ist die Beta Version. Daher bin ich auf Hilfe und euer Feedback angewiesen! Ihr könnt mich also gerne kontaktieren 😊",
+        introduction_privacy: "Datenschutz",
+        introduction_privacy_text: "All eure Daten die ihr angebt gehören euch und werden ausschließlich auf eurem Smartphone gespeichert.",
+        introduction_finish: "Fertig!",
+        introduction_finish_text: "Viel Spaß mit MucoMed!",
 
         settings_general: "Allgemein",
         settings_creon_notification: "Kreoneinnahme am ende des Tages abfragen?",
@@ -126,6 +136,9 @@ export default {
         my_medical_progression: "My progression",
 
         hello: "Hi!",
+        welcome_to_mucomed: "Welcome to MucoMed!",
+        next: "Next",
+        finished: "Finished",
         news: "News",
         search_for_something_to_eat: "Looking for something to eat?",
         reports_and_health: "Reports & Health",
@@ -134,6 +147,13 @@ export default {
         inhale: "inhale",
         injection: "injection",
         other: "other",
+
+        introduction_about: "About MucoMed",
+        introduction_about_text: "MucoMed is designed to help you better organize your day, remember medications, and track your health history yourself. This is the beta version. So I'm depending on your help and feedback! So feel free to contact me 😊",
+        introduction_privacy: "Privacy",
+        introduction_privacy_text: "All your data belongs to you. Everything you input is only saved on your phone.",
+        introduction_finish: "Finished!",
+        introduction_finish_text: "Much fun with MucoMed!",
 
         settings_general: "General",
         settings_creon_notification: "Check creon intake at the end of the day?",
