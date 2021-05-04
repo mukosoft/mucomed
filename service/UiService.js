@@ -2,6 +2,7 @@ import i13n from "@configs/i13n";
 import { LightTheme } from '@res/colors';
 import { action, observable } from "mobx";
 import { Navigation } from "react-native-navigation";
+
 import { getSettingsService } from "./SettingsService";
 
 /**
@@ -15,7 +16,7 @@ export class UiService {
     @observable theme = new LightTheme();
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
-    @observable navigationActivePage;
+    @observable navigationActivePage = "ProfileScreen";
 
     @action
     getTranslation(key) {
