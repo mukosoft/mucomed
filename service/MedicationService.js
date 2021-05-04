@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+
 import MedicationDocument from "../documents/MedicationDocument";
 import Dosage from "../models/Dosage";
 import Medication from "../models/Medication";
@@ -13,6 +14,7 @@ export class MedicationService {
 
     @action
     init() {
+        console.debug(`Initializing MedicationService`);
         return new Promise((resolve) => {
             this.updateMedicationSchedule();
             resolve(true);

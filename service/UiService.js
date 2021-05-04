@@ -15,7 +15,7 @@ export class UiService {
     @observable theme = new LightTheme();
     @observable language_text = i13n;
     @observable medicationCreationVisible = false;
-    @observable navigationActivePage = "ProfilScreen";
+    @observable navigationActivePage;
 
     @action
     getTranslation(key) {

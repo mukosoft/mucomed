@@ -51,39 +51,37 @@ LogBox.ignoreAllLogs();
 
 async function loadSettings() {
     const settingsPromise = await getSettingsService().init();
-    const mealPromise = await getMealService().init();
     const datePromise = await getDateService().init();
+    const mealPromise = await getMealService().init();
     const medicationPromise = await getMedicationService().init();
     const vitaldataPromise = await getVitaldataService().init();
     const uiPromise = await getUiService().init();
 
-    Promise.all([settingsPromise, mealPromise, uiPromise, datePromise, medicationPromise, vitaldataPromise]).then(() => {
-            return setRoot()
-    })
+    await Promise.all([settingsPromise, uiPromise, datePromise, mealPromise, medicationPromise, vitaldataPromise]);
 }
 
-function setRoot() {
-    Navigation.events().registerAppLaunchedListener(async () => {
-        Navigation.setRoot({
-            root: {
-                stack: {
-                    id: "MainStack",
-                    children: [
-                        {
-                            component: {
-                                name: 'ProfilScreen',
-                                options: {
-                                    topBar: {
-                                        visible: false
-                                    }
-                                }
-                            },
-                        },
-                    ]
-                }
-            },
-        });
-    })
-}
+
 
 loadSettings();
+
+Navigation.events().registerAppLaunchedListener(async () => {
+    Navigation.setRoot({
+        root: {
+            stack: {
+                id: "MainStack",
+                children: [
+                    {
+                        component: {
+                            name: 'ProfilScreen',
+                            options: {
+                                topBar: {
+                                    visible: false
+                                }
+                            }
+                        },
+                    },
+                ]
+            }
+        },
+    });
+})

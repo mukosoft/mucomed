@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+
 import VitaldataDocument from "../documents/VitaldataDocument";
 import { DateService, getDateService } from "./DateService";
 import { DateTimeConverterService } from "./DateTimeConverterService";
@@ -17,6 +18,7 @@ export class VitaldataService {
 
     @action
     init() {
+        console.debug(`Initializing VitaldataService`);
         return new Promise((resolve) => {
             this.getVitaldata();
             resolve(true);

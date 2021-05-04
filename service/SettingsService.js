@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+
 import { CALENDAR_DEFAULT_DATE_AMOUNT } from "../configs/config";
 import SettingsDocument from "../documents/SettingsDocument";
 import { LANGUAGES } from "../models/Languages";
@@ -32,21 +33,20 @@ export class SettingsService {
     @observable calendarDateAmount = CALENDAR_DEFAULT_DATE_AMOUNT;
     @observable settings = initialSettings;
 
-    init() {
+    async init() {
         // SettingsDocument.getInstance().delete();
-        return new Promise((resolve, reject) => {
-            return SettingsDocument.getInstance().get().then(data => {
-                console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
-                if (data.length < 1) {
-                    console.debug("Populate SettingsDocument with initial settings.");
-                    this._addInitialSettings();
-                } else {
-                    this.settings = data;
-                }
-                resolve(true);
-            }).then(resolve(true))
-
-        })
+        console.debug("Initializing SettingsService")
+        await SettingsDocument.getInstance().get().then(data => {
+            console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
+            if (data.length < 1) {
+                console.debug("Populate SettingsDocument with initial settings.");
+                this._addInitialSettings();
+            } else {
+                this.settings = data;
+            }
+        });
+        console.debug("Finished initialization of SettingsService");
+        return true;
     }
 
     @action
