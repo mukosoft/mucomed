@@ -9,23 +9,23 @@ import { VitaldataScreen } from "@components/vitaldata/VitaldataScreen";
 import { LogBox } from "react-native";
 // Components
 import { Navigation } from "react-native-navigation";
+
+import { CreditsScreen } from "./components/credits/CreditsScreen";
+import { InformationArticleScreen } from "./components/information/InformationArticleScreen";
+import { SelfhelpScreen } from "./components/information/SelfhelpScreen";
+import IntroductionScreen from "./components/introduction/IntroductionScreen";
 import { MedicationPlanScreen } from "./components/medication/MedicationPlanScreen";
 import { MedicationStockScreen } from "./components/medication/MedicationStockScreen";
 import { DiseaseProgressionScreen } from "./components/progression/DiseaseProgressionScreen";
 import { ReportsScreen } from "./components/reports/ReportsScreen";
 import { SettingsScreen } from "./components/settings/SettingsScreen";
-
 // Services
 import { getDateService } from "./service/DateService";
 import { getMealService } from "./service/MealService";
 import { getMedicationService } from "./service/MedicationService";
+import { getSettingsService } from "./service/SettingsService";
 import { getUiService } from "./service/UiService";
 import { getVitaldataService } from "./service/VitaldataService";
-import { getSettingsService } from "./service/SettingsService";
-import { CreditsScreen } from "./components/credits/CreditsScreen";
-import { SelfhelpScreen } from "./components/information/SelfhelpScreen";
-import { InformationArticleScreen } from "./components/information/InformationArticleScreen";
-import IntroductionScreen from "./components/introduction/IntroductionScreen";
 
 // register screens to Navigation
 Navigation.registerComponent('ProfilScreen', () => ProfileScreen);
@@ -50,12 +50,12 @@ LogBox.ignoreAllLogs();
 
 
 async function loadSettings() {
-    const settingsPromise = getSettingsService().init();
-    const mealPromise = getMealService().init();
-    const datePromise = getDateService().init();
-    const medicationPromise = getMedicationService().init();
-    const vitaldataPromise = getVitaldataService().init();
-    const uiPromise = getUiService().init();
+    const settingsPromise = await getSettingsService().init();
+    const mealPromise = await getMealService().init();
+    const datePromise = await getDateService().init();
+    const medicationPromise = await getMedicationService().init();
+    const vitaldataPromise = await getVitaldataService().init();
+    const uiPromise = await getUiService().init();
 
     Promise.all([settingsPromise, mealPromise, uiPromise, datePromise, medicationPromise, vitaldataPromise]).then(() => {
             return setRoot()
