@@ -17,11 +17,6 @@ export default class IntroductionScreen extends Component {
         index: 0,
     }
 
-    componentDidUpdate() {
-        if (this.state.index === 4) this.finish()
-            .then(() => getUiService().navigateToComponent('ProfilScreen'))
-    }
-
     render() {
         // important, so that each screen rerenders if settings changes
         getSettingsService().settings;
@@ -32,10 +27,16 @@ export default class IntroductionScreen extends Component {
             {this.state.index === 2 && this.renderDataInfoScreen()}
             {this.state.index === 3 && this.renderFinish()}
 
-            {(this.state.index < 4) && <View style={navigation}>
+            {(this.state.index < 3) ? <View style={navigation}>
                 <TouchableWithoutFeedback onPress={() => this.setState({ index: this.state.index + 1 })}>
                     <View>
-                        <Text title>{(this.state.index !== 3) ? getUiService().getTranslation('next') : getUiService().getTranslation('finished')}</Text>
+                        <Text title>{getUiService().getTranslation('next')}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View> : <View style={navigation}>
+                <TouchableWithoutFeedback onPress={() => getSettingsService().changeFirstStart(true).then(() => getUiService().navigateToComponent('ProfilScreen'))}>
+                    <View>
+                        <Text title>{getUiService().getTranslation('finished')}</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>}
@@ -46,7 +47,7 @@ export default class IntroductionScreen extends Component {
         return <Animatable.View style={container} animation="fadeIn">
             <Text title style={fontSize.xxl}>{getUiService().getTranslation('hello')} 👋</Text>
             <Text heading>{getUiService().getTranslation('welcome_to_mucomed')}</Text>
-            <LanguagePicker key={getSettingsService().getCurrentLanguage()}/>
+            <LanguagePicker key={getSettingsService().getCurrentLanguage()} />
         </Animatable.View>
     }
 

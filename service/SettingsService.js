@@ -20,7 +20,7 @@ const initialSettings = [
     },
     {
         id: "firstStart",
-        value: true
+        value: false
     },
 ]
 
@@ -85,7 +85,7 @@ export class SettingsService {
 
     @action
     changeFirstStart(val) {
-        SettingsDocument.getInstance().update({ id: "firstStart" }, { id: "firstStart", value: val }).then(() => {
+        return SettingsDocument.getInstance().update({ id: "firstStart" }, { id: "firstStart", value: val }).then(() => {
             this.loadSettings();
         })
     }

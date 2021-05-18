@@ -9,7 +9,7 @@ export default class Logger {
     }
 
     static success(message, method) {
-        console.success(`${successSymbol} - ${message}${(method) && ` on method ${method}`}`)
+        console.log(`${successSymbol} - ${message}${(method) && ` on method ${method}`}`)
     }
 
     static error(message, method) {

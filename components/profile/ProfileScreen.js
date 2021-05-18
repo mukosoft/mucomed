@@ -41,8 +41,7 @@ export class ProfileScreen extends Component {
     }
 
     render() {
-        if (getSettingsService().isFirstStart() === true) {
-            console.debug(getSettingsService().isFirstStart())
+        if (getSettingsService().isFirstStart() === false) {
             getUiService().navigateToComponent("IntroductionScreen");
         } else {
             return (<AppContainer>

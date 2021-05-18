@@ -62,26 +62,26 @@ async function loadSettings() {
 
 
 
-loadSettings();
-
-Navigation.events().registerAppLaunchedListener(async () => {
-    Navigation.setRoot({
-        root: {
-            stack: {
-                id: "MainStack",
-                children: [
-                    {
-                        component: {
-                            name: 'ProfilScreen',
-                            options: {
-                                topBar: {
-                                    visible: false
+loadSettings().then(Navigation.events().registerAppLaunchedListener(() => {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    id: "MainStack",
+                    children: [
+                        {
+                            component: {
+                                name: 'ProfilScreen',
+                                options: {
+                                    topBar: {
+                                        visible: false
+                                    }
                                 }
-                            }
+                            },
                         },
-                    },
-                ]
-            }
-        },
-    });
-})
+                    ]
+                }
+            },
+        });
+    })
+);
+
