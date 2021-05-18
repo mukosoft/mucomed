@@ -1,14 +1,15 @@
 import { action, observable } from "mobx";
 
 import MedicationDocument from "../documents/MedicationDocument";
-import Dosage from "../models/Dosage";
-import Medication from "../models/Medication";
-import MedicationRequest from "../models/MedicationRequest";
-import Timing from "../models/Timing";
-import { getDateService } from "./DateService";
 
 let instance;
 
+/**
+ * Service for medications
+ * 
+ * This services hold the medicationSchedule data. 
+ * @author Börner, Dominique (dominique@mukosoft.de)
+ */
 export class MedicationService {
     @observable medicationSchedule = [];
 
@@ -19,22 +20,6 @@ export class MedicationService {
             this.updateMedicationSchedule();
             resolve(true);
         })
-    }
-
-    /**
-     * Add an MedicationObject to the schedule.
-     * 
-     * @param {Medication} medication 
-     * @param {Date} dateObj 
-     */
-    @action addMedicationToSchedule(medication: Medication, dateObj: [dateObj]) {
-        dateObj.map(day => {
-            const dayId = getDateService().getDateId(day);
-
-            this.medicationSchedule.schedule[dayId].medicationList.push(medication);
-        })
-
-        MedicationDocument.getInstance().update({}, this.medicationSchedule);
     }
 
     @action

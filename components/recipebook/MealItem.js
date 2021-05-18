@@ -24,7 +24,7 @@ import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 @observer
 export default class MealItem extends Component {
     render() {
-        const filteredMeal = getMealService().getFavMeals().filter(favMeals => {
+        const filteredMeal = getMealService().getFavoriteMeals().filter(favMeals => {
             return favMeals._id === this.props.meal._id;
         });
 
@@ -52,12 +52,12 @@ export default class MealItem extends Component {
                 <View style={width.width_25}>
                 {
                         (filteredMeal.length > 0) ?
-                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                            <Button text onPress={() => getMealService().addFavoriteMeal(this.props.meal)} key={this.props.meal._id}
                                 fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand">
                                     <MaterialIcon name="heart" size={fontSize.xl.fontSize} />
                                 </Button>
                             :
-                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                            <Button text onPress={() => getMealService().addFavoriteMeal(this.props.meal)} key={this.props.meal._id}
                                 fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand">
                                     <MaterialIcon name="heart-outline" size={fontSize.xl.fontSize} />
                                 </Button>
@@ -76,12 +76,12 @@ export default class MealItem extends Component {
                     <Text>Für {this.props.meal.meal_amount}</Text>
                     {
                         (filteredMeal.length > 0) ?
-                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                            <Button text onPress={() => getMealService().addFavoriteMeal(this.props.meal)} key={this.props.meal._id}
                                 fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand" >
                                     <MaterialIcon name="heart" size={fontSize.xxl.fontSize} />
                                 </Button>
                             :
-                            <Button text onPress={() => getMealService().addMealToFav(this.props.meal)} key={this.props.meal._id}
+                            <Button text onPress={() => getMealService().addFavoriteMeal(this.props.meal)} key={this.props.meal._id}
                                 fontStyle={{ color: getUiService().theme.primary }} animation="rubberBand" >
                                     <MaterialIcon name="heart-outline" size={fontSize.xxl.fontSize}  />
                                 </Button>

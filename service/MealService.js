@@ -10,7 +10,6 @@ let instance;
  * @author Dominique Börner (dominique@mukosoft.de)
  */
 export default class MealService {
-
     @observable favMeals = [];
 
     @action
@@ -23,7 +22,7 @@ export default class MealService {
     }
 
     @action
-    addMealToFav(meal) {
+    addFavoriteMeal(meal) {
         const filteredMeal = this.favMeals.filter(favMeals => {
             return favMeals._id === meal._id;
         });
@@ -35,12 +34,12 @@ export default class MealService {
     }
 
     @action 
-    getFavMeals() {
+    getFavoriteMeals() {
         return this.favMeals;
     }
 
     @action
-    removeFavMeal(meal) {
+    removeFavoriteMeal(meal) {
         const index = this.favMeals.indexOf(meal);
         
         if (index > -1) {

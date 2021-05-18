@@ -44,7 +44,7 @@ export default class FavoriteMeals extends Component {
                     {(meal.img) ? <Image style={mealImage} source={{ uri: getUiService().convertRefToSrc(meal.img.asset._ref) }} /> : null}
                     <Text heading style={mealName}>{getUiService().shortenString(meal.name, 20)}</Text>
                 </View>
-                <IconButton style={removeButton} size={fontSize.lg.fontSize} icon={"close"} onPress={() => getMealService().removeFavMeal(meal)} />
+                <IconButton style={removeButton} size={fontSize.lg.fontSize} icon={"close"} onPress={() => getMealService().removeFavoriteMeal(meal)} />
             </View>
         </TouchableOpacity>
     }
