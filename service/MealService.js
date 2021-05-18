@@ -1,6 +1,7 @@
 import { action, observable } from "mobx";
 
 import MealDocument from "../documents/MealDocument";
+import Logger from './../util/Logger';
 
 let instance;
 
@@ -14,7 +15,7 @@ export default class MealService {
 
     @action
     init() {
-        console.debug("Initializing MealService")
+        Logger.log("Initializing MealService", "init()");
         return new Promise((resolve, reject) => {
             MealDocument.getInstance().get().then((meals) => this.favMeals = meals);
             resolve(true);

@@ -3,7 +3,7 @@ import { action, observable } from "mobx";
 import { CALENDAR_DEFAULT_DATE_AMOUNT } from "../configs/config";
 import SettingsDocument from "../documents/SettingsDocument";
 import { LANGUAGES } from "../models/Languages";
-import { getUiService } from "./UiService";
+import Logger from './../util/Logger';
 
 const initialSettings = [
     {
@@ -35,7 +35,7 @@ export class SettingsService {
 
     async init() {
         // SettingsDocument.getInstance().delete();
-        console.debug("Initializing SettingsService")
+        Logger.log('Initializing SettingsService', 'init()')
         await SettingsDocument.getInstance().get().then(data => {
             console.debug(`Load SettingsDocument with data: ${JSON.stringify(data)}`)
             if (data.length < 1) {

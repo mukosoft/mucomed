@@ -4,6 +4,7 @@ import { action, observable } from "mobx";
 import { Navigation } from "react-native-navigation";
 
 import { getSettingsService } from "./SettingsService";
+import Logger from './../util/Logger';
 
 /**
  * Stores basic UI configurations, handles translation and theme
@@ -34,7 +35,7 @@ export class UiService {
     }
     @action
     init() {
-        console.debug(`Initializing UiService`);
+        Logger.log('Initializing UiService', 'init()');
         return new Promise((resolve) => resolve(true));
     }
 

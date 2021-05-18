@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react';
 import CalendarItem from '@components/medication/CalendarItem';
-import { getConfigService } from '../../service/ConfigService';
 import { height, padding } from '../../configs/styles';
 import { getSettingsService } from '../../service/SettingsService';
 

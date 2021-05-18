@@ -15,7 +15,7 @@ export class MedicationService {
 
     @action
     init() {
-        console.debug(`Initializing MedicationService`);
+        console.log('Initializing MedicationService', 'init()');
         return new Promise((resolve) => {
             this.updateMedicationSchedule();
             resolve(true);

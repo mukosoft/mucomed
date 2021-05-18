@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+import Logger from './../util/Logger';
 
 /**
  * Store for date and times.
@@ -32,7 +33,7 @@ export class DateService {
 
     @action
     init() {
-        console.debug(`Initializing DateService`);
+        Logger.log('Initializing DateService', 'init()');
         return new Promise((resolve) => {
             const date = new Date();
             this.setCalendarSelection(date);
