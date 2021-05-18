@@ -50,7 +50,7 @@ export class VitaldataService {
     @action
     deleteVitaldata(object) {
         VitaldataDocument.getInstance().delete(object)
-            .then(() => this.getVitaldata()).then(() => console.debug(this.vitaldata))
+            .then(() => this.getVitaldata()).then(() => Logger.success(`Successfully deleted vitaldata ${JSON.stringify(object)}`))
     }
 
     getBMIData() {
