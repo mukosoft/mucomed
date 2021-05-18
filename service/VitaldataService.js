@@ -1,13 +1,16 @@
 import { action, observable } from "mobx";
 
 import VitaldataDocument from "../documents/VitaldataDocument";
-import { DateService, getDateService } from "./DateService";
 import { DateTimeConverterService } from "./DateTimeConverterService";
 import Logger from './../util/Logger';
 
 let instance;
 
-
+/**
+ * Service for vitaldata
+ * 
+ * @author Börner, Dominique(dominique@mukosoft.de)
+ */
 export class VitaldataService {
 
     @observable vitaldata = [];
@@ -51,25 +54,21 @@ export class VitaldataService {
     }
 
     getBMIData() {
-        const bmiData = [];
+        const sizeData = this.getVitaldataByKey('size');
+        const weightData = this.getVitaldataByKey('weight');
 
-        for (let i = 0; i < this._buildBMIObject().length; i++) {
-            let bmi = parseFloat(this._buildBMIObject()[i].bmi);
-            bmiData.push(bmi)
-        };
+        const bmiArray = [];
 
-        return bmiData;
-    }
+        sizeData.forEach((size) => weightData.map((weight) => {
+            if (size.date.getTime() === weight.date.getTime()) {
+                const bmiObject = {};
+                bmiObject.bmi = this.calculateBMI(weight.value, size.value);
+                bmiObject.date = size.date;
+                bmiArray.push(bmiObject);
+            }
+        }))
 
-    getBMIDate() {
-        const dateData = [];
-
-        for (let i = 0; i < this._buildBMIObject().length; i++) {
-            let date = this._buildBMIObject()[i].date;
-            dateData.push(date)
-        };
-
-        return dateData;
+        return bmiArray;
     }
 
     getVitaldataByKey(key) {
@@ -82,62 +81,11 @@ export class VitaldataService {
         return val;
     }
 
-    _buildBMIObject() {
-        const weightSizeArray = this.vitaldata.filter((vitaldata) => {
-            return (vitaldata.id === "weight" || vitaldata.id === "size")
-        });
 
-        let bmiArray = this._groupBy(weightSizeArray, arr => DateTimeConverterService.formatDate(arr.date));
-        let filteredBmiArray = [];
-
-        for (let i of bmiArray.keys()) {
-            if (bmiArray.get(i).length === 2) filteredBmiArray.push(bmiArray.get(i));
-        }
-
-        
-        let newBmiArray = [];
-        filteredBmiArray.map(entry => {
-            let weight;
-            let size;
-            let date;
-            
-            entry.map(singleValue => {
-                if (singleValue.id === "weight") weight = singleValue.value;
-                if (singleValue.id === "size") size = singleValue.value;
-                date = singleValue.date;
-            });
-            
-            const bmiObject = {
-                bmi: this._calculateBMI(weight, size),
-                date: date
-            };
-            
-            newBmiArray.push(bmiObject);
-        });
-        
-        newBmiArray.sort((a, b) => a.date - b.date);
-
-        return newBmiArray;
+    calculateBMI(weightKg, sizeCm) {
+        size = sizeCm / 100;
+        return (weightKg / (size * size)).toFixed(1);
     }
-
-    _calculateBMI(weightKg, sizeMeter) {
-        return (weightKg / (sizeMeter * sizeMeter)).toFixed(1);
-    }
-
-    _groupBy(list, keyGetter) {
-        const map = new Map();
-        list.forEach((item) => {
-             const key = keyGetter(item);
-             const collection = map.get(key);
-             if (!collection) {
-                 map.set(key, [item]);
-             } else {
-                 collection.push(item);
-             }
-        });
-        return map;
-    }
-
 }
 
 export function getVitaldataService() { return instance || (instance = new VitaldataService()) }

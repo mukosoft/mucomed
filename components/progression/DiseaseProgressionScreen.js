@@ -36,7 +36,7 @@ export class DiseaseProgressionScreen extends Component {
                         { (getVitaldataService().getBMIData().length > 0) && this.renderTile(`Derzeitiger BMI: ${this.getCurrentBMI()} kg/m²`)}
                         {getVitaldataService().getBMIData().length > 1 ?
                             <>
-                                <LineChart chartType="history" data={getVitaldataService().getBMIData()} labels={getVitaldataService().getBMIDate()} />
+                                <LineChart chartType="history" data={getVitaldataService().getBMIData().map(bmi => bmi.bmi)} labels={getVitaldataService().getBMIData().map(bmi => bmi.date)} />
                             </> : this.renderNotEnoughValues()}
                         <Text heading>FEV1</Text>
                         {(getVitaldataService().getVitaldataByKey("fev1").length > 1) ?
@@ -73,7 +73,7 @@ export class DiseaseProgressionScreen extends Component {
     }
 
     getCurrentBMI() {
-        return (getVitaldataService().getBMIData()[getVitaldataService().getBMIData().length - 1]) || "Noch keine Daten";
+        return (getVitaldataService().getBMIData()[getVitaldataService().getBMIData().length - 1]).bmi || "Noch keine Daten";
     }
 
     getAverageTemp() {
