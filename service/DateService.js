@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+
 import Logger from './../util/Logger';
 
 /**
@@ -49,13 +50,7 @@ export class DateService {
         this.calendarSelectionDateId = selectedDate;
     }
 
-    convertDateToTimeString(date: Date) {
-        return `${date.getUTCHours()} : ${date.getUTCMinutes()}`;
-    }
-
     sortTimeArray(timeArray: Array) {
-
-
         let newTimeArray = [];
         let newTimeStringArray = [];
 
@@ -64,12 +59,9 @@ export class DateService {
             newTimeArray.push(medicationTimeNumber);
         });
 
-        
         newTimeArray.sort((a, b) => a - b)
+        newTimeArray.map((time) => {
 
-        
-        newTimeArray.map((time) => {   
-            
             let hour = time.toString().slice(0, 2);
             let minutes = time.toString().slice(2, 4);
             let seconds = time.toString().slice(4, 6);
@@ -78,7 +70,6 @@ export class DateService {
         })
 
         return newTimeStringArray;
-
     }
 
     removeSecondsFromTime(timeString) {
@@ -92,12 +83,67 @@ export class DateService {
         let hours = time.getHours();
         let minutes = time.getMinutes();
 
-        if ((hours) < 10) { hours = `0${hours}`} 
-        if ((minutes) < 10) { minutes = `0${minutes}`} 
+        if ((hours) < 10) { hours = `0${hours}` }
+        if ((minutes) < 10) { minutes = `0${minutes}` }
 
         return `${hours}:${minutes}:00`
     }
 
+    getChristmas() {
+        const date1 = new Date();
+        date1.setDate(24);
+        date1.setMonth(11);
+
+        const date2 = new Date();
+        date2.setDate(25);
+        date2.setMonth(11);
+
+        const date3 = new Date();
+        date3.setDate(26);
+        date3.setMonth(11);
+
+        const dateArray = [date1, date2, date3];
+
+        return dateArray;
+    }
+
+    getEaster() {
+        const date = new Date();
+        date.setDate(17);
+        date.setMonth(3);
+        
+        return date;
+    }
+
+    getNewYear() {
+        const date1 = new Date();
+        date1.setDate(1);
+        date1.setMonth(0);
+
+        const date2 = new Date();
+        date2.setDate(31);
+        date2.setMonth(11);
+
+        const dateArray = [date1, date2];
+
+        return dateArray;
+    }
+
+    isTodayHoliday(date) {
+        const today = new Date();
+        let isHoliday = false;
+
+        if (Array.isArray(date)) {
+            const todayDates = date.filter(arrDate => (today.getDate() === arrDate.getDate()) && (today.getMonth() === arrDate.getMonth()))
+            console.log(todayDates);
+            isHoliday = todayDates.length > 0;
+
+        } else {
+            isHoliday = (today.getDate() === date.getDate()) && (today.getMonth() === date.getMonth())
+        }
+
+        return isHoliday;
+    }
 }
 
 let instance: DateService;
