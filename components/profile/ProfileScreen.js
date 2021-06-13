@@ -1,24 +1,23 @@
+import hearthIcon from "@assets/icons/love_white.png";
+import medicalList from "@assets/icons/medical-list_white.png";
+import pillIcon from "@assets/icons/meds_white.png";
+import curveIcon from "@assets/icons/statistic-curve_white.png";
+import Button from '@components/common/Button';
+import Text from '@components/common/Text';
+import TextInput from "@components/common/Textinput";
+import { API_BASE_URL } from '@configs/config';
 import BottomNavigation from '@navigation/BottomNavigation';
 import { getUiService } from "@service/UiService";
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { Navigation } from 'react-native-navigation';
-import AppContainer from "../common/AppContainer";
-import Button from '@components/common/Button';
-import Text from '@components/common/Text';
-import { alignItems, alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from "../../configs/styles";
-import addIcon from "@assets/icons/add_white.png";
-import medicalList from "@assets/icons/medical-list_white.png";
-import pillIcon from "@assets/icons/meds_white.png";
-import hearthIcon from "@assets/icons/love_white.png";
-import reportIcon from "@assets/icons/medical-report_white.png";
-import curveIcon from "@assets/icons/statistic-curve_white.png";
-import HTML from "react-native-render-html";
-import { API_BASE_URL } from '@configs/config';
-import MealItem from '../recipebook/MealItem';
-import { getSettingsService } from '../../service/SettingsService';
-import TextInput from "@components/common/Textinput";
 import * as Animatable from 'react-native-animatable';
+import { Navigation } from 'react-native-navigation';
+import HTML from "react-native-render-html";
+
+import { alignItems, alignSelf, aspectRatio_1_1, border, borderRadius, flex, fontSize, height, justifyContent, margin, padding, shadow, textAlign, width } from "../../configs/styles";
+import { getSettingsService } from '../../service/SettingsService';
+import AppContainer from "../common/AppContainer";
+import MealItem from '../recipebook/MealItem';
 
 /**
  * Renders the user profile.
@@ -62,9 +61,9 @@ export class ProfileScreen extends Component {
                         <View>
                             <Text title style={textAlign.textCenter}>{getUiService().getTranslation('medication')}</Text>
                             <View style={flexRow}>
-                                <View>
+                                {/* <View>
                                     <Button primary style={buttons} icon={addIcon} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
-                                </View>
+                                </View> */}
                                 <View>
                                     <Button primary style={buttons} icon={medicalList} onPress={() => getUiService().showModal('MedicationPlanScreen')}>{getUiService().getTranslation('medication_schedule')}</Button>
                                 </View>
@@ -76,9 +75,9 @@ export class ProfileScreen extends Component {
                         <View>
                             <Text title style={textAlign.textCenter}>{getUiService().getTranslation('reports_and_health')}</Text>
                             <View style={flexRow}>
-                                <View>
+                                {/* <View>
                                     <Button primary icon={reportIcon} style={buttons} onPress={() => getUiService().showModal('ReportsScreen')}>{getUiService().getTranslation('to_reports')}</Button>
-                                </View>
+                                </View> */}
                                 <View>
                                     <Button primary icon={hearthIcon} style={buttons} onPress={() => getUiService().showModal('VitaldataScreen')}>{getUiService().getTranslation('add_vitaldata')}</Button>
                                 </View>
@@ -193,37 +192,12 @@ const newsImage = StyleSheet.flatten([
 
 const flexRow = StyleSheet.flatten([
     flex.flexRow,
-    justifyContent.justifyCenter
+    justifyContent.justifyCenter,
+    margin.margin_x_4,
 ])
 
 const buttons = StyleSheet.flatten([
-    width.width_100,
-    aspectRatio_1_1
+    { width: 110 },
+    aspectRatio_1_1,
+    margin.margin_x_4
 ])
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        margin: 10
-    },
-    randomRecipeContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        margin: 10
-    },
-    mealImg: {
-        flex: 1,
-        width: 150, aspectRatio: 1,
-        borderRadius: 8
-    },
-    mealTextContainer: {
-        flex: 1,
-        marginLeft: 10,
-    },
-    medikamenteBtn: {
-        margin: 5,
-        backgroundColor: getUiService().theme.primary
-    },
-
-})

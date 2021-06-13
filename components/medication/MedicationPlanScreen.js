@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import AppContainer from '@components/common/AppContainer';
+import Button from '@components/common/Button';
+import Text from '@components/common/Text';
+import TextInput from "@components/common/Textinput";
+import MedicationItem from '@components/medication/MedicationItem';
+import { getMedicationService } from '@service/MedicationService';
 import { observer } from "mobx-react";
+import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Navigation } from 'react-native-navigation';
-import MedicationItem from '@components/medication/MedicationItem';
-import AppContainer from '@components/common/AppContainer';
-import { getMedicationService } from '@service/MedicationService';
-import { flex, justifyContent, margin, padding, textAlign, width } from '../../configs/styles';
-import Text from '@components/common/Text';
-import Button from '@components/common/Button';
-import { getUiService } from '../../service/UiService';
-import TextInput from "@components/common/Textinput";
-import { getSettingsService } from '../../service/SettingsService';
 
+import { flex, margin, padding, textAlign, width } from '../../configs/styles';
+import { getSettingsService } from '../../service/SettingsService';
+import { getUiService } from '../../service/UiService';
+import { alignSelf } from './../../configs/styles';
 
 /**
  * Renders a screen, containing all medications in an detailed view. Here,
@@ -40,6 +41,7 @@ export class MedicationPlanScreen extends Component {
             <AppContainer>
                 <ScrollView style={medicationListContainer}>
                     <Text title style={titleStyle}>Medikationsplan</Text>
+                    <Button primary style={addButton} onPress={() => getUiService().showModal('MedicationCreationScreen')}>{getUiService().getTranslation('add_medication')}</Button>
                         <Text title>Kreon</Text>
                         <View style={flex.flexRow}>
                         <TextInput style={width.width_150}
@@ -61,6 +63,12 @@ export class MedicationPlanScreen extends Component {
 }
 
 // style definitions
+const addButton = StyleSheet.flatten([
+    flex.flex_1,
+    alignSelf.selfStart,
+    margin.margin_y_3
+    
+])
 
 const titleStyle = StyleSheet.flatten([
     textAlign.textCenter

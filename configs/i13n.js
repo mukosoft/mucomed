@@ -31,15 +31,15 @@ export default {
         bueaucracy: "Bürokratie",
 
         add_medication: "Medikament hinzufügen",
-        medication_schedule: "Meine Medikationen",
-        medication_stock: "Medikamentenlager",
+        medication_schedule: "Meine\nMedikamente",
+        medication_stock: "Mein\nVorrat",
         medication: "Medikamente",
         meals: "Mahlzeiten",
         vitaldata: "Vitaldaten",
         add_vitaldata: "Vitaldaten erfassen",
         add_doctor_report: "Arztbericht einscannen",
         to_reports: "Berichte",
-        my_medical_progression: "Mein Verlauf",
+        my_medical_progression: "Mein\nVerlauf",
 
         hello: "Hallo!",
         welcome_to_mucomed: "Herzlich Wilkommen bei MucoMed!",
